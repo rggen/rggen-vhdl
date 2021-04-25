@@ -1,3 +1,8 @@
+[![CI](https://github.com/rggen/rggen-vhdl/actions/workflows/ci.yml/badge.svg)](https://github.com/rggen/rggen-vhdl/actions/workflows/ci.yml)
+[![Maintainability](https://api.codeclimate.com/v1/badges/d30b2c06ae3d7c0f254a/maintainability)](https://codeclimate.com/github/rggen/rggen-vhdl/maintainability)
+[![codecov](https://codecov.io/gh/rggen/rggen-vhdl/branch/master/graph/badge.svg?token=cyo9R4xCje)](https://codecov.io/gh/rggen/rggen-vhdl)
+[![Gitter](https://badges.gitter.im/rggen/rggen.svg)](https://gitter.im/rggen/rggen?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+
 # Rggen::Vhdl
 
 Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/rggen/vhdl`. To experiment with that code, run `bin/console` for an interactive prompt.
