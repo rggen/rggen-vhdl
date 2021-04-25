@@ -1,0 +1,11 @@
+<% if File.exist?('rubocop_common.yml') %>
+inherit_from:
+  - rubocop_common.yml
+  - .rubocop_todo.yml
+<% else %>
+inherit_gem:
+  rggen-devtools: config/rubocop_common.yml
+
+inherit_from:
+  - .rubocop_todo.yml
+<% end %>
