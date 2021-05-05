@@ -21,6 +21,7 @@ module RgGen
       end
 
       plugin.files [
+        'vhdl/register/vhdl_top',
         'vhdl/register_block/vhdl_top'
       ]
     end
