@@ -22,6 +22,7 @@ module RgGen
 
       plugin.files [
         'vhdl/bit_field/type',
+        'vhdl/bit_field/type/rc_w0c_w1c_wc_woc',
         'vhdl/bit_field/type/ro',
         'vhdl/bit_field/type/rw_w1_wo_wo1',
         'vhdl/bit_field/vhdl_top',
