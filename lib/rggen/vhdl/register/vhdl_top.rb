@@ -2,6 +2,8 @@
 
 RgGen.define_simple_feature(:register, :vhdl_top) do
   vhdl do
+    include RgGen::SystemVerilog::RTL::RegisterIndex
+
     build do
       unless register.bit_fields.empty?
         signal :bit_field_valid

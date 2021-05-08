@@ -2,6 +2,8 @@
 
 RgGen.define_simple_feature(:bit_field, :vhdl_top) do
   vhdl do
+    include RgGen::SystemVerilog::RTL::BitFieldIndex
+
     export :initial_value
 
     build do

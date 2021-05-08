@@ -12,7 +12,10 @@ RSpec.describe 'register/vhdl_top' do
     RgGen.enable(:register, :type, [:external, :indirect])
     RgGen.enable(:bit_field, [:name, :bit_assignment, :type, :initial_value, :reference])
     RgGen.enable(:bit_field, :type, :rw)
+    RgGen.enable(:register_block, :vhdl_top)
+    RgGen.enable(:register_file, :vhdl_top)
     RgGen.enable(:register, :vhdl_top)
+    RgGen.enable(:bit_field, :vhdl_top)
   end
 
   def create_registers(&body)
