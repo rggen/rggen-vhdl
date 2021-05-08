@@ -5,6 +5,7 @@ RgGen.define_simple_feature(:bit_field, :vhdl_top) do
     include RgGen::SystemVerilog::RTL::BitFieldIndex
 
     export :initial_value
+    export :value
 
     build do
       if parameterized_initial_value?
@@ -14,6 +15,12 @@ RgGen.define_simple_feature(:bit_field, :vhdl_top) do
       else
         define_accessor_for_initial_value
       end
+    end
+
+    def value(offsets = nil, width = nil)
+      value_lsb = bit_field.lsb(offsets&.last || local_index)
+      value_width = width || bit_field.width
+      register_value(offsets&.slice(0..-2), value_lsb, value_width)
     end
 
     private
@@ -53,6 +60,11 @@ RgGen.define_simple_feature(:bit_field, :vhdl_top) do
           .map.with_index { |v, i| v << bit_field.width * i }
           .inject(:|)
       hex(value, bit_field.sequence_size * bit_field.width)
+    end
+
+    def register_value(offsets, lsb, width)
+      index = register.index(offsets || register.local_indices)
+      register_block.register_value[[index], lsb, width]
     end
   end
 end
