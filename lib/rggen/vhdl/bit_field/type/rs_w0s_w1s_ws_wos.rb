@@ -36,7 +36,7 @@ RgGen.define_list_item_feature(:bit_field, :type, [:rs, :w0s, :w1s, :ws, :wos]) 
     end
 
     def write_enable
-      bit_field.writable? && bin(1) || bin(0)
+      bit_field.writable? && bin(1, 1) || bin(0, 1)
     end
   end
 end
