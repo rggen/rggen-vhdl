@@ -27,6 +27,7 @@ module RgGen
         'vhdl/bit_field/type/rof',
         'vhdl/bit_field/type/rs_w0s_w1s_ws_wos',
         'vhdl/bit_field/type/rw_w1_wo_wo1',
+        'vhdl/bit_field/type/rwc',
         'vhdl/bit_field/vhdl_top',
         'vhdl/register/vhdl_top',
         'vhdl/register_block/vhdl_top',
