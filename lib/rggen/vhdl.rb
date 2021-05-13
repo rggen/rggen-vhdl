@@ -32,6 +32,7 @@ module RgGen
         'vhdl/bit_field/type/rws',
         'vhdl/bit_field/type/w0crs_w0src_w1crs_w1src_wcrs_wsrc',
         'vhdl/bit_field/type/w0t_w1t',
+        'vhdl/bit_field/type/w0trg_w1trg',
         'vhdl/bit_field/vhdl_top',
         'vhdl/register/vhdl_top',
         'vhdl/register_block/vhdl_top',
