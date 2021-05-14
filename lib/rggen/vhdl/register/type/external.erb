@@ -1,0 +1,29 @@
+u_register: entity work.rggen_external_register
+  generic map (
+    ADDRESS_WIDTH => <%= address_width %>,
+    BUS_WIDTH     => <%= bus_width %>,
+    START_ADDRESS => <%= start_address %>,
+    BYTE_SIZE     => <%= byte_size %>
+  )
+  port map (
+    i_clk                 => <%= clock %>,
+    i_rst_n               => <%= reset %>,
+    i_register_valid      => <%= register_valid %>,
+    i_register_access     => <%= register_access %>,
+    i_register_address    => <%= register_address %>,
+    i_register_write_data => <%= register_write_data %>,
+    i_register_strobe     => <%= register_strobe %>,
+    o_register_active     => <%= register_active %>,
+    o_register_ready      => <%= register_ready %>,
+    o_register_status     => <%= register_status %>,
+    o_register_read_data  => <%= register_read_data %>,
+    o_register_value      => <%= register_value %>,
+    o_external_valid      => <%= external_valid %>,
+    o_external_access     => <%= external_access %>,
+    o_external_address    => <%= external_address %>,
+    o_external_data       => <%= external_write_data %>,
+    o_external_strobe     => <%= external_strobe %>,
+    i_external_ready      => <%= external_ready %>,
+    i_external_status     => <%= external_status %>,
+    i_external_data       => <%= external_read_data %>
+  );
