@@ -37,6 +37,7 @@ module RgGen
         'vhdl/bit_field/vhdl_top',
         'vhdl/register/type',
         'vhdl/register/type/external',
+        'vhdl/register/type/indirect',
         'vhdl/register/vhdl_top',
         'vhdl/register_block/vhdl_top',
         'vhdl/register_file/vhdl_top'
