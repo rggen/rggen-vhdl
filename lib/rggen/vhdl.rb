@@ -39,6 +39,9 @@ module RgGen
         'vhdl/register/type/external',
         'vhdl/register/type/indirect',
         'vhdl/register/vhdl_top',
+        'vhdl/register_block/protocol',
+        'vhdl/register_block/protocol/apb',
+        'vhdl/register_block/protocol/axi4lite',
         'vhdl/register_block/vhdl_top',
         'vhdl/register_file/vhdl_top'
       ]

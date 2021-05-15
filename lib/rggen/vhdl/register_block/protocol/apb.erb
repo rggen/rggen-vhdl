@@ -1,0 +1,34 @@
+u_adapter: entity work.rggen_apb_adaper
+  generic map (
+    ADDRESS_WIDTH       => <%= address_width %>,
+    LOCAL_ADDRESS_WIDTH => <%= local_address_width %>,
+    BUS_WIDTH           => <%= bus_width %>,
+    REGISTERS           => <%= total_registers %>,
+    PRE_DECODE          => <%= pre_decode %>,
+    BASE_ADDRESS        => <%= base_address %>,
+    BYTE_SIZE           => <%= byte_size %>,
+    ERROR_STATUS        => <%= error_status %>
+  )
+  port map (
+    i_clk                 => <%= register_block.clock %>,
+    i_rst_n               => <%= register_block.reset %>,
+    i_psel                => <%= psel %>,
+    i_penable             => <%= penable %>,
+    i_paddr               => <%= paddr %>,
+    i_pprot               => <%= pprot %>,
+    i_pwrite              => <%= pwrite %>,
+    i_pstrb               => <%= pstrb %>,
+    i_pwdata              => <%= pwdata %>,
+    o_pready              => <%= pready %>,
+    o_prdata              => <%= prdata %>,
+    o_pslverr             => <%= pslverr %>,
+    o_register_valid      => <%= register_block.register_valid %>,
+    o_register_access     => <%= register_block.register_access %>,
+    o_register_address    => <%= register_block.register_address %>,
+    o_register_write_data => <%= register_block.register_write_data %>,
+    o_register_strobe     => <%= register_block.register_strobe %>,
+    i_register_active     => <%= register_block.register_active %>,
+    i_register_ready      => <%= register_block.register_ready %>,
+    i_register_status     => <%= register_block.register_status %>,
+    i_register_read_data  => <%= register_block.register_read_data %>
+  );
