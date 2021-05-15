@@ -21,3 +21,7 @@ end
 
 require 'rggen/vhdl'
 RgGen::VHDL.plugin_spec.activate(builder)
+
+RGGEN_ROOT = ENV['RGGEN_ROOT'] || File.expand_path('../..', __dir__)
+RGGEN_VHDL_ROOT = File.expand_path('..', __dir__)
+RGGEN_SAMPLE_DIRECTORY = File.join(RGGEN_ROOT, 'rggen-sample')

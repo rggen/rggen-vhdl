@@ -1,0 +1,26 @@
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+use work.rggen_rtl.all;
+
+entity <%= register_block.name %> is
+  generic (
+<% generic_declarations.each do |declaration| %>
+    <%= declaration %>
+<% end %>
+  );
+  port (
+<% port_declarations.each do |declaration| %>
+    <%= declaration %>
+<% end %>
+  );
+end <%= register_block.name %>;
+
+architecture rtl of <%= register_block.name %> is
+<% signal_declarations.each do |declaration| %>
+  <%= declaration %>;
+<% end %>
+begin
+<%= architecture_body_code.to_s.chomp %>
+end rtl;

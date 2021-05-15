@@ -31,7 +31,7 @@ RSpec.describe 'register_block/protocol' do
   it 'ジェネリックADDRESS_WIDTH/PRE_DECODE/BASE_ADDRESS/ERROR_STATUSを持つ' do
     expect(vhdl_rtl).to have_generic(
       :address_width,
-      name: 'ADDRESS_WIDTH', default: local_address_width
+      name: 'ADDRESS_WIDTH', type: :positive, default: local_address_width
     )
     expect(vhdl_rtl).to have_generic(
       :pre_decode,

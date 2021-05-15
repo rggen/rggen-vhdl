@@ -7,7 +7,7 @@ RgGen.define_list_feature(:register_block, :protocol) do
     base_feature do
       build do
         generic :address_width, {
-          name: 'ADDRESS_WIDTH', default: local_address_width
+          name: 'ADDRESS_WIDTH', type: :positive, default: local_address_width
         }
         generic :pre_decode, {
           name: 'PRE_DECODE', type: :boolean, default: false

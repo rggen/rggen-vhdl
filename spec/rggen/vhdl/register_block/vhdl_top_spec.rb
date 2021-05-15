@@ -5,16 +5,10 @@ RSpec.describe 'register_block/vhdl_top' do
   include_context 'clean-up builder'
 
   before(:all) do
-    RgGen.enable(:global, [:address_width, :bus_width])
-    RgGen.enable(:register_block, [:name, :byte_size])
-    RgGen.enable(:register_file, [:name, :offset_address, :size])
-    RgGen.enable(:register, [:name, :offset_address, :size, :type])
-    RgGen.enable(:bit_field, [:name, :bit_assignment, :type, :initial_value])
-    RgGen.enable(:bit_field, :type, [:rw])
-    RgGen.enable(:register_block, :vhdl_top)
-    RgGen.enable(:register_file, :vhdl_top)
-    RgGen.enable(:register, :vhdl_top)
-    RgGen.enable(:bit_field, :vhdl_top)
+    load_setup_files(RgGen.builder, [
+      File.join(RGGEN_ROOT, 'rggen-default-register-map/lib/rggen/default_register_map/setup.rb'),
+      File.join(RGGEN_VHDL_ROOT, 'lib/rggen/vhdl/setup.rb')
+    ])
   end
 
   def create_register_block(&body)
@@ -133,6 +127,46 @@ RSpec.describe 'register_block/vhdl_top' do
         end
       end
       check_register_signals(register_block, 25, 2 * bus_width)
+    end
+  end
+
+  describe '#write_file' do
+    before do
+      allow(FileUtils).to receive(:mkpath)
+    end
+
+    let(:configuration) do
+      file = ['config.json', 'config.toml', 'config.yml'].sample
+      path = File.join(RGGEN_SAMPLE_DIRECTORY, file)
+      build_configuration_factory(RgGen.builder, false).create([path])
+    end
+
+    let(:register_map) do
+      file_0 = ['block_0.rb', 'block_0.toml', 'block_0.yml'].sample
+      file_1 = ['block_1.rb', 'block_1.toml', 'block_1.yml'].sample
+      path = [file_0, file_1].map { |file| File.join(RGGEN_SAMPLE_DIRECTORY, file) }
+      build_register_map_factory(RgGen.builder, false).create(configuration, path)
+    end
+
+    let(:vhdl) do
+      build_vhdl_factory(RgGen.builder).create(configuration, register_map).register_blocks
+    end
+
+    let(:expected_code) do
+      [
+        File.join(RGGEN_SAMPLE_DIRECTORY, 'block_0.vhd'),
+        File.join(RGGEN_SAMPLE_DIRECTORY, 'block_1.vhd')
+      ].map { |path| File.binread(path) }
+    end
+
+    it 'RTLのソースコードを書きだす' do
+      expect {
+        vhdl[0].write_file('foo')
+      }.to write_file(match_string('foo/block_0.vhd'), expected_code[0])
+
+      expect {
+        vhdl[1].write_file('bar')
+      }.to write_file(match_string('bar/block_1.vhd'), expected_code[1])
     end
   end
 end

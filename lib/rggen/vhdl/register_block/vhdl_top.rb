@@ -36,6 +36,10 @@ RgGen.define_simple_feature(:register_block, :vhdl_top) do
       }
     end
 
+    write_file '<%= register_block.name %>.vhd' do |file|
+      file.body { process_template }
+    end
+
     private
 
     def total_registers
@@ -52,6 +56,36 @@ RgGen.define_simple_feature(:register_block, :vhdl_top) do
 
     def value_width
       register_block.registers.map(&:width).max
+    end
+
+    def generic_declarations
+      register_block
+        .declarations[:generic]
+        .yield_self(&method(:add_terminator))
+    end
+
+    def port_declarations
+      register_block
+        .declarations[:port]
+        .yield_self(&method(:add_terminator))
+    end
+
+    def signal_declarations
+      register_block.declarations[:signal]
+    end
+
+    def architecture_body_code
+      code_block(2) do |code|
+        register_block.generate_code(code, :register_block, :top_down)
+        register_block.generate_code(code, :register_file, :top_down, 1)
+      end
+    end
+
+    def add_terminator(declarations)
+      declarations.map.with_index do |declaration, i|
+        (i == declarations.size - 1) && declaration ||
+          declaration + semicolon
+      end
     end
   end
 end

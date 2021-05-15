@@ -183,51 +183,51 @@ RSpec.describe 'bit_field/vhdl_top' do
     it 'ジェネリック#initial_valueを持つ' do
       expect(bit_fields[0]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_0_BIT_FIELD_0_INITIAL_VALUE', default: 'repeat(x"0", 1, 1)'
+        name: 'REGISTER_0_BIT_FIELD_0_INITIAL_VALUE', width: 1, default: 'repeat(x"0", 1, 1)'
       )
       expect(bit_fields[1]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_0_BIT_FIELD_1_INITIAL_VALUE', default: 'repeat(x"01", 8, 1)'
+        name: 'REGISTER_0_BIT_FIELD_1_INITIAL_VALUE', width: 8, default: 'repeat(x"01", 8, 1)'
       )
       expect(bit_fields[2]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_0_BIT_FIELD_2_INITIAL_VALUE', default: 'repeat(x"02", 8, 2)'
+        name: 'REGISTER_0_BIT_FIELD_2_INITIAL_VALUE', width: 16, default: 'repeat(x"02", 8, 2)'
       )
       expect(bit_fields[3]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_1_BIT_FIELD_0_INITIAL_VALUE', default: 'repeat(x"0", 1, 1)'
+        name: 'REGISTER_1_BIT_FIELD_0_INITIAL_VALUE', width: 1, default: 'repeat(x"0", 1, 1)'
       )
       expect(bit_fields[4]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_1_BIT_FIELD_1_INITIAL_VALUE', default: 'repeat(x"01", 8, 1)'
+        name: 'REGISTER_1_BIT_FIELD_1_INITIAL_VALUE', width: 8, default: 'repeat(x"01", 8, 1)'
       )
       expect(bit_fields[5]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_1_BIT_FIELD_2_INITIAL_VALUE', default: 'repeat(x"02", 8, 2)'
+        name: 'REGISTER_1_BIT_FIELD_2_INITIAL_VALUE', width: 16, default: 'repeat(x"02", 8, 2)'
       )
       expect(bit_fields[6]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_FILE_2_REGISTER_0_BIT_FIELD_0_INITIAL_VALUE', default: 'repeat(x"0", 1, 1)'
+        name: 'REGISTER_FILE_2_REGISTER_0_BIT_FIELD_0_INITIAL_VALUE', width: 1, default: 'repeat(x"0", 1, 1)'
       )
       expect(bit_fields[7]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_FILE_2_REGISTER_0_BIT_FIELD_1_INITIAL_VALUE', default: 'repeat(x"01", 8, 1)'
+        name: 'REGISTER_FILE_2_REGISTER_0_BIT_FIELD_1_INITIAL_VALUE', width: 8, default: 'repeat(x"01", 8, 1)'
       )
       expect(bit_fields[8]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_FILE_2_REGISTER_0_BIT_FIELD_2_INITIAL_VALUE', default: 'repeat(x"02", 8, 2)'
+        name: 'REGISTER_FILE_2_REGISTER_0_BIT_FIELD_2_INITIAL_VALUE', width: 16, default: 'repeat(x"02", 8, 2)'
       )
       expect(bit_fields[9]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_0_INITIAL_VALUE', default: 'repeat(x"0", 1, 1)'
+        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_0_INITIAL_VALUE', width: 1, default: 'repeat(x"0", 1, 1)'
       )
       expect(bit_fields[10]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_1_INITIAL_VALUE', default: 'repeat(x"01", 8, 1)'
+        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_1_INITIAL_VALUE', width: 8, default: 'repeat(x"01", 8, 1)'
       )
       expect(bit_fields[11]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_2_INITIAL_VALUE', default: 'repeat(x"02", 8, 2)'
+        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_2_INITIAL_VALUE', width: 16, default: 'repeat(x"02", 8, 2)'
       )
     end
 

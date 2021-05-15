@@ -10,7 +10,8 @@ RgGen.define_simple_feature(:bit_field, :vhdl_top) do
     build do
       if parameterized_initial_value?
         generic :initial_value, {
-          name: initial_value_name, default: default_initial_value
+          name: initial_value_name, width: initial_value_width,
+          default: default_initial_value
         }
       else
         define_accessor_for_initial_value
@@ -38,6 +39,12 @@ RgGen.define_simple_feature(:bit_field, :vhdl_top) do
 
     def initial_value_name
       "#{bit_field.full_name('_')}_initial_value".upcase
+    end
+
+    def initial_value_width
+      width = bit_field.width
+      repeat_size = bit_field.sequence_size || 1
+      width * repeat_size
     end
 
     def default_initial_value
