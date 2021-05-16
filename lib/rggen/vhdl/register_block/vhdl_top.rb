@@ -67,6 +67,7 @@ RgGen.define_simple_feature(:register_block, :vhdl_top) do
     def port_declarations
       register_block
         .declarations[:port]
+        .yield_self(&method(:sort_port_declarations))
         .yield_self(&method(:add_terminator))
     end
 
@@ -79,6 +80,17 @@ RgGen.define_simple_feature(:register_block, :vhdl_top) do
         register_block.generate_code(code, :register_block, :top_down)
         register_block.generate_code(code, :register_file, :top_down, 1)
       end
+    end
+
+    def sort_port_declarations(declarations)
+      declarations
+        .partition(&method(:clock_or_reset?))
+        .flatten
+    end
+
+    def clock_or_reset?(declaration)
+      [clock.to_s, reset.to_s]
+        .any? { |port_name| declaration.include?(port_name) }
     end
 
     def add_terminator(declarations)
