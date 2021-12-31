@@ -12,12 +12,12 @@ module RgGen
       end
 
       def bin(value, width = nil)
-        width && format("\"%0*b\"", width, value) || "'#{value[0]}'"
+        width && format('"%0*b"', width, value) || "'#{value[0]}'"
       end
 
       def hex(value, width)
         print_width = (width + 3) / 4
-        format("x\"%0*x\"", print_width, value)
+        format('x"%0*x"', print_width, value)
       end
 
       def local_scope(scope_name, attributes = {}, &block)

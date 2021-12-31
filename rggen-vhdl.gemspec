@@ -9,20 +9,21 @@ Gem::Specification.new do |spec|
   spec.email = ['rggen@googlegroups.com']
 
   spec.summary = "rggen-vhdl-#{RgGen::VHDL::VERSION}"
-  spec.description = "VHDL writer plugin for RgGen"
+  spec.description = 'VHDL writer plugin for RgGen'
   spec.homepage = 'https://github.com/rggen/rggen-vhdl'
   spec.license = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")
+  spec.required_ruby_version = Gem::Requirement.new('>= 2.6.0')
 
   spec.metadata = {
     'bug_tracker_uri' => 'https://github.com/rggen/rggen-vhdl/issues',
     'mailing_list_uri' => 'https://groups.google.com/d/forum/rggen',
+    'rubygems_mfa_required' => 'true',
     'source_code_uri' => 'https://github.com/rggen/rggen-vhdl',
     'wiki_uri' => 'https://github.com/rggen/rggen/wiki'
   }
 
   spec.files =
-  `git ls-files lib LICENSE CODE_OF_CONDUCT.md README.md`.split($RS)
+    `git ls-files lib LICENSE CODE_OF_CONDUCT.md README.md`.split($RS)
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'rggen-systemverilog', '>= 0.25.1'

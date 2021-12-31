@@ -3,7 +3,7 @@
 RgGen.define_list_item_feature(:register, :type, :indirect) do
   vhdl do
     build do
-      signal :indirect_match, {  width: match_width }
+      signal :indirect_match, { width: match_width }
     end
 
     main_code :register, from_template: true
