@@ -14,7 +14,7 @@ module RgGen
       def create_port(direction, attributes, &block)
         attributes =
           attributes
-            .merge(direction: { input: :in, output: :out}[direction])
+            .merge(direction: { input: :in, output: :out }[direction])
         DataObject.new(:port, attributes, &block)
       end
 

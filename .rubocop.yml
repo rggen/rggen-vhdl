@@ -9,3 +9,20 @@ inherit_gem:
 inherit_from:
   - .rubocop_todo.yml
 <% end %>
+
+Metrics/BlockLength:
+  IgnoredMethods:
+    - base_feature
+    - build
+    - define_helpers
+    - define_list_feature
+    - define_list_item_feature
+    - define_simple_feature
+    - factory
+    - setup_plugin
+    - vhdl
+
+Naming/VariableNumber:
+  AllowedIdentifiers:
+    - w1
+    - wo1
