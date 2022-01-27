@@ -50,8 +50,9 @@ RSpec.describe 'bit_field/type/rof' do
       expect(bit_fields[0]).to generate_code(:bit_field, :top_down, <<~'CODE')
         u_bit_field: entity work.rggen_bit_field
           generic map (
-            WIDTH   => 1,
-            STORAGE => false
+            WIDTH               => 1,
+            STORAGE             => false,
+            EXTERNAL_READ_DATA  => true
           )
           port map (
             i_clk             => '0',
@@ -77,8 +78,9 @@ RSpec.describe 'bit_field/type/rof' do
       expect(bit_fields[1]).to generate_code(:bit_field, :top_down, <<~'CODE')
         u_bit_field: entity work.rggen_bit_field
           generic map (
-            WIDTH   => 16,
-            STORAGE => false
+            WIDTH               => 16,
+            STORAGE             => false,
+            EXTERNAL_READ_DATA  => true
           )
           port map (
             i_clk             => '0',
@@ -104,8 +106,9 @@ RSpec.describe 'bit_field/type/rof' do
       expect(bit_fields[2]).to generate_code(:bit_field, :top_down, <<~'CODE')
         u_bit_field: entity work.rggen_bit_field
           generic map (
-            WIDTH   => 1,
-            STORAGE => false
+            WIDTH               => 1,
+            STORAGE             => false,
+            EXTERNAL_READ_DATA  => true
           )
           port map (
             i_clk             => '0',
@@ -131,8 +134,9 @@ RSpec.describe 'bit_field/type/rof' do
       expect(bit_fields[3]).to generate_code(:bit_field, :top_down, <<~'CODE')
         u_bit_field: entity work.rggen_bit_field
           generic map (
-            WIDTH   => 16,
-            STORAGE => false
+            WIDTH               => 16,
+            STORAGE             => false,
+            EXTERNAL_READ_DATA  => true
           )
           port map (
             i_clk             => '0',

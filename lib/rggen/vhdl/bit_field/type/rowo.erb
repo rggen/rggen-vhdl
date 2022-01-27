@@ -1,15 +1,15 @@
 u_bit_field: entity work.rggen_bit_field
   generic map (
     WIDTH               => <%= width %>,
-    STORAGE             => false,
+    INITIAL_VALUE       => <%= initial_value %>,
     EXTERNAL_READ_DATA  => true
   )
   port map (
-    i_clk             => '0',
-    i_rst_n           => '0',
+    i_clk             => <%= clock %>,
+    i_rst_n           => <%= reset %>,
     i_sw_valid        => <%= bit_field_valid %>,
     i_sw_read_mask    => <%= bit_field_read_mask %>,
-    i_sw_write_enable => "0",
+    i_sw_write_enable => "1",
     i_sw_write_mask   => <%= bit_field_write_mask %>,
     i_sw_write_data   => <%= bit_field_write_data %>,
     o_sw_read_data    => <%= bit_field_read_data %>,
@@ -18,8 +18,8 @@ u_bit_field: entity work.rggen_bit_field
     i_hw_write_data   => (others => '0'),
     i_hw_set          => (others => '0'),
     i_hw_clear        => (others => '0'),
-    i_value           => <%= initial_value %>,
+    i_value           => <%= reference_or_value_in %>,
     i_mask            => (others => '1'),
-    o_value           => open,
+    o_value           => <%= value_out[loop_variables] %>,
     o_value_unmasked  => open
   );
