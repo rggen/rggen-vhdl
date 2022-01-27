@@ -1,7 +1,8 @@
 u_bit_field: entity work.rggen_bit_field
   generic map (
-    WIDTH   => <%= width %>,
-    STORAGE => false
+    WIDTH               => <%= width %>,
+    STORAGE             => false,
+    EXTERNAL_READ_DATA  => true
   )
   port map (
     i_clk             => '0',
