@@ -301,8 +301,8 @@ RSpec.describe 'bit_field/vhdl_top' do
             generic map (
               WIDTH           => 1,
               INITIAL_VALUE   => slice(x"0", 1, 0),
-              SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-              SW_WRITE_ONCE   => false
+              SW_WRITE_ONCE   => false,
+              TRIGGER         => false
             )
             port map (
               i_clk             => i_clk,
@@ -314,6 +314,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               i_sw_write_data   => bit_field_write_data(0 downto 0),
               o_sw_read_data    => bit_field_read_data(0 downto 0),
               o_sw_value        => bit_field_value(0 downto 0),
+              o_write_trigger   => open,
+              o_read_trigger    => open,
               i_hw_write_enable => "0",
               i_hw_write_data   => (others => '0'),
               i_hw_set          => (others => '0'),
@@ -333,8 +335,8 @@ RSpec.describe 'bit_field/vhdl_top' do
             generic map (
               WIDTH           => 8,
               INITIAL_VALUE   => slice(x"00", 8, 0),
-              SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-              SW_WRITE_ONCE   => false
+              SW_WRITE_ONCE   => false,
+              TRIGGER         => false
             )
             port map (
               i_clk             => i_clk,
@@ -346,6 +348,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               i_sw_write_data   => bit_field_write_data(15 downto 8),
               o_sw_read_data    => bit_field_read_data(15 downto 8),
               o_sw_value        => bit_field_value(15 downto 8),
+              o_write_trigger   => open,
+              o_read_trigger    => open,
               i_hw_write_enable => "0",
               i_hw_write_data   => (others => '0'),
               i_hw_set          => (others => '0'),
@@ -367,8 +371,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               generic map (
                 WIDTH           => 1,
                 INITIAL_VALUE   => slice(x"0", 1, 0),
-                SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-                SW_WRITE_ONCE   => false
+                SW_WRITE_ONCE   => false,
+                TRIGGER         => false
               )
               port map (
                 i_clk             => i_clk,
@@ -380,6 +384,8 @@ RSpec.describe 'bit_field/vhdl_top' do
                 i_sw_write_data   => bit_field_write_data(16+1*i+0 downto 16+1*i),
                 o_sw_read_data    => bit_field_read_data(16+1*i+0 downto 16+1*i),
                 o_sw_value        => bit_field_value(16+1*i+0 downto 16+1*i),
+                o_write_trigger   => open,
+                o_read_trigger    => open,
                 i_hw_write_enable => "0",
                 i_hw_write_data   => (others => '0'),
                 i_hw_set          => (others => '0'),
@@ -402,8 +408,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               generic map (
                 WIDTH           => 2,
                 INITIAL_VALUE   => slice(REGISTER_0_BIT_FIELD_3_INITIAL_VALUE, 2, i),
-                SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-                SW_WRITE_ONCE   => false
+                SW_WRITE_ONCE   => false,
+                TRIGGER         => false
               )
               port map (
                 i_clk             => i_clk,
@@ -415,6 +421,8 @@ RSpec.describe 'bit_field/vhdl_top' do
                 i_sw_write_data   => bit_field_write_data(20+2*i+1 downto 20+2*i),
                 o_sw_read_data    => bit_field_read_data(20+2*i+1 downto 20+2*i),
                 o_sw_value        => bit_field_value(20+2*i+1 downto 20+2*i),
+                o_write_trigger   => open,
+                o_read_trigger    => open,
                 i_hw_write_enable => "0",
                 i_hw_write_data   => (others => '0'),
                 i_hw_set          => (others => '0'),
@@ -437,8 +445,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               generic map (
                 WIDTH           => 2,
                 INITIAL_VALUE   => slice(x"4", 2, i),
-                SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-                SW_WRITE_ONCE   => false
+                SW_WRITE_ONCE   => false,
+                TRIGGER         => false
               )
               port map (
                 i_clk             => i_clk,
@@ -450,6 +458,8 @@ RSpec.describe 'bit_field/vhdl_top' do
                 i_sw_write_data   => bit_field_write_data(24+4*i+1 downto 24+4*i),
                 o_sw_read_data    => bit_field_read_data(24+4*i+1 downto 24+4*i),
                 o_sw_value        => bit_field_value(24+4*i+1 downto 24+4*i),
+                o_write_trigger   => open,
+                o_read_trigger    => open,
                 i_hw_write_enable => "0",
                 i_hw_write_data   => (others => '0'),
                 i_hw_set          => (others => '0'),
@@ -470,8 +480,8 @@ RSpec.describe 'bit_field/vhdl_top' do
             generic map (
               WIDTH           => 1,
               INITIAL_VALUE   => slice(x"0", 1, 0),
-              SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-              SW_WRITE_ONCE   => false
+              SW_WRITE_ONCE   => false,
+              TRIGGER         => false
             )
             port map (
               i_clk             => i_clk,
@@ -483,6 +493,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               i_sw_write_data   => bit_field_write_data(0 downto 0),
               o_sw_read_data    => bit_field_read_data(0 downto 0),
               o_sw_value        => bit_field_value(0 downto 0),
+              o_write_trigger   => open,
+              o_read_trigger    => open,
               i_hw_write_enable => "0",
               i_hw_write_data   => (others => '0'),
               i_hw_set          => (others => '0'),
@@ -502,8 +514,8 @@ RSpec.describe 'bit_field/vhdl_top' do
             generic map (
               WIDTH           => 8,
               INITIAL_VALUE   => slice(x"00", 8, 0),
-              SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-              SW_WRITE_ONCE   => false
+              SW_WRITE_ONCE   => false,
+              TRIGGER         => false
             )
             port map (
               i_clk             => i_clk,
@@ -515,6 +527,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               i_sw_write_data   => bit_field_write_data(15 downto 8),
               o_sw_read_data    => bit_field_read_data(15 downto 8),
               o_sw_value        => bit_field_value(15 downto 8),
+              o_write_trigger   => open,
+              o_read_trigger    => open,
               i_hw_write_enable => "0",
               i_hw_write_data   => (others => '0'),
               i_hw_set          => (others => '0'),
@@ -536,8 +550,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               generic map (
                 WIDTH           => 1,
                 INITIAL_VALUE   => slice(x"0", 1, 0),
-                SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-                SW_WRITE_ONCE   => false
+                SW_WRITE_ONCE   => false,
+                TRIGGER         => false
               )
               port map (
                 i_clk             => i_clk,
@@ -549,6 +563,8 @@ RSpec.describe 'bit_field/vhdl_top' do
                 i_sw_write_data   => bit_field_write_data(16+1*j+0 downto 16+1*j),
                 o_sw_read_data    => bit_field_read_data(16+1*j+0 downto 16+1*j),
                 o_sw_value        => bit_field_value(16+1*j+0 downto 16+1*j),
+                o_write_trigger   => open,
+                o_read_trigger    => open,
                 i_hw_write_enable => "0",
                 i_hw_write_data   => (others => '0'),
                 i_hw_set          => (others => '0'),
@@ -571,8 +587,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               generic map (
                 WIDTH           => 2,
                 INITIAL_VALUE   => slice(REGISTER_1_BIT_FIELD_3_INITIAL_VALUE, 2, j),
-                SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-                SW_WRITE_ONCE   => false
+                SW_WRITE_ONCE   => false,
+                TRIGGER         => false
               )
               port map (
                 i_clk             => i_clk,
@@ -584,6 +600,8 @@ RSpec.describe 'bit_field/vhdl_top' do
                 i_sw_write_data   => bit_field_write_data(20+2*j+1 downto 20+2*j),
                 o_sw_read_data    => bit_field_read_data(20+2*j+1 downto 20+2*j),
                 o_sw_value        => bit_field_value(20+2*j+1 downto 20+2*j),
+                o_write_trigger   => open,
+                o_read_trigger    => open,
                 i_hw_write_enable => "0",
                 i_hw_write_data   => (others => '0'),
                 i_hw_set          => (others => '0'),
@@ -606,8 +624,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               generic map (
                 WIDTH           => 2,
                 INITIAL_VALUE   => slice(x"4", 2, j),
-                SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-                SW_WRITE_ONCE   => false
+                SW_WRITE_ONCE   => false,
+                TRIGGER         => false
               )
               port map (
                 i_clk             => i_clk,
@@ -619,6 +637,8 @@ RSpec.describe 'bit_field/vhdl_top' do
                 i_sw_write_data   => bit_field_write_data(24+4*j+1 downto 24+4*j),
                 o_sw_read_data    => bit_field_read_data(24+4*j+1 downto 24+4*j),
                 o_sw_value        => bit_field_value(24+4*j+1 downto 24+4*j),
+                o_write_trigger   => open,
+                o_read_trigger    => open,
                 i_hw_write_enable => "0",
                 i_hw_write_data   => (others => '0'),
                 i_hw_set          => (others => '0'),
@@ -639,8 +659,8 @@ RSpec.describe 'bit_field/vhdl_top' do
             generic map (
               WIDTH           => 1,
               INITIAL_VALUE   => slice(x"0", 1, 0),
-              SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-              SW_WRITE_ONCE   => false
+              SW_WRITE_ONCE   => false,
+              TRIGGER         => false
             )
             port map (
               i_clk             => i_clk,
@@ -652,6 +672,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               i_sw_write_data   => bit_field_write_data(0 downto 0),
               o_sw_read_data    => bit_field_read_data(0 downto 0),
               o_sw_value        => bit_field_value(0 downto 0),
+              o_write_trigger   => open,
+              o_read_trigger    => open,
               i_hw_write_enable => "0",
               i_hw_write_data   => (others => '0'),
               i_hw_set          => (others => '0'),
@@ -671,8 +693,8 @@ RSpec.describe 'bit_field/vhdl_top' do
             generic map (
               WIDTH           => 8,
               INITIAL_VALUE   => slice(x"00", 8, 0),
-              SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-              SW_WRITE_ONCE   => false
+              SW_WRITE_ONCE   => false,
+              TRIGGER         => false
             )
             port map (
               i_clk             => i_clk,
@@ -684,6 +706,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               i_sw_write_data   => bit_field_write_data(15 downto 8),
               o_sw_read_data    => bit_field_read_data(15 downto 8),
               o_sw_value        => bit_field_value(15 downto 8),
+              o_write_trigger   => open,
+              o_read_trigger    => open,
               i_hw_write_enable => "0",
               i_hw_write_data   => (others => '0'),
               i_hw_set          => (others => '0'),
@@ -705,8 +729,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               generic map (
                 WIDTH           => 1,
                 INITIAL_VALUE   => slice(x"0", 1, 0),
-                SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-                SW_WRITE_ONCE   => false
+                SW_WRITE_ONCE   => false,
+                TRIGGER         => false
               )
               port map (
                 i_clk             => i_clk,
@@ -718,6 +742,8 @@ RSpec.describe 'bit_field/vhdl_top' do
                 i_sw_write_data   => bit_field_write_data(16+1*k+0 downto 16+1*k),
                 o_sw_read_data    => bit_field_read_data(16+1*k+0 downto 16+1*k),
                 o_sw_value        => bit_field_value(16+1*k+0 downto 16+1*k),
+                o_write_trigger   => open,
+                o_read_trigger    => open,
                 i_hw_write_enable => "0",
                 i_hw_write_data   => (others => '0'),
                 i_hw_set          => (others => '0'),
@@ -740,8 +766,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               generic map (
                 WIDTH           => 2,
                 INITIAL_VALUE   => slice(REGISTER_2_BIT_FIELD_3_INITIAL_VALUE, 2, k),
-                SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-                SW_WRITE_ONCE   => false
+                SW_WRITE_ONCE   => false,
+                TRIGGER         => false
               )
               port map (
                 i_clk             => i_clk,
@@ -753,6 +779,8 @@ RSpec.describe 'bit_field/vhdl_top' do
                 i_sw_write_data   => bit_field_write_data(20+2*k+1 downto 20+2*k),
                 o_sw_read_data    => bit_field_read_data(20+2*k+1 downto 20+2*k),
                 o_sw_value        => bit_field_value(20+2*k+1 downto 20+2*k),
+                o_write_trigger   => open,
+                o_read_trigger    => open,
                 i_hw_write_enable => "0",
                 i_hw_write_data   => (others => '0'),
                 i_hw_set          => (others => '0'),
@@ -775,8 +803,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               generic map (
                 WIDTH           => 2,
                 INITIAL_VALUE   => slice(x"4", 2, k),
-                SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-                SW_WRITE_ONCE   => false
+                SW_WRITE_ONCE   => false,
+                TRIGGER         => false
               )
               port map (
                 i_clk             => i_clk,
@@ -788,6 +816,8 @@ RSpec.describe 'bit_field/vhdl_top' do
                 i_sw_write_data   => bit_field_write_data(24+4*k+1 downto 24+4*k),
                 o_sw_read_data    => bit_field_read_data(24+4*k+1 downto 24+4*k),
                 o_sw_value        => bit_field_value(24+4*k+1 downto 24+4*k),
+                o_write_trigger   => open,
+                o_read_trigger    => open,
                 i_hw_write_enable => "0",
                 i_hw_write_data   => (others => '0'),
                 i_hw_set          => (others => '0'),
@@ -808,8 +838,8 @@ RSpec.describe 'bit_field/vhdl_top' do
             generic map (
               WIDTH           => 32,
               INITIAL_VALUE   => slice(x"00000000", 32, 0),
-              SW_READ_ACTION  => RGGEN_READ_DEFAULT,
-              SW_WRITE_ONCE   => false
+              SW_WRITE_ONCE   => false,
+              TRIGGER         => false
             )
             port map (
               i_clk             => i_clk,
@@ -821,6 +851,8 @@ RSpec.describe 'bit_field/vhdl_top' do
               i_sw_write_data   => bit_field_write_data(31 downto 0),
               o_sw_read_data    => bit_field_read_data(31 downto 0),
               o_sw_value        => bit_field_value(31 downto 0),
+              o_write_trigger   => open,
+              o_read_trigger    => open,
               i_hw_write_enable => "0",
               i_hw_write_data   => (others => '0'),
               i_hw_set          => (others => '0'),

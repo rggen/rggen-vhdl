@@ -360,7 +360,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 1,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -372,6 +373,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(0 downto 0),
             o_sw_read_data    => bit_field_read_data(0 downto 0),
             o_sw_value        => bit_field_value(0 downto 0),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -388,7 +391,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 1,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -400,6 +404,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(1 downto 1),
             o_sw_read_data    => bit_field_read_data(1 downto 1),
             o_sw_value        => bit_field_value(1 downto 1),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -416,7 +422,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 8,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -428,6 +435,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(15 downto 8),
             o_sw_read_data    => bit_field_read_data(15 downto 8),
             o_sw_value        => bit_field_value(15 downto 8),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -444,7 +453,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 8,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -456,6 +466,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(23 downto 16),
             o_sw_read_data    => bit_field_read_data(23 downto 16),
             o_sw_value        => bit_field_value(23 downto 16),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -472,7 +484,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 64,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -484,6 +497,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(63 downto 0),
             o_sw_read_data    => bit_field_read_data(63 downto 0),
             o_sw_value        => bit_field_value(63 downto 0),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -500,7 +515,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -512,6 +528,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(0+16*i+3 downto 0+16*i),
             o_sw_read_data    => bit_field_read_data(0+16*i+3 downto 0+16*i),
             o_sw_value        => bit_field_value(0+16*i+3 downto 0+16*i),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -528,7 +546,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -540,6 +559,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(4+16*i+3 downto 4+16*i),
             o_sw_read_data    => bit_field_read_data(4+16*i+3 downto 4+16*i),
             o_sw_value        => bit_field_value(4+16*i+3 downto 4+16*i),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -556,7 +577,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -568,6 +590,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(8+16*i+3 downto 8+16*i),
             o_sw_read_data    => bit_field_read_data(8+16*i+3 downto 8+16*i),
             o_sw_value        => bit_field_value(8+16*i+3 downto 8+16*i),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -584,7 +608,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -596,6 +621,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(0+16*j+3 downto 0+16*j),
             o_sw_read_data    => bit_field_read_data(0+16*j+3 downto 0+16*j),
             o_sw_value        => bit_field_value(0+16*j+3 downto 0+16*j),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -612,7 +639,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -624,6 +652,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(4+16*j+3 downto 4+16*j),
             o_sw_read_data    => bit_field_read_data(4+16*j+3 downto 4+16*j),
             o_sw_value        => bit_field_value(4+16*j+3 downto 4+16*j),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -640,7 +670,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -652,6 +683,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(8+16*j+3 downto 8+16*j),
             o_sw_read_data    => bit_field_read_data(8+16*j+3 downto 8+16*j),
             o_sw_value        => bit_field_value(8+16*j+3 downto 8+16*j),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -668,7 +701,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -680,6 +714,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(0+16*k+3 downto 0+16*k),
             o_sw_read_data    => bit_field_read_data(0+16*k+3 downto 0+16*k),
             o_sw_value        => bit_field_value(0+16*k+3 downto 0+16*k),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -696,7 +732,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -708,6 +745,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(4+16*k+3 downto 4+16*k),
             o_sw_read_data    => bit_field_read_data(4+16*k+3 downto 4+16*k),
             o_sw_value        => bit_field_value(4+16*k+3 downto 4+16*k),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -724,7 +763,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -736,6 +776,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(8+16*k+3 downto 8+16*k),
             o_sw_read_data    => bit_field_read_data(8+16*k+3 downto 8+16*k),
             o_sw_value        => bit_field_value(8+16*k+3 downto 8+16*k),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -752,7 +794,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -764,6 +807,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(0+16*m+3 downto 0+16*m),
             o_sw_read_data    => bit_field_read_data(0+16*m+3 downto 0+16*m),
             o_sw_value        => bit_field_value(0+16*m+3 downto 0+16*m),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -780,7 +825,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -792,6 +838,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(4+16*m+3 downto 4+16*m),
             o_sw_read_data    => bit_field_read_data(4+16*m+3 downto 4+16*m),
             o_sw_value        => bit_field_value(4+16*m+3 downto 4+16*m),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),
@@ -808,7 +856,8 @@ RSpec.describe 'bit_field/type/ro' do
           generic map (
             WIDTH               => 4,
             STORAGE             => false,
-            EXTERNAL_READ_DATA  => true
+            EXTERNAL_READ_DATA  => true,
+            TRIGGER             => false
           )
           port map (
             i_clk             => '0',
@@ -820,6 +869,8 @@ RSpec.describe 'bit_field/type/ro' do
             i_sw_write_data   => bit_field_write_data(8+16*m+3 downto 8+16*m),
             o_sw_read_data    => bit_field_read_data(8+16*m+3 downto 8+16*m),
             o_sw_value        => bit_field_value(8+16*m+3 downto 8+16*m),
+            o_write_trigger   => open,
+            o_read_trigger    => open,
             i_hw_write_enable => "0",
             i_hw_write_data   => (others => '0'),
             i_hw_set          => (others => '0'),

@@ -15,6 +15,8 @@ u_bit_field: entity work.rggen_bit_field
     i_sw_write_data   => <%= bit_field_write_data %>,
     o_sw_read_data    => <%= bit_field_read_data %>,
     o_sw_value        => <%= bit_field_value %>,
+    o_write_trigger   => open,
+    o_read_trigger    => open,
     i_hw_write_enable => "0",
     i_hw_write_data   => (others => '0'),
     i_hw_set          => (others => '0'),
