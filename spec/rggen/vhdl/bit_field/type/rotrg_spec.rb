@@ -470,8 +470,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(0 downto 0),
             i_sw_write_enable => "0",
@@ -501,8 +501,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(1 downto 1),
             i_sw_write_enable => "0",
@@ -532,8 +532,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(15 downto 8),
             i_sw_write_enable => "0",
@@ -563,8 +563,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(23 downto 16),
             i_sw_write_enable => "0",
@@ -594,8 +594,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(63 downto 0),
             i_sw_write_enable => "0",
@@ -625,8 +625,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(0+16*i+3 downto 0+16*i),
             i_sw_write_enable => "0",
@@ -656,8 +656,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(4+16*i+3 downto 4+16*i),
             i_sw_write_enable => "0",
@@ -687,8 +687,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(8+16*i+3 downto 8+16*i),
             i_sw_write_enable => "0",
@@ -718,8 +718,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(0+16*j+3 downto 0+16*j),
             i_sw_write_enable => "0",
@@ -749,8 +749,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(4+16*j+3 downto 4+16*j),
             i_sw_write_enable => "0",
@@ -780,8 +780,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(8+16*j+3 downto 8+16*j),
             i_sw_write_enable => "0",
@@ -811,8 +811,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(0+16*k+3 downto 0+16*k),
             i_sw_write_enable => "0",
@@ -842,8 +842,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(4+16*k+3 downto 4+16*k),
             i_sw_write_enable => "0",
@@ -873,8 +873,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(8+16*k+3 downto 8+16*k),
             i_sw_write_enable => "0",
@@ -904,8 +904,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(0+16*m+3 downto 0+16*m),
             i_sw_write_enable => "0",
@@ -935,8 +935,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(4+16*m+3 downto 4+16*m),
             i_sw_write_enable => "0",
@@ -966,8 +966,8 @@ RSpec.describe 'bit_field/type/rotrg' do
             TRIGGER             => true
           )
           port map (
-            i_clk             => '0',
-            i_rst_n           => '0',
+            i_clk             => i_clk,
+            i_rst_n           => i_rst_n,
             i_sw_valid        => bit_field_valid,
             i_sw_read_mask    => bit_field_read_mask(8+16*m+3 downto 8+16*m),
             i_sw_write_enable => "0",
