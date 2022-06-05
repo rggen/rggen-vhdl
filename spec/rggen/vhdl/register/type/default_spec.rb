@@ -99,6 +99,12 @@ RSpec.describe 'register/type/default' do
 
     it 'rggen_default_registerをインスタンスするコードを出力する' do
       expect(registers[0]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         u_register: entity work.rggen_default_register
           generic map (
             READABLE        => true,
@@ -107,7 +113,6 @@ RSpec.describe 'register/type/default' do
             OFFSET_ADDRESS  => x"000",
             BUS_WIDTH       => 32,
             DATA_WIDTH      => 32,
-            VALID_BITS      => x"00000001",
             REGISTER_INDEX  => 0
           )
           port map (
@@ -133,6 +138,12 @@ RSpec.describe 'register/type/default' do
       CODE
 
       expect(registers[1]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         u_register: entity work.rggen_default_register
           generic map (
             READABLE        => true,
@@ -141,7 +152,6 @@ RSpec.describe 'register/type/default' do
             OFFSET_ADDRESS  => x"010",
             BUS_WIDTH       => 32,
             DATA_WIDTH      => 32,
-            VALID_BITS      => x"00000001",
             REGISTER_INDEX  => i
           )
           port map (
@@ -167,6 +177,12 @@ RSpec.describe 'register/type/default' do
       CODE
 
       expect(registers[2]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         u_register: entity work.rggen_default_register
           generic map (
             READABLE        => true,
@@ -175,7 +191,6 @@ RSpec.describe 'register/type/default' do
             OFFSET_ADDRESS  => x"020",
             BUS_WIDTH       => 32,
             DATA_WIDTH      => 32,
-            VALID_BITS      => x"00000001",
             REGISTER_INDEX  => 2*i+j
           )
           port map (
@@ -201,6 +216,12 @@ RSpec.describe 'register/type/default' do
       CODE
 
       expect(registers[3]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"ffffffff", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         u_register: entity work.rggen_default_register
           generic map (
             READABLE        => true,
@@ -209,7 +230,6 @@ RSpec.describe 'register/type/default' do
             OFFSET_ADDRESS  => x"030",
             BUS_WIDTH       => 32,
             DATA_WIDTH      => 32,
-            VALID_BITS      => x"ffffffff",
             REGISTER_INDEX  => 0
           )
           port map (
@@ -235,6 +255,12 @@ RSpec.describe 'register/type/default' do
       CODE
 
       expect(registers[4]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"f0f0f0f0", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         u_register: entity work.rggen_default_register
           generic map (
             READABLE        => true,
@@ -243,7 +269,6 @@ RSpec.describe 'register/type/default' do
             OFFSET_ADDRESS  => x"040",
             BUS_WIDTH       => 32,
             DATA_WIDTH      => 32,
-            VALID_BITS      => x"f0f0f0f0",
             REGISTER_INDEX  => 0
           )
           port map (
@@ -269,6 +294,12 @@ RSpec.describe 'register/type/default' do
       CODE
 
       expect(registers[5]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 63 generate
+          g: if (bit_slice(x"0000000100000000", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         u_register: entity work.rggen_default_register
           generic map (
             READABLE        => true,
@@ -277,7 +308,6 @@ RSpec.describe 'register/type/default' do
             OFFSET_ADDRESS  => x"050",
             BUS_WIDTH       => 32,
             DATA_WIDTH      => 64,
-            VALID_BITS      => x"0000000100000000",
             REGISTER_INDEX  => 0
           )
           port map (
@@ -303,6 +333,12 @@ RSpec.describe 'register/type/default' do
       CODE
 
       expect(registers[6]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 63 generate
+          g: if (bit_slice(x"f0f0f0f0f0f0f0f0", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         u_register: entity work.rggen_default_register
           generic map (
             READABLE        => true,
@@ -311,7 +347,6 @@ RSpec.describe 'register/type/default' do
             OFFSET_ADDRESS  => x"060",
             BUS_WIDTH       => 32,
             DATA_WIDTH      => 64,
-            VALID_BITS      => x"f0f0f0f0f0f0f0f0",
             REGISTER_INDEX  => 0
           )
           port map (
@@ -337,6 +372,12 @@ RSpec.describe 'register/type/default' do
       CODE
 
       expect(registers[7]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         u_register: entity work.rggen_default_register
           generic map (
             READABLE        => true,
@@ -345,7 +386,6 @@ RSpec.describe 'register/type/default' do
             OFFSET_ADDRESS  => x"070",
             BUS_WIDTH       => 32,
             DATA_WIDTH      => 32,
-            VALID_BITS      => x"00000001",
             REGISTER_INDEX  => 0
           )
           port map (
@@ -371,6 +411,12 @@ RSpec.describe 'register/type/default' do
       CODE
 
       expect(registers[8]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         u_register: entity work.rggen_default_register
           generic map (
             READABLE        => false,
@@ -379,7 +425,6 @@ RSpec.describe 'register/type/default' do
             OFFSET_ADDRESS  => x"080",
             BUS_WIDTH       => 32,
             DATA_WIDTH      => 32,
-            VALID_BITS      => x"00000001",
             REGISTER_INDEX  => 0
           )
           port map (
@@ -405,6 +450,12 @@ RSpec.describe 'register/type/default' do
       CODE
 
       expect(registers[9]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"0000ffff", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         u_register: entity work.rggen_default_register
           generic map (
             READABLE        => true,
@@ -413,7 +464,6 @@ RSpec.describe 'register/type/default' do
             OFFSET_ADDRESS  => x"090"+32*(2*i+j)+x"010",
             BUS_WIDTH       => 32,
             DATA_WIDTH      => 32,
-            VALID_BITS      => x"0000ffff",
             REGISTER_INDEX  => 2*k+l
           )
           port map (

@@ -94,6 +94,12 @@ RSpec.describe 'register_file/vhdl_top' do
             signal bit_field_read_data: std_logic_vector(31 downto 0);
             signal bit_field_value: std_logic_vector(31 downto 0);
           begin
+            \g_tie_off\: for \__i\ in 0 to 31 generate
+              g: if (bit_slice(x"00000001", \__i\) = '0') generate
+                bit_field_read_data(\__i\) <= '0';
+                bit_field_value(\__i\) <= '0';
+              end generate;
+            end generate;
             u_register: entity work.rggen_default_register
               generic map (
                 READABLE        => true,
@@ -102,7 +108,6 @@ RSpec.describe 'register_file/vhdl_top' do
                 OFFSET_ADDRESS  => x"00",
                 BUS_WIDTH       => 32,
                 DATA_WIDTH      => 32,
-                VALID_BITS      => x"00000001",
                 REGISTER_INDEX  => 0
               )
               port map (
@@ -165,6 +170,12 @@ RSpec.describe 'register_file/vhdl_top' do
             signal bit_field_read_data: std_logic_vector(31 downto 0);
             signal bit_field_value: std_logic_vector(31 downto 0);
           begin
+            \g_tie_off\: for \__i\ in 0 to 31 generate
+              g: if (bit_slice(x"00000001", \__i\) = '0') generate
+                bit_field_read_data(\__i\) <= '0';
+                bit_field_value(\__i\) <= '0';
+              end generate;
+            end generate;
             u_register: entity work.rggen_default_register
               generic map (
                 READABLE        => true,
@@ -173,7 +184,6 @@ RSpec.describe 'register_file/vhdl_top' do
                 OFFSET_ADDRESS  => x"04",
                 BUS_WIDTH       => 32,
                 DATA_WIDTH      => 32,
-                VALID_BITS      => x"00000001",
                 REGISTER_INDEX  => 0
               )
               port map (
@@ -244,6 +254,12 @@ RSpec.describe 'register_file/vhdl_top' do
               signal bit_field_read_data: std_logic_vector(31 downto 0);
               signal bit_field_value: std_logic_vector(31 downto 0);
             begin
+              \g_tie_off\: for \__i\ in 0 to 31 generate
+                g: if (bit_slice(x"00000001", \__i\) = '0') generate
+                  bit_field_read_data(\__i\) <= '0';
+                  bit_field_value(\__i\) <= '0';
+                end generate;
+              end generate;
               u_register: entity work.rggen_default_register
                 generic map (
                   READABLE        => true,
@@ -252,7 +268,6 @@ RSpec.describe 'register_file/vhdl_top' do
                   OFFSET_ADDRESS  => x"10",
                   BUS_WIDTH       => 32,
                   DATA_WIDTH      => 32,
-                  VALID_BITS      => x"00000001",
                   REGISTER_INDEX  => 0
                 )
                 port map (
@@ -316,6 +331,12 @@ RSpec.describe 'register_file/vhdl_top' do
             signal bit_field_read_data: std_logic_vector(31 downto 0);
             signal bit_field_value: std_logic_vector(31 downto 0);
           begin
+            \g_tie_off\: for \__i\ in 0 to 31 generate
+              g: if (bit_slice(x"00000001", \__i\) = '0') generate
+                bit_field_read_data(\__i\) <= '0';
+                bit_field_value(\__i\) <= '0';
+              end generate;
+            end generate;
             u_register: entity work.rggen_default_register
               generic map (
                 READABLE        => true,
@@ -324,7 +345,6 @@ RSpec.describe 'register_file/vhdl_top' do
                 OFFSET_ADDRESS  => x"14",
                 BUS_WIDTH       => 32,
                 DATA_WIDTH      => 32,
-                VALID_BITS      => x"00000001",
                 REGISTER_INDEX  => 0
               )
               port map (
@@ -403,6 +423,12 @@ RSpec.describe 'register_file/vhdl_top' do
                       signal bit_field_read_data: std_logic_vector(31 downto 0);
                       signal bit_field_value: std_logic_vector(31 downto 0);
                     begin
+                      \g_tie_off\: for \__i\ in 0 to 31 generate
+                        g: if (bit_slice(x"00000001", \__i\) = '0') generate
+                          bit_field_read_data(\__i\) <= '0';
+                          bit_field_value(\__i\) <= '0';
+                        end generate;
+                      end generate;
                       u_register: entity work.rggen_default_register
                         generic map (
                           READABLE        => true,
@@ -411,7 +437,6 @@ RSpec.describe 'register_file/vhdl_top' do
                           OFFSET_ADDRESS  => x"20"+32*(2*i+j),
                           BUS_WIDTH       => 32,
                           DATA_WIDTH      => 32,
-                          VALID_BITS      => x"00000001",
                           REGISTER_INDEX  => 2*k+l
                         )
                         port map (
@@ -481,6 +506,12 @@ RSpec.describe 'register_file/vhdl_top' do
                     signal bit_field_read_data: std_logic_vector(31 downto 0);
                     signal bit_field_value: std_logic_vector(31 downto 0);
                   begin
+                    \g_tie_off\: for \__i\ in 0 to 31 generate
+                      g: if (bit_slice(x"00000001", \__i\) = '0') generate
+                        bit_field_read_data(\__i\) <= '0';
+                        bit_field_value(\__i\) <= '0';
+                      end generate;
+                    end generate;
                     u_register: entity work.rggen_default_register
                       generic map (
                         READABLE        => true,
@@ -489,7 +520,6 @@ RSpec.describe 'register_file/vhdl_top' do
                         OFFSET_ADDRESS  => x"20"+32*(2*i+j)+x"10",
                         BUS_WIDTH       => 32,
                         DATA_WIDTH      => 32,
-                        VALID_BITS      => x"00000001",
                         REGISTER_INDEX  => 2*k+l
                       )
                       port map (
