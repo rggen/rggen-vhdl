@@ -181,6 +181,12 @@ RSpec.describe 'register/type/indirect' do
   describe '#generate_code' do
     it 'rggen_indirect_registerをインスタンスするコードを出力する' do
       expect(registers[4]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 1 else '0';
         u_register: entity work.rggen_indirect_register
           generic map (
@@ -190,7 +196,6 @@ RSpec.describe 'register/type/indirect' do
             OFFSET_ADDRESS        => x"10",
             BUS_WIDTH             => 32,
             DATA_WIDTH            => 32,
-            VALID_BITS            => x"00000001",
             INDIRECT_MATCH_WIDTH  => 1
           )
           port map (
@@ -217,6 +222,12 @@ RSpec.describe 'register/type/indirect' do
       CODE
 
       expect(registers[5]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         indirect_match(0) <= '1' when unsigned(register_value(9 downto 8)) = i else '0';
         u_register: entity work.rggen_indirect_register
           generic map (
@@ -226,7 +237,6 @@ RSpec.describe 'register/type/indirect' do
             OFFSET_ADDRESS        => x"14",
             BUS_WIDTH             => 32,
             DATA_WIDTH            => 32,
-            VALID_BITS            => x"00000001",
             INDIRECT_MATCH_WIDTH  => 1
           )
           port map (
@@ -253,6 +263,12 @@ RSpec.describe 'register/type/indirect' do
       CODE
 
       expect(registers[6]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         indirect_match(0) <= '1' when unsigned(register_value(9 downto 8)) = i else '0';
         indirect_match(1) <= '1' when unsigned(register_value(19 downto 16)) = j else '0';
         u_register: entity work.rggen_indirect_register
@@ -263,7 +279,6 @@ RSpec.describe 'register/type/indirect' do
             OFFSET_ADDRESS        => x"18",
             BUS_WIDTH             => 32,
             DATA_WIDTH            => 32,
-            VALID_BITS            => x"00000001",
             INDIRECT_MATCH_WIDTH  => 2
           )
           port map (
@@ -290,6 +305,12 @@ RSpec.describe 'register/type/indirect' do
       CODE
 
       expect(registers[7]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
         indirect_match(1) <= '1' when unsigned(register_value(9 downto 8)) = i else '0';
         indirect_match(2) <= '1' when unsigned(register_value(19 downto 16)) = j else '0';
@@ -301,7 +322,6 @@ RSpec.describe 'register/type/indirect' do
             OFFSET_ADDRESS        => x"1c",
             BUS_WIDTH             => 32,
             DATA_WIDTH            => 32,
-            VALID_BITS            => x"00000001",
             INDIRECT_MATCH_WIDTH  => 3
           )
           port map (
@@ -328,6 +348,12 @@ RSpec.describe 'register/type/indirect' do
       CODE
 
       expect(registers[8]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
         u_register: entity work.rggen_indirect_register
           generic map (
@@ -337,7 +363,6 @@ RSpec.describe 'register/type/indirect' do
             OFFSET_ADDRESS        => x"20",
             BUS_WIDTH             => 32,
             DATA_WIDTH            => 32,
-            VALID_BITS            => x"00000001",
             INDIRECT_MATCH_WIDTH  => 1
           )
           port map (
@@ -364,6 +389,12 @@ RSpec.describe 'register/type/indirect' do
       CODE
 
       expect(registers[9]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
         u_register: entity work.rggen_indirect_register
           generic map (
@@ -373,7 +404,6 @@ RSpec.describe 'register/type/indirect' do
             OFFSET_ADDRESS        => x"24",
             BUS_WIDTH             => 32,
             DATA_WIDTH            => 32,
-            VALID_BITS            => x"00000001",
             INDIRECT_MATCH_WIDTH  => 1
           )
           port map (
@@ -400,6 +430,12 @@ RSpec.describe 'register/type/indirect' do
       CODE
 
       expect(registers[10]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         indirect_match(0) <= '1' when unsigned(register_value(33 downto 32)) = i else '0';
         indirect_match(1) <= '1' when unsigned(register_value(65 downto 64)) = 0 else '0';
         u_register: entity work.rggen_indirect_register
@@ -410,7 +446,6 @@ RSpec.describe 'register/type/indirect' do
             OFFSET_ADDRESS        => x"28",
             BUS_WIDTH             => 32,
             DATA_WIDTH            => 32,
-            VALID_BITS            => x"00000001",
             INDIRECT_MATCH_WIDTH  => 2
           )
           port map (
@@ -437,6 +472,12 @@ RSpec.describe 'register/type/indirect' do
       CODE
 
       expect(registers[11]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         indirect_match(0) <= '1' when unsigned(register_value(96 downto 96)) = 0 else '0';
         indirect_match(1) <= '1' when unsigned(register_value(105 downto 104)) = i else '0';
         indirect_match(2) <= '1' when unsigned(register_value(115 downto 112)) = j else '0';
@@ -448,7 +489,6 @@ RSpec.describe 'register/type/indirect' do
             OFFSET_ADDRESS        => x"2c",
             BUS_WIDTH             => 32,
             DATA_WIDTH            => 32,
-            VALID_BITS            => x"00000001",
             INDIRECT_MATCH_WIDTH  => 3
           )
           port map (
@@ -475,6 +515,12 @@ RSpec.describe 'register/type/indirect' do
       CODE
 
       expect(registers[12]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
         indirect_match(1) <= '1' when unsigned(register_value(9 downto 8)) = k else '0';
         indirect_match(2) <= '1' when unsigned(register_value(19 downto 16)) = l else '0';
@@ -486,7 +532,6 @@ RSpec.describe 'register/type/indirect' do
             OFFSET_ADDRESS        => x"30"+8*(2*i+j),
             BUS_WIDTH             => 32,
             DATA_WIDTH            => 32,
-            VALID_BITS            => x"00000001",
             INDIRECT_MATCH_WIDTH  => 3
           )
           port map (
@@ -513,6 +558,12 @@ RSpec.describe 'register/type/indirect' do
       CODE
 
       expect(registers[13]).to generate_code(:register, :top_down, <<~'CODE')
+        \g_tie_off\: for \__i\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \__i\) = '0') generate
+            bit_field_read_data(\__i\) <= '0';
+            bit_field_value(\__i\) <= '0';
+          end generate;
+        end generate;
         indirect_match(0) <= '1' when unsigned(register_value(96 downto 96)) = 0 else '0';
         indirect_match(1) <= '1' when unsigned(register_value(105 downto 104)) = k else '0';
         indirect_match(2) <= '1' when unsigned(register_value(115 downto 112)) = l else '0';
@@ -524,7 +575,6 @@ RSpec.describe 'register/type/indirect' do
             OFFSET_ADDRESS        => x"30"+8*(2*i+j)+x"04",
             BUS_WIDTH             => 32,
             DATA_WIDTH            => 32,
-            VALID_BITS            => x"00000001",
             INDIRECT_MATCH_WIDTH  => 3
           )
           port map (

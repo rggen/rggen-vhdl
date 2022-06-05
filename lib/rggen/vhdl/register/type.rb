@@ -5,6 +5,11 @@ RgGen.define_list_feature(:register, :type) do
     base_feature do
       include RgGen::SystemVerilog::RTL::RegisterType
 
+      pre_code :register do |code|
+        register.bit_fields.empty? ||
+          (code << process_template(File.join(__dir__, 'tie_off_unused_signals.erb')))
+      end
+
       private
 
       def readable?

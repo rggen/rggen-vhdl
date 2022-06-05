@@ -1,0 +1,6 @@
+\g_tie_off\: for \__i\ in 0 to <%= width - 1 %> generate
+  g: if (bit_slice(<%= valid_bits %>, \__i\) = '0') generate
+    <%= bit_field_read_data %>(\__i\) <= '0';
+    <%= bit_field_value %>(\__i\) <= '0';
+  end generate;
+end generate;
