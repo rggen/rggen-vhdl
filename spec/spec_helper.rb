@@ -10,17 +10,17 @@ builder = RgGen::Core::Builder.create
 RgGen.builder(builder)
 
 require 'rggen/default_register_map'
-RgGen::DefaultRegisterMap.plugin_spec.activate(builder)
+builder.plugin_manager.activate_plugin_by_name(:'rggen-default-register-map')
 
 require 'rggen/systemverilog/rtl'
-RgGen::SystemVerilog::RTL.plugin_spec.activate(builder)
+builder.plugin_manager.activate_plugin_by_name(:'rggen-sv-rtl')
 
 RSpec.configure do |config|
   RgGen::Devtools::SpecHelper.setup(config)
 end
 
 require 'rggen/vhdl'
-RgGen::VHDL.plugin_spec.activate(builder)
+builder.plugin_manager.activate_plugin_by_name(:'rggen-vhdl')
 
 RGGEN_ROOT = ENV['RGGEN_ROOT'] || File.expand_path('../..', __dir__)
 RGGEN_VHDL_ROOT = File.expand_path('..', __dir__)
