@@ -84,3 +84,24 @@ RSpec.shared_context 'vhdl common' do
     @vhdl_factory ||= []
   end
 end
+
+RSpec.shared_context 'bit field vhdl common' do
+  include_context 'vhdl common'
+
+  before(:all) do
+    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register])
+    RgGen.enable(:register_block, :byte_size)
+    RgGen.enable(:register_file, [:name, :size, :offset_address])
+    RgGen.enable(:register, [:name, :size, :type, :offset_address])
+    RgGen.enable(:bit_field, [:name, :bit_assignment, :initial_value, :reference, :type])
+    RgGen.enable(:register_block, :vhdl_top)
+    RgGen.enable(:register_file, :vhdl_top)
+    RgGen.enable(:register, :vhdl_top)
+    RgGen.enable(:bit_field, :vhdl_top)
+  end
+
+  def create_bit_fields(&body)
+    configuration = create_configuration(enable_wide_register: true)
+    create_vhdl(configuration, &body).bit_fields
+  end
+end
