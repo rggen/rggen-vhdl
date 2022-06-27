@@ -9,10 +9,13 @@ RSpec.describe 'register_block/vhdl_top' do
   end
 
   def create_register_block(&body)
-    create_vhdl(&body).register_blocks.first
+    configuration = create_configuration(
+      bus_width: bus_width, enable_wide_register: true
+    )
+    create_vhdl(configuration, &body).register_blocks.first
   end
 
-  let(:bus_width) { default_configuration.bus_width }
+  let(:bus_width) { 32 }
 
   let(:address_width) { 8 }
 

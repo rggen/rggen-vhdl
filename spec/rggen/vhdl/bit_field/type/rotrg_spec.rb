@@ -2,23 +2,10 @@
 
 RSpec.describe 'bit_field/type/rotrg' do
   include_context 'clean-up builder'
-  include_context 'vhdl common'
+  include_context 'bit field vhdl common'
 
   before(:all) do
-    RgGen.enable(:global, [:bus_width, :address_width])
-    RgGen.enable(:register_block, :byte_size)
-    RgGen.enable(:register_file, [:name, :size, :offset_address])
-    RgGen.enable(:register, [:name, :size, :type, :offset_address])
-    RgGen.enable(:bit_field, [:name, :bit_assignment, :initial_value, :reference, :type])
     RgGen.enable(:bit_field, :type, [:rotrg, :rw])
-    RgGen.enable(:register_block, :vhdl_top)
-    RgGen.enable(:register_file, :vhdl_top)
-    RgGen.enable(:register, :vhdl_top)
-    RgGen.enable(:bit_field, :vhdl_top)
-  end
-
-  def create_bit_fields(&body)
-    create_vhdl(&body).bit_fields
   end
 
   context '参照ビットフィールドを持たない場合' do
