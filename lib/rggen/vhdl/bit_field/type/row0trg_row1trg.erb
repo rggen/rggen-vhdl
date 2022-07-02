@@ -13,6 +13,6 @@ u_bit_field: entity work.rggen_bit_field_w01trg
     i_sw_write_data   => <%= bit_field_write_data %>,
     o_sw_read_data    => <%= bit_field_read_data %>,
     o_sw_value        => <%= bit_field_value %>,
-    i_value           => (others => '0'),
+    i_value           => <%= reference_or_value_in %>,
     o_trigger         => <%= trigger[loop_variables] %>
   );

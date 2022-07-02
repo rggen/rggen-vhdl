@@ -124,6 +124,7 @@ RSpec.describe 'bit_field/type/w1trg' do
             i_sw_write_data   => bit_field_write_data(0 downto 0),
             o_sw_read_data    => bit_field_read_data(0 downto 0),
             o_sw_value        => bit_field_value(0 downto 0),
+            i_value           => (others => '0'),
             o_trigger         => o_register_0_bit_field_0_trigger
           );
       CODE
@@ -144,6 +145,7 @@ RSpec.describe 'bit_field/type/w1trg' do
             i_sw_write_data   => bit_field_write_data(11 downto 8),
             o_sw_read_data    => bit_field_read_data(11 downto 8),
             o_sw_value        => bit_field_value(11 downto 8),
+            i_value           => (others => '0'),
             o_trigger         => o_register_0_bit_field_1_trigger
           );
       CODE
@@ -164,6 +166,7 @@ RSpec.describe 'bit_field/type/w1trg' do
             i_sw_write_data   => bit_field_write_data(16+8*i+3 downto 16+8*i),
             o_sw_read_data    => bit_field_read_data(16+8*i+3 downto 16+8*i),
             o_sw_value        => bit_field_value(16+8*i+3 downto 16+8*i),
+            i_value           => (others => '0'),
             o_trigger         => o_register_0_bit_field_2_trigger(4*(i)+3 downto 4*(i))
           );
       CODE
@@ -184,6 +187,7 @@ RSpec.describe 'bit_field/type/w1trg' do
             i_sw_write_data   => bit_field_write_data(16+8*j+3 downto 16+8*j),
             o_sw_read_data    => bit_field_read_data(16+8*j+3 downto 16+8*j),
             o_sw_value        => bit_field_value(16+8*j+3 downto 16+8*j),
+            i_value           => (others => '0'),
             o_trigger         => o_register_1_bit_field_2_trigger(4*(2*i+j)+3 downto 4*(2*i+j))
           );
       CODE
@@ -204,6 +208,7 @@ RSpec.describe 'bit_field/type/w1trg' do
             i_sw_write_data   => bit_field_write_data(16+8*k+3 downto 16+8*k),
             o_sw_read_data    => bit_field_read_data(16+8*k+3 downto 16+8*k),
             o_sw_value        => bit_field_value(16+8*k+3 downto 16+8*k),
+            i_value           => (others => '0'),
             o_trigger         => o_register_2_bit_field_2_trigger(4*(4*i+2*j+k)+3 downto 4*(4*i+2*j+k))
           );
       CODE
@@ -224,6 +229,7 @@ RSpec.describe 'bit_field/type/w1trg' do
             i_sw_write_data   => bit_field_write_data(16+8*m+3 downto 16+8*m),
             o_sw_read_data    => bit_field_read_data(16+8*m+3 downto 16+8*m),
             o_sw_value        => bit_field_value(16+8*m+3 downto 16+8*m),
+            i_value           => (others => '0'),
             o_trigger         => o_register_file_3_register_file_0_register_0_bit_field_2_trigger(4*(16*i+8*j+4*k+2*l+m)+3 downto 4*(16*i+8*j+4*k+2*l+m))
           );
       CODE
