@@ -15,7 +15,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new('>= 2.6.0')
 
   spec.metadata = {
-    'bug_tracker_uri' => 'https://github.com/rggen/rggen-vhdl/issues',
+    'bug_tracker_uri' => 'https://github.com/rggen/rggen/issues',
     'mailing_list_uri' => 'https://groups.google.com/d/forum/rggen',
     'rubygems_mfa_required' => 'true',
     'source_code_uri' => 'https://github.com/rggen/rggen-vhdl',

@@ -60,7 +60,8 @@ $ simulator \
 
 Feedbacks, bus reports, questions and etc. are welcome! You can post them bu using following ways:
 
-* [GitHub Issue Tracker](https://github.com/rggen/rggen-vhdl/issues)
+* [GitHub Issue Tracker](https://github.com/rggen/rggen/issues)
+* [GitHub Discussions](https://github.com/rggen/rggen/discussions)
 * [Chat Room](https://gitter.im/rggen/rggen)
 * [Mailing List](https://groups.google.com/d/forum/rggen)
 * [Mail](mailto:rggen@googlegroups.com)
