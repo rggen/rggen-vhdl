@@ -61,14 +61,14 @@ RgGen.define_simple_feature(:register_block, :vhdl_top) do
     def generic_declarations
       register_block
         .declarations[:generic]
-        .yield_self(&method(:add_terminator))
+        .then(&method(:add_terminator))
     end
 
     def port_declarations
       register_block
         .declarations[:port]
-        .yield_self(&method(:sort_port_declarations))
-        .yield_self(&method(:add_terminator))
+        .then(&method(:sort_port_declarations))
+        .then(&method(:add_terminator))
     end
 
     def signal_declarations
