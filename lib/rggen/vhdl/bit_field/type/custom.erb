@@ -1,0 +1,34 @@
+u_bit_field: entity work.rggen_bit_field
+  generic map (
+    WIDTH               => <%= width %>,
+    INITIAL_VALUE       => <%= initial_value %>,
+    SW_READ_ACTION      => <%= sw_read_action %>,
+    SW_WRITE_ACTION     => <%= sw_write_action %>,
+    SW_WRITE_ONCE       => <%= bit_field.sw_write_once? %>,
+    HW_SET_WIDTH        => <%= width %>,
+    HW_CLEAR_WIDTH      => <%= width %>,
+    STORAGE             => <%= storage? %>,
+    EXTERNAL_READ_DATA  => <%= external_read_data? %>,
+    TRIGGER             => <%= trigger? %>
+  )
+  port map (
+    i_clk             => <%= clock %>,
+    i_rst_n           => <%= reset %>,
+    i_sw_valid        => <%= bit_field_valid %>,
+    i_sw_read_mask    => <%= bit_field_read_mask %>,
+    i_sw_write_enable => "1",
+    i_sw_write_mask   => <%= bit_field_write_mask %>,
+    i_sw_write_data   => <%= bit_field_write_data %>,
+    o_sw_read_data    => <%= bit_field_read_data %>,
+    o_sw_value        => <%= bit_field_value %>,
+    o_write_trigger   => <%= output_port(:write_trigger) %>,
+    o_read_trigger    => <%= output_port(:read_trigger) %>,
+    i_hw_write_enable => <%= input_port(:hw_write_enable, '"0"') %>,
+    i_hw_write_data   => <%= input_port(:hw_write_data) %>,
+    i_hw_set          => <%= input_port(:hw_set) %>,
+    i_hw_clear        => <%= input_port(:hw_clear) %>,
+    i_value           => <%= input_port(:value_in) %>,
+    i_mask            => (others => '1'),
+    o_value           => <%= output_port(:value_out) %>,
+    o_value_unmasked  => open
+  );
