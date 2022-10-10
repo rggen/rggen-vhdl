@@ -37,6 +37,7 @@ RgGen.setup_plugin :'rggen-vhdl' do |plugin|
     'vhdl/bit_field/type/rc_w0c_w1c_wc_woc',
     'vhdl/bit_field/type/ro_rotrg',
     'vhdl/bit_field/type/rof',
+    'vhdl/bit_field/type/rol',
     'vhdl/bit_field/type/row0trg_row1trg',
     'vhdl/bit_field/type/rowo_rowotrg',
     'vhdl/bit_field/type/rs_w0s_w1s_ws_wos',
