@@ -11,7 +11,7 @@ inherit_from:
 <% end %>
 
 Metrics/BlockLength:
-  IgnoredMethods:
+  AllowedMethods:
     - base_feature
     - build
     - define_helpers
