@@ -140,8 +140,7 @@ RSpec.describe 'register/vhdl_top' do
         register do
           name 'register_3'
           offset_address 0x30
-          type [:indirect, 'register_0.bit_field_0', 'register_0.bit_field_1']
-          size [2, 2]
+          size [2, step: 8]
           bit_field { name 'bit_field_0'; bit_assignment lsb: 0, width: 2; type :rw; initial_value 0 }
           bit_field { name 'bit_field_1'; bit_assignment lsb: 8, width: 2; type :rw; initial_value 0 }
         end
@@ -149,12 +148,21 @@ RSpec.describe 'register/vhdl_top' do
         register do
           name 'register_4'
           offset_address 0x40
+          type [:indirect, 'register_0.bit_field_0', 'register_0.bit_field_1']
+          size [2, 2]
+          bit_field { name 'bit_field_0'; bit_assignment lsb: 0, width: 2; type :rw; initial_value 0 }
+          bit_field { name 'bit_field_1'; bit_assignment lsb: 8, width: 2; type :rw; initial_value 0 }
+        end
+
+        register do
+          name 'register_5'
+          offset_address 0x50
           bit_field { bit_assignment lsb: 0, width: 2; type :rw; initial_value 0 }
         end
 
         register_file do
-          name 'register_file_5'
-          offset_address 0x50
+          name 'register_file_6'
+          offset_address 0x60
           size [2, 2]
           register_file do
             name 'register_file_0'
@@ -163,6 +171,22 @@ RSpec.describe 'register/vhdl_top' do
               name 'register_0'
               offset_address 0x00
               size [2, 2]
+              bit_field { name 'bit_field_0'; bit_assignment lsb: 0, width: 2; type :rw; initial_value 0 }
+            end
+          end
+        end
+
+        register_file do
+          name 'register_file_7'
+          offset_address 0xa0
+          size [2, step: 32]
+          register_file do
+            name 'register_file_0'
+            offset_address 0x00
+            register do
+              name 'register_0'
+              offset_address 0x00
+              size [2, step: 8]
               bit_field { name 'bit_field_0'; bit_assignment lsb: 0, width: 2; type :rw; initial_value 0 }
             end
           end
@@ -191,8 +215,7 @@ RSpec.describe 'register/vhdl_top' do
               ADDRESS_WIDTH   => 8,
               OFFSET_ADDRESS  => x"00",
               BUS_WIDTH       => 32,
-              DATA_WIDTH      => 32,
-              REGISTER_INDEX  => 0
+              DATA_WIDTH      => 32
             )
             port map (
               i_clk                   => i_clk,
@@ -336,10 +359,9 @@ RSpec.describe 'register/vhdl_top' do
                 READABLE        => true,
                 WRITABLE        => true,
                 ADDRESS_WIDTH   => 8,
-                OFFSET_ADDRESS  => x"20",
+                OFFSET_ADDRESS  => x"20"+4*i,
                 BUS_WIDTH       => 32,
-                DATA_WIDTH      => 32,
-                REGISTER_INDEX  => i
+                DATA_WIDTH      => 32
               )
               port map (
                 i_clk                   => i_clk,
@@ -431,6 +453,118 @@ RSpec.describe 'register/vhdl_top' do
         g_register_3: block
         begin
           g: for i in 0 to 1 generate
+            signal bit_field_valid: std_logic;
+            signal bit_field_read_mask: std_logic_vector(31 downto 0);
+            signal bit_field_write_mask: std_logic_vector(31 downto 0);
+            signal bit_field_write_data: std_logic_vector(31 downto 0);
+            signal bit_field_read_data: std_logic_vector(31 downto 0);
+            signal bit_field_value: std_logic_vector(31 downto 0);
+          begin
+            \g_tie_off\: for \__i\ in 0 to 31 generate
+              g: if (bit_slice(x"00000303", \__i\) = '0') generate
+                bit_field_read_data(\__i\) <= '0';
+                bit_field_value(\__i\) <= '0';
+              end generate;
+            end generate;
+            u_register: entity work.rggen_default_register
+              generic map (
+                READABLE        => true,
+                WRITABLE        => true,
+                ADDRESS_WIDTH   => 8,
+                OFFSET_ADDRESS  => x"30"+8*i,
+                BUS_WIDTH       => 32,
+                DATA_WIDTH      => 32
+              )
+              port map (
+                i_clk                   => i_clk,
+                i_rst_n                 => i_rst_n,
+                i_register_valid        => register_valid,
+                i_register_access       => register_access,
+                i_register_address      => register_address,
+                i_register_write_data   => register_write_data,
+                i_register_strobe       => register_strobe,
+                o_register_active       => register_active(6+i),
+                o_register_ready        => register_ready(6+i),
+                o_register_status       => register_status(2*(6+i)+1 downto 2*(6+i)),
+                o_register_read_data    => register_read_data(32*(6+i)+31 downto 32*(6+i)),
+                o_register_value        => register_value(32*(6+i)+0+31 downto 32*(6+i)+0),
+                o_bit_field_valid       => bit_field_valid,
+                o_bit_field_read_mask   => bit_field_read_mask,
+                o_bit_field_write_mask  => bit_field_write_mask,
+                o_bit_field_write_data  => bit_field_write_data,
+                i_bit_field_read_data   => bit_field_read_data,
+                i_bit_field_value       => bit_field_value
+              );
+            g_bit_field_0: block
+            begin
+              u_bit_field: entity work.rggen_bit_field
+                generic map (
+                  WIDTH           => 2,
+                  INITIAL_VALUE   => slice(x"0", 2, 0),
+                  SW_WRITE_ONCE   => false,
+                  TRIGGER         => false
+                )
+                port map (
+                  i_clk             => i_clk,
+                  i_rst_n           => i_rst_n,
+                  i_sw_valid        => bit_field_valid,
+                  i_sw_read_mask    => bit_field_read_mask(1 downto 0),
+                  i_sw_write_enable => "1",
+                  i_sw_write_mask   => bit_field_write_mask(1 downto 0),
+                  i_sw_write_data   => bit_field_write_data(1 downto 0),
+                  o_sw_read_data    => bit_field_read_data(1 downto 0),
+                  o_sw_value        => bit_field_value(1 downto 0),
+                  o_write_trigger   => open,
+                  o_read_trigger    => open,
+                  i_hw_write_enable => "0",
+                  i_hw_write_data   => (others => '0'),
+                  i_hw_set          => (others => '0'),
+                  i_hw_clear        => (others => '0'),
+                  i_value           => (others => '0'),
+                  i_mask            => (others => '1'),
+                  o_value           => o_register_3_bit_field_0(2*(i)+1 downto 2*(i)),
+                  o_value_unmasked  => open
+                );
+            end block;
+            g_bit_field_1: block
+            begin
+              u_bit_field: entity work.rggen_bit_field
+                generic map (
+                  WIDTH           => 2,
+                  INITIAL_VALUE   => slice(x"0", 2, 0),
+                  SW_WRITE_ONCE   => false,
+                  TRIGGER         => false
+                )
+                port map (
+                  i_clk             => i_clk,
+                  i_rst_n           => i_rst_n,
+                  i_sw_valid        => bit_field_valid,
+                  i_sw_read_mask    => bit_field_read_mask(9 downto 8),
+                  i_sw_write_enable => "1",
+                  i_sw_write_mask   => bit_field_write_mask(9 downto 8),
+                  i_sw_write_data   => bit_field_write_data(9 downto 8),
+                  o_sw_read_data    => bit_field_read_data(9 downto 8),
+                  o_sw_value        => bit_field_value(9 downto 8),
+                  o_write_trigger   => open,
+                  o_read_trigger    => open,
+                  i_hw_write_enable => "0",
+                  i_hw_write_data   => (others => '0'),
+                  i_hw_set          => (others => '0'),
+                  i_hw_clear        => (others => '0'),
+                  i_value           => (others => '0'),
+                  i_mask            => (others => '1'),
+                  o_value           => o_register_3_bit_field_1(2*(i)+1 downto 2*(i)),
+                  o_value_unmasked  => open
+                );
+            end block;
+          end generate;
+        end block;
+      CODE
+
+      expect(registers[4]).to generate_code(:register_file, :top_down, <<~'CODE')
+        g_register_4: block
+        begin
+          g: for i in 0 to 1 generate
           begin
             g: for j in 0 to 1 generate
               signal indirect_match: std_logic_vector(1 downto 0);
@@ -454,7 +588,7 @@ RSpec.describe 'register/vhdl_top' do
                   READABLE              => true,
                   WRITABLE              => true,
                   ADDRESS_WIDTH         => 8,
-                  OFFSET_ADDRESS        => x"30",
+                  OFFSET_ADDRESS        => x"40",
                   BUS_WIDTH             => 32,
                   DATA_WIDTH            => 32,
                   INDIRECT_MATCH_WIDTH  => 2
@@ -467,11 +601,11 @@ RSpec.describe 'register/vhdl_top' do
                   i_register_address      => register_address,
                   i_register_write_data   => register_write_data,
                   i_register_strobe       => register_strobe,
-                  o_register_active       => register_active(6+2*i+j),
-                  o_register_ready        => register_ready(6+2*i+j),
-                  o_register_status       => register_status(2*(6+2*i+j)+1 downto 2*(6+2*i+j)),
-                  o_register_read_data    => register_read_data(32*(6+2*i+j)+31 downto 32*(6+2*i+j)),
-                  o_register_value        => register_value(32*(6+2*i+j)+0+31 downto 32*(6+2*i+j)+0),
+                  o_register_active       => register_active(8+2*i+j),
+                  o_register_ready        => register_ready(8+2*i+j),
+                  o_register_status       => register_status(2*(8+2*i+j)+1 downto 2*(8+2*i+j)),
+                  o_register_read_data    => register_read_data(32*(8+2*i+j)+31 downto 32*(8+2*i+j)),
+                  o_register_value        => register_value(32*(8+2*i+j)+0+31 downto 32*(8+2*i+j)+0),
                   i_indirect_match        => indirect_match,
                   o_bit_field_valid       => bit_field_valid,
                   o_bit_field_read_mask   => bit_field_read_mask,
@@ -507,7 +641,7 @@ RSpec.describe 'register/vhdl_top' do
                     i_hw_clear        => (others => '0'),
                     i_value           => (others => '0'),
                     i_mask            => (others => '1'),
-                    o_value           => o_register_3_bit_field_0(2*(2*i+j)+1 downto 2*(2*i+j)),
+                    o_value           => o_register_4_bit_field_0(2*(2*i+j)+1 downto 2*(2*i+j)),
                     o_value_unmasked  => open
                   );
               end block;
@@ -538,7 +672,7 @@ RSpec.describe 'register/vhdl_top' do
                     i_hw_clear        => (others => '0'),
                     i_value           => (others => '0'),
                     i_mask            => (others => '1'),
-                    o_value           => o_register_3_bit_field_1(2*(2*i+j)+1 downto 2*(2*i+j)),
+                    o_value           => o_register_4_bit_field_1(2*(2*i+j)+1 downto 2*(2*i+j)),
                     o_value_unmasked  => open
                   );
               end block;
@@ -547,8 +681,8 @@ RSpec.describe 'register/vhdl_top' do
         end block;
       CODE
 
-      expect(registers[4]).to generate_code(:register_file, :top_down, <<~'CODE')
-        g_register_4: block
+      expect(registers[5]).to generate_code(:register_file, :top_down, <<~'CODE')
+        g_register_5: block
           signal bit_field_valid: std_logic;
           signal bit_field_read_mask: std_logic_vector(31 downto 0);
           signal bit_field_write_mask: std_logic_vector(31 downto 0);
@@ -567,10 +701,9 @@ RSpec.describe 'register/vhdl_top' do
               READABLE        => true,
               WRITABLE        => true,
               ADDRESS_WIDTH   => 8,
-              OFFSET_ADDRESS  => x"40",
+              OFFSET_ADDRESS  => x"50",
               BUS_WIDTH       => 32,
-              DATA_WIDTH      => 32,
-              REGISTER_INDEX  => 0
+              DATA_WIDTH      => 32
             )
             port map (
               i_clk                   => i_clk,
@@ -580,11 +713,11 @@ RSpec.describe 'register/vhdl_top' do
               i_register_address      => register_address,
               i_register_write_data   => register_write_data,
               i_register_strobe       => register_strobe,
-              o_register_active       => register_active(10),
-              o_register_ready        => register_ready(10),
-              o_register_status       => register_status(21 downto 20),
-              o_register_read_data    => register_read_data(351 downto 320),
-              o_register_value        => register_value(351 downto 320),
+              o_register_active       => register_active(12),
+              o_register_ready        => register_ready(12),
+              o_register_status       => register_status(25 downto 24),
+              o_register_read_data    => register_read_data(415 downto 384),
+              o_register_value        => register_value(415 downto 384),
               o_bit_field_valid       => bit_field_valid,
               o_bit_field_read_mask   => bit_field_read_mask,
               o_bit_field_write_mask  => bit_field_write_mask,
@@ -592,7 +725,7 @@ RSpec.describe 'register/vhdl_top' do
               i_bit_field_read_data   => bit_field_read_data,
               i_bit_field_value       => bit_field_value
             );
-          g_register_4: block
+          g_register_5: block
           begin
             u_bit_field: entity work.rggen_bit_field
               generic map (
@@ -619,14 +752,14 @@ RSpec.describe 'register/vhdl_top' do
                 i_hw_clear        => (others => '0'),
                 i_value           => (others => '0'),
                 i_mask            => (others => '1'),
-                o_value           => o_register_4,
+                o_value           => o_register_5,
                 o_value_unmasked  => open
               );
           end block;
         end block;
       CODE
 
-      expect(registers[5]).to generate_code(:register_file, :top_down, <<~'CODE')
+      expect(registers[6]).to generate_code(:register_file, :top_down, <<~'CODE')
         g_register_0: block
         begin
           g: for k in 0 to 1 generate
@@ -650,10 +783,9 @@ RSpec.describe 'register/vhdl_top' do
                   READABLE        => true,
                   WRITABLE        => true,
                   ADDRESS_WIDTH   => 8,
-                  OFFSET_ADDRESS  => x"50"+16*(2*i+j),
+                  OFFSET_ADDRESS  => x"60"+16*(2*i+j)+4*(2*k+l),
                   BUS_WIDTH       => 32,
-                  DATA_WIDTH      => 32,
-                  REGISTER_INDEX  => 2*k+l
+                  DATA_WIDTH      => 32
                 )
                 port map (
                   i_clk                   => i_clk,
@@ -663,11 +795,11 @@ RSpec.describe 'register/vhdl_top' do
                   i_register_address      => register_address,
                   i_register_write_data   => register_write_data,
                   i_register_strobe       => register_strobe,
-                  o_register_active       => register_active(11+4*(2*i+j)+2*k+l),
-                  o_register_ready        => register_ready(11+4*(2*i+j)+2*k+l),
-                  o_register_status       => register_status(2*(11+4*(2*i+j)+2*k+l)+1 downto 2*(11+4*(2*i+j)+2*k+l)),
-                  o_register_read_data    => register_read_data(32*(11+4*(2*i+j)+2*k+l)+31 downto 32*(11+4*(2*i+j)+2*k+l)),
-                  o_register_value        => register_value(32*(11+4*(2*i+j)+2*k+l)+0+31 downto 32*(11+4*(2*i+j)+2*k+l)+0),
+                  o_register_active       => register_active(13+4*(2*i+j)+2*k+l),
+                  o_register_ready        => register_ready(13+4*(2*i+j)+2*k+l),
+                  o_register_status       => register_status(2*(13+4*(2*i+j)+2*k+l)+1 downto 2*(13+4*(2*i+j)+2*k+l)),
+                  o_register_read_data    => register_read_data(32*(13+4*(2*i+j)+2*k+l)+31 downto 32*(13+4*(2*i+j)+2*k+l)),
+                  o_register_value        => register_value(32*(13+4*(2*i+j)+2*k+l)+0+31 downto 32*(13+4*(2*i+j)+2*k+l)+0),
                   o_bit_field_valid       => bit_field_valid,
                   o_bit_field_read_mask   => bit_field_read_mask,
                   o_bit_field_write_mask  => bit_field_write_mask,
@@ -702,11 +834,92 @@ RSpec.describe 'register/vhdl_top' do
                     i_hw_clear        => (others => '0'),
                     i_value           => (others => '0'),
                     i_mask            => (others => '1'),
-                    o_value           => o_register_file_5_register_file_0_register_0_bit_field_0(2*(8*i+4*j+2*k+l)+1 downto 2*(8*i+4*j+2*k+l)),
+                    o_value           => o_register_file_6_register_file_0_register_0_bit_field_0(2*(8*i+4*j+2*k+l)+1 downto 2*(8*i+4*j+2*k+l)),
                     o_value_unmasked  => open
                   );
               end block;
             end generate;
+          end generate;
+        end block;
+      CODE
+
+      expect(registers[7]).to generate_code(:register_file, :top_down, <<~'CODE')
+        g_register_0: block
+        begin
+          g: for j in 0 to 1 generate
+            signal bit_field_valid: std_logic;
+            signal bit_field_read_mask: std_logic_vector(31 downto 0);
+            signal bit_field_write_mask: std_logic_vector(31 downto 0);
+            signal bit_field_write_data: std_logic_vector(31 downto 0);
+            signal bit_field_read_data: std_logic_vector(31 downto 0);
+            signal bit_field_value: std_logic_vector(31 downto 0);
+          begin
+            \g_tie_off\: for \__i\ in 0 to 31 generate
+              g: if (bit_slice(x"00000003", \__i\) = '0') generate
+                bit_field_read_data(\__i\) <= '0';
+                bit_field_value(\__i\) <= '0';
+              end generate;
+            end generate;
+            u_register: entity work.rggen_default_register
+              generic map (
+                READABLE        => true,
+                WRITABLE        => true,
+                ADDRESS_WIDTH   => 8,
+                OFFSET_ADDRESS  => x"a0"+32*i+8*j,
+                BUS_WIDTH       => 32,
+                DATA_WIDTH      => 32
+              )
+              port map (
+                i_clk                   => i_clk,
+                i_rst_n                 => i_rst_n,
+                i_register_valid        => register_valid,
+                i_register_access       => register_access,
+                i_register_address      => register_address,
+                i_register_write_data   => register_write_data,
+                i_register_strobe       => register_strobe,
+                o_register_active       => register_active(29+2*i+j),
+                o_register_ready        => register_ready(29+2*i+j),
+                o_register_status       => register_status(2*(29+2*i+j)+1 downto 2*(29+2*i+j)),
+                o_register_read_data    => register_read_data(32*(29+2*i+j)+31 downto 32*(29+2*i+j)),
+                o_register_value        => register_value(32*(29+2*i+j)+0+31 downto 32*(29+2*i+j)+0),
+                o_bit_field_valid       => bit_field_valid,
+                o_bit_field_read_mask   => bit_field_read_mask,
+                o_bit_field_write_mask  => bit_field_write_mask,
+                o_bit_field_write_data  => bit_field_write_data,
+                i_bit_field_read_data   => bit_field_read_data,
+                i_bit_field_value       => bit_field_value
+              );
+            g_bit_field_0: block
+            begin
+              u_bit_field: entity work.rggen_bit_field
+                generic map (
+                  WIDTH           => 2,
+                  INITIAL_VALUE   => slice(x"0", 2, 0),
+                  SW_WRITE_ONCE   => false,
+                  TRIGGER         => false
+                )
+                port map (
+                  i_clk             => i_clk,
+                  i_rst_n           => i_rst_n,
+                  i_sw_valid        => bit_field_valid,
+                  i_sw_read_mask    => bit_field_read_mask(1 downto 0),
+                  i_sw_write_enable => "1",
+                  i_sw_write_mask   => bit_field_write_mask(1 downto 0),
+                  i_sw_write_data   => bit_field_write_data(1 downto 0),
+                  o_sw_read_data    => bit_field_read_data(1 downto 0),
+                  o_sw_value        => bit_field_value(1 downto 0),
+                  o_write_trigger   => open,
+                  o_read_trigger    => open,
+                  i_hw_write_enable => "0",
+                  i_hw_write_data   => (others => '0'),
+                  i_hw_set          => (others => '0'),
+                  i_hw_clear        => (others => '0'),
+                  i_value           => (others => '0'),
+                  i_mask            => (others => '1'),
+                  o_value           => o_register_file_7_register_file_0_register_0_bit_field_0(2*(2*i+j)+1 downto 2*(2*i+j)),
+                  o_value_unmasked  => open
+                );
+            end block;
           end generate;
         end block;
       CODE
