@@ -5,8 +5,7 @@ u_register: entity work.rggen_default_register
     ADDRESS_WIDTH   => <%= address_width %>,
     OFFSET_ADDRESS  => <%= offset_address %>,
     BUS_WIDTH       => <%= bus_width %>,
-    DATA_WIDTH      => <%= width %>,
-    REGISTER_INDEX  => <%= register_index %>
+    DATA_WIDTH      => <%= width %>
   )
   port map (
     i_clk                   => <%= clock %>,

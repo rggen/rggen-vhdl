@@ -38,7 +38,7 @@ RgGen.define_list_item_feature(:register, :type, :external) do
     end
 
     def byte_size
-      register.byte_size
+      register.total_byte_size
     end
   end
 end
