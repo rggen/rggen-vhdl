@@ -7,7 +7,8 @@ u_adapter: entity work.rggen_apb_adaper
     PRE_DECODE          => <%= pre_decode %>,
     BASE_ADDRESS        => <%= base_address %>,
     BYTE_SIZE           => <%= byte_size %>,
-    ERROR_STATUS        => <%= error_status %>
+    ERROR_STATUS        => <%= error_status %>,
+    INSERT_SLICER       => <%= insert_slicer %>
   )
   port map (
     i_clk                 => <%= register_block.clock %>,
