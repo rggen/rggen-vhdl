@@ -18,6 +18,9 @@ RgGen.define_list_feature(:register_block, :protocol) do
         generic :error_status, {
           name: 'ERROR_STATUS', type: :boolean, default: false
         }
+        generic :insert_slicer, {
+          name: 'INSERT_SLICER', type: :boolean, default: false
+        }
       end
 
       private

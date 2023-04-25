@@ -164,6 +164,7 @@ RSpec.describe 'register_block/protocol/axi4lite' do
             BASE_ADDRESS        => BASE_ADDRESS,
             BYTE_SIZE           => 256,
             ERROR_STATUS        => ERROR_STATUS,
+            INSERT_SLICER       => INSERT_SLICER,
             WRITE_FIRST         => WRITE_FIRST
           )
           port map (

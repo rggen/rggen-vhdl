@@ -101,6 +101,7 @@ RSpec.describe 'register_block/protocol/wishbone' do
             BASE_ADDRESS        => BASE_ADDRESS,
             BYTE_SIZE           => 256,
             ERROR_STATUS        => ERROR_STATUS,
+            INSERT_SLICER       => INSERT_SLICER,
             USE_STALL           => USE_STALL
           )
           port map (

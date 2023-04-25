@@ -8,6 +8,7 @@ u_adapter: entity work.rggen_wishbone_adapter
     BASE_ADDRESS        => <%= base_address %>,
     BYTE_SIZE           => <%= byte_size %>,
     ERROR_STATUS        => <%= error_status %>,
+    INSERT_SLICER       => <%= insert_slicer %>,
     USE_STALL           => <%= use_stall %>
   )
   port map (

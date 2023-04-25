@@ -28,7 +28,7 @@ RSpec.describe 'register_block/protocol' do
     create_vhdl(configuration) { byte_size 256 }.register_blocks.first
   end
 
-  it 'ジェネリックADDRESS_WIDTH/PRE_DECODE/BASE_ADDRESS/ERROR_STATUSを持つ' do
+  it 'ジェネリックADDRESS_WIDTH/PRE_DECODE/BASE_ADDRESS/ERROR_STATUS/INSERT_SLICERを持つ' do
     expect(vhdl_rtl).to have_generic(
       :address_width,
       name: 'ADDRESS_WIDTH', type: :positive, default: local_address_width
@@ -44,6 +44,10 @@ RSpec.describe 'register_block/protocol' do
     expect(vhdl_rtl).to have_generic(
       :error_status,
       name: 'ERROR_STATUS', type: :boolean, default: false
+    )
+    expect(vhdl_rtl).to have_generic(
+      :insert_slicer,
+      name: 'INSERT_SLICER', type: :boolean, default: false
     )
   end
 end
