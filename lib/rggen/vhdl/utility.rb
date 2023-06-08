@@ -20,6 +20,10 @@ module RgGen
         format('x"%0*x"', print_width, value)
       end
 
+      def width_cast(expression, _width)
+        expression
+      end
+
       def local_scope(scope_name, attributes = {}, &block)
         LocalScope.new(attributes.merge(name: scope_name), &block).to_code
       end
