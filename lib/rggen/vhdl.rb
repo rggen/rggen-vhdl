@@ -31,6 +31,7 @@ RgGen.setup_plugin :'rggen-vhdl' do |plugin|
     'vhdl/register/type',
     'vhdl/register/type/external',
     'vhdl/register/type/indirect',
+    'vhdl/register/type/rw',
     'vhdl/bit_field/vhdl_top',
     'vhdl/bit_field/type',
     'vhdl/bit_field/type/custom',
