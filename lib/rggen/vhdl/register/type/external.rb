@@ -3,6 +3,10 @@
 RgGen.define_list_item_feature(:register, :type, :external) do
   vhdl do
     build do
+      generic :strobe_width, {
+        name: "#{register.name}_STROBE_WIDTH".upcase,
+        type: :positive, default: configuration.bus_width / 8
+      }
       output :external_valid, {
         name: "o_#{register.name}_valid"
       }
@@ -16,7 +20,7 @@ RgGen.define_list_item_feature(:register, :type, :external) do
         name: "o_#{register.name}_data", width: bus_width
       }
       output :external_strobe, {
-        name: "o_#{register.name}_strobe", width: bus_width / 8
+        name: "o_#{register.name}_strobe", width: strobe_width
       }
       input :external_ready, {
         name: "i_#{register.name}_ready"

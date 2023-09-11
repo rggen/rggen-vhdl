@@ -309,6 +309,7 @@ RSpec.describe 'register/vhdl_top' do
             generic map (
               ADDRESS_WIDTH => 8,
               BUS_WIDTH     => 32,
+              STROBE_WIDTH  => REGISTER_1_STROBE_WIDTH,
               START_ADDRESS => x"10",
               BYTE_SIZE     => 16
             )
