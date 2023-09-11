@@ -18,6 +18,18 @@ RSpec.describe 'register/type/external' do
     create_vhdl(&body).registers
   end
 
+  it 'ジェネリック#strobe_widthを持つ' do
+    registers = create_registers do
+      byte_size 256
+      register { name 'register_0'; offset_address 0x00; type :external; size [1] }
+    end
+
+    expect(registers[0]).to have_generic(
+      :register_block, :strobe_width,
+      name: 'REGISTER_0_STROBE_WIDTH', type: :positive, default: 4
+    )
+  end
+
   it '外部アクセス用のポート群を持つ' do
     registers = create_registers do
       byte_size 256
@@ -42,7 +54,7 @@ RSpec.describe 'register/type/external' do
     )
     expect(registers[0]).to have_port(
       :register_block, :external_strobe,
-      name: 'o_register_0_strobe', direction: :out, width: 4
+      name: 'o_register_0_strobe', direction: :out, width: 'REGISTER_0_STROBE_WIDTH'
     )
     expect(registers[0]).to have_port(
       :register_block, :external_ready,
@@ -71,6 +83,7 @@ RSpec.describe 'register/type/external' do
           generic map (
             ADDRESS_WIDTH => 8,
             BUS_WIDTH     => 32,
+            STROBE_WIDTH  => REGISTER_0_STROBE_WIDTH,
             START_ADDRESS => x"00",
             BYTE_SIZE     => 4
           )
@@ -103,6 +116,7 @@ RSpec.describe 'register/type/external' do
           generic map (
             ADDRESS_WIDTH => 8,
             BUS_WIDTH     => 32,
+            STROBE_WIDTH  => REGISTER_1_STROBE_WIDTH,
             START_ADDRESS => x"80",
             BYTE_SIZE     => 128
           )
