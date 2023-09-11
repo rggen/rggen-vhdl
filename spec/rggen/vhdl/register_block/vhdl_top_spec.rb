@@ -39,7 +39,7 @@ RSpec.describe 'register_block/vhdl_top' do
       expect(register_block).to have_signal(:register_access, width: 2)
       expect(register_block).to have_signal(:register_address, width: address_width)
       expect(register_block).to have_signal(:register_write_data, width: bus_width)
-      expect(register_block).to have_signal(:register_strobe, width: bus_width / 8)
+      expect(register_block).to have_signal(:register_strobe, width: bus_width)
       expect(register_block).to have_signal(:register_active, array_size: [array_size])
       expect(register_block).to have_signal(:register_ready, array_size: [array_size])
       expect(register_block).to have_signal(:register_status, width: 2, array_size: [array_size])

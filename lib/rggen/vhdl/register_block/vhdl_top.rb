@@ -17,7 +17,7 @@ RgGen.define_simple_feature(:register_block, :vhdl_top) do
         width: bus_width
       }
       signal :register_strobe, {
-        width: bus_width / 8
+        width: bus_width
       }
       signal :register_active, {
         array_size: [total_registers]
