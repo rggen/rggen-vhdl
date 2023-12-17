@@ -27,5 +27,4 @@ Gem::Specification.new do |spec|
   spec.require_paths = ['lib']
 
   spec.add_runtime_dependency 'rggen-systemverilog', '>= 0.31.0'
-  spec.add_development_dependency 'bundler'
 end
