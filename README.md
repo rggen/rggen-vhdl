@@ -68,7 +68,7 @@ Feedbacks, bus reports, questions and etc. are welcome! You can post them bu usi
 
 ## Copyright & License
 
-Copyright &copy; 2021-2023 Taichi Ishitani. RgGen::VHDL is licensed under the [MIT License](https://opensource.org/licenses/MIT), see [LICENSE](LICENSE) for futher details.
+Copyright &copy; 2021-2024 Taichi Ishitani. RgGen::VHDL is licensed under the [MIT License](https://opensource.org/licenses/MIT), see [LICENSE](LICENSE) for futher details.
 
 ## Code of Conduct
 
