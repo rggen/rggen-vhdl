@@ -8,9 +8,6 @@ RgGen.define_list_item_feature(:bit_field, :type, :rws) do
           name: "i_#{full_name}_set", width: 1, array_size: array_size
         }
       end
-      input :value_in, {
-        name: "i_#{full_name}", width: width, array_size: array_size
-      }
       output :value_out, {
         name: "o_#{full_name}", width: width, array_size: array_size
       }

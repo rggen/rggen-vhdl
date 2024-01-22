@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 
-RgGen.define_list_item_feature(:bit_field, :type, :rol) do
+RgGen.define_list_item_feature(:bit_field, :type, :rwhw) do
   vhdl do
     build do
       unless bit_field.reference?
-        input :latch, {
-          name: "i_#{full_name}_latch", width: 1, array_size: array_size
+        input :valid, {
+          name: "i_#{full_name}_valid", width: 1, array_size: array_size
         }
       end
       input :value_in, {
@@ -20,8 +20,8 @@ RgGen.define_list_item_feature(:bit_field, :type, :rol) do
 
     private
 
-    def latch_signal
-      reference_bit_field || latch[loop_variables]
+    def valid_signal
+      reference_bit_field || valid[loop_variables]
     end
   end
 end
