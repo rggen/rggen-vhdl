@@ -5,7 +5,7 @@ RSpec.describe 'register/type/external' do
   include_context 'vhdl common'
 
   before(:all) do
-    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register])
+    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register, :library_name])
     RgGen.enable(:register_block, :byte_size)
     RgGen.enable(:register, [:name, :type, :offset_address, :size])
     RgGen.enable(:register, :type, :external)
@@ -14,8 +14,10 @@ RSpec.describe 'register/type/external' do
     RgGen.enable(:register, :vhdl_top)
   end
 
-  def create_registers(&body)
-    create_vhdl(&body).registers
+  def create_registers(library_name = nil, &body)
+    configuration =
+      library_name && create_configuration(library_name: library_name)
+    create_vhdl(configuration, &body).registers
   end
 
   it 'ジェネリック#strobe_widthを持つ' do
@@ -72,14 +74,15 @@ RSpec.describe 'register/type/external' do
 
   describe '#generate_code' do
     it 'rggen_exernal_registerをインスタンスするコードを出力する' do
-      registers = create_registers do
+      library_name = ['work', 'foo_lib'].sample
+      registers = create_registers(library_name) do
         byte_size 256
         register { name 'register_0'; offset_address 0x00; type :external; size [1] }
         register { name 'register_1'; offset_address 0x80; type :external; size [32] }
       end
 
-      expect(registers[0]).to generate_code(:register, :top_down, <<~'CODE')
-        u_register: entity work.rggen_external_register
+      expect(registers[0]).to generate_code(:register, :top_down, <<~"CODE")
+        u_register: entity #{library_name}.rggen_external_register
           generic map (
             ADDRESS_WIDTH => 8,
             BUS_WIDTH     => 32,
@@ -111,8 +114,8 @@ RSpec.describe 'register/type/external' do
           );
       CODE
 
-      expect(registers[1]).to generate_code(:register, :top_down, <<~'CODE')
-        u_register: entity work.rggen_external_register
+      expect(registers[1]).to generate_code(:register, :top_down, <<~"CODE")
+        u_register: entity #{library_name}.rggen_external_register
           generic map (
             ADDRESS_WIDTH => 8,
             BUS_WIDTH     => 32,

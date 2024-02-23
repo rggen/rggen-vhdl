@@ -5,7 +5,7 @@ RSpec.describe 'register_file/vhdl_top' do
   include_context 'clean-up builder'
 
   before(:all) do
-    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register])
+    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register, :library_name])
     RgGen.enable(:register_block, [:name, :byte_size])
     RgGen.enable(:register_file, [:name, :offset_address, :size])
     RgGen.enable(:register, [:name, :offset_address, :size, :type])

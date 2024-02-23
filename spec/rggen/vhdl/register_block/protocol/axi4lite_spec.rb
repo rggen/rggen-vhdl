@@ -5,7 +5,7 @@ RSpec.describe 'register_block/protocol/axi4lite' do
   include_context 'clean-up builder'
 
   before(:all) do
-    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register])
+    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register, :library_name])
     RgGen.enable(:register_block, [:name, :protocol, :byte_size])
     RgGen.enable(:register_block, :protocol, [:axi4lite])
     RgGen.enable(:register, [:name, :offset_address, :size, :type])
@@ -17,10 +17,14 @@ RSpec.describe 'register_block/protocol/axi4lite' do
 
   let(:bus_width) { 32 }
 
+  let(:library_name) { ['work', 'foo_lib'].sample }
+
   def create_register_block(&body)
-    configuration = create_configuration(
-      address_width: address_width, bus_width: bus_width, protocol: :axi4lite
-    )
+    configuration =
+      create_configuration(
+        address_width: address_width, bus_width: bus_width,
+        protocol: :axi4lite, library_name: library_name
+      )
     create_vhdl(configuration, &body).register_blocks.first
   end
 
@@ -152,8 +156,8 @@ RSpec.describe 'register_block/protocol/axi4lite' do
           register { name 'register_2'; offset_address 0x20; size [1]; type :external }
       end
 
-      expect(register_block).to generate_code(:register_block, :top_down, <<~'CODE')
-        u_adapter: entity work.rggen_axi4lite_adapter
+      expect(register_block).to generate_code(:register_block, :top_down, <<~"CODE")
+        u_adapter: entity #{library_name}.rggen_axi4lite_adapter
           generic map (
             ID_WIDTH            => ID_WIDTH,
             ADDRESS_WIDTH       => ADDRESS_WIDTH,

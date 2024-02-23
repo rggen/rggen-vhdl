@@ -1,4 +1,4 @@
-u_register: entity work.rggen_external_register
+u_register: entity <%= library_name %>.rggen_external_register
   generic map (
     ADDRESS_WIDTH => <%= address_width %>,
     BUS_WIDTH     => <%= bus_width %>,

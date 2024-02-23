@@ -20,6 +20,10 @@ RgGen.define_list_feature(:register, :type) do
         register.writable?
       end
 
+      def library_name
+        configuration.library_name
+      end
+
       def clock
         register_block.clock
       end

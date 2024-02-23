@@ -108,8 +108,8 @@ RSpec.describe 'bit_field/type/w1trg' do
 
   describe '#generate_code' do
     it 'rggen_bit_field_w01trgをインスタンスするコードを生成する' do
-      expect(bit_fields[0]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field_w01trg
+      expect(bit_fields[0]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field_w01trg
           generic map (
             WRITE_ONE_TRIGGER => true,
             WIDTH             => 1
@@ -129,8 +129,8 @@ RSpec.describe 'bit_field/type/w1trg' do
           );
       CODE
 
-      expect(bit_fields[1]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field_w01trg
+      expect(bit_fields[1]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field_w01trg
           generic map (
             WRITE_ONE_TRIGGER => true,
             WIDTH             => 4
@@ -150,8 +150,8 @@ RSpec.describe 'bit_field/type/w1trg' do
           );
       CODE
 
-      expect(bit_fields[2]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field_w01trg
+      expect(bit_fields[2]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field_w01trg
           generic map (
             WRITE_ONE_TRIGGER => true,
             WIDTH             => 4
@@ -171,8 +171,8 @@ RSpec.describe 'bit_field/type/w1trg' do
           );
       CODE
 
-      expect(bit_fields[5]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field_w01trg
+      expect(bit_fields[5]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field_w01trg
           generic map (
             WRITE_ONE_TRIGGER => true,
             WIDTH             => 4
@@ -192,8 +192,8 @@ RSpec.describe 'bit_field/type/w1trg' do
           );
       CODE
 
-      expect(bit_fields[8]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field_w01trg
+      expect(bit_fields[8]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field_w01trg
           generic map (
             WRITE_ONE_TRIGGER => true,
             WIDTH             => 4
@@ -213,8 +213,8 @@ RSpec.describe 'bit_field/type/w1trg' do
           );
       CODE
 
-      expect(bit_fields[11]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field_w01trg
+      expect(bit_fields[11]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field_w01trg
           generic map (
             WRITE_ONE_TRIGGER => true,
             WIDTH             => 4

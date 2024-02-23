@@ -42,6 +42,14 @@ RgGen.define_simple_feature(:register_block, :vhdl_top) do
 
     private
 
+    def use_default_library?
+      configuration.use_default_library?
+    end
+
+    def library_name
+      configuration.library_name
+    end
+
     def total_registers
       register_block.files_and_registers.sum(&:count)
     end

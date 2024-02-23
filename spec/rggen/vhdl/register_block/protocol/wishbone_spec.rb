@@ -5,7 +5,7 @@ RSpec.describe 'register_block/protocol/wishbone' do
   include_context 'clean-up builder'
 
   before(:all) do
-    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register])
+    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register, :library_name])
     RgGen.enable(:register_block, [:name, :protocol, :byte_size])
     RgGen.enable(:register_block, :protocol, [:wishbone])
     RgGen.enable(:register, [:name, :offset_address, :size, :type])
@@ -16,6 +16,8 @@ RSpec.describe 'register_block/protocol/wishbone' do
   let(:address_width) { 16 }
 
   let(:bus_width) { 32 }
+
+  let(:library_name) { ['work', 'foo_lib'].sample }
 
   let(:register_block) do
     create_register_block do
@@ -28,9 +30,11 @@ RSpec.describe 'register_block/protocol/wishbone' do
   end
 
   def create_register_block(&body)
-    configuration = create_configuration(
-      address_width: address_width, bus_width: bus_width, protocol: :wishbone
-    )
+    configuration =
+      create_configuration(
+        address_width: address_width, bus_width: bus_width,
+        protocol: :wishbone, library_name: library_name
+      )
     create_vhdl(configuration, &body).register_blocks.first
   end
 
@@ -90,8 +94,8 @@ RSpec.describe 'register_block/protocol/wishbone' do
 
   describe '#generate_code' do
     it 'rggen_wishbone_adapterをインスタンスするコードを生成する' do
-      expect(register_block).to generate_code(:register_block, :top_down, <<~'CODE')
-        u_adapter: entity work.rggen_wishbone_adapter
+      expect(register_block).to generate_code(:register_block, :top_down, <<~"CODE")
+        u_adapter: entity #{library_name}.rggen_wishbone_adapter
           generic map (
             ADDRESS_WIDTH       => ADDRESS_WIDTH,
             LOCAL_ADDRESS_WIDTH => 8,

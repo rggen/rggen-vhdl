@@ -1,7 +1,7 @@
 <% index_fields_and_values.each_with_index do |(field, value), i| %>
 <%= indirect_match[i] %> <= '1' when unsigned(<%= field %>) = <%= value %> else '0';
 <% end %>
-u_register: entity work.rggen_indirect_register
+u_register: entity <%= library_name %>.rggen_indirect_register
   generic map (
     READABLE              => <%= readable? %>,
     WRITABLE              => <%= writable? %>,

@@ -25,6 +25,10 @@ RgGen.define_list_feature(:register_block, :protocol) do
 
       private
 
+      def library_name
+        configuration.library_name
+      end
+
       def bus_width
         configuration.bus_width
       end

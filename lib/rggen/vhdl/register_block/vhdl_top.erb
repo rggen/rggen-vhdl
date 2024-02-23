@@ -2,7 +2,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-use work.rggen_rtl.all;
+<% unless use_default_library? %>
+library <%= library_name %>;
+<% end %>
+use <%= library_name %>.rggen_rtl.all;
 
 entity <%= register_block.name %> is
   generic (

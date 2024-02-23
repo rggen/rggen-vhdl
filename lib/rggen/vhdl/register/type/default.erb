@@ -1,4 +1,4 @@
-u_register: entity work.rggen_default_register
+u_register: entity <%= library_name %>.rggen_default_register
   generic map (
     READABLE        => <%= readable? %>,
     WRITABLE        => <%= writable? %>,

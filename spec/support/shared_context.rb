@@ -89,7 +89,7 @@ RSpec.shared_context 'bit field vhdl common' do
   include_context 'vhdl common'
 
   before(:all) do
-    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register])
+    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register, :library_name])
     RgGen.enable(:register_block, :byte_size)
     RgGen.enable(:register_file, [:name, :size, :offset_address])
     RgGen.enable(:register, [:name, :size, :type, :offset_address])
@@ -100,8 +100,13 @@ RSpec.shared_context 'bit field vhdl common' do
     RgGen.enable(:bit_field, :vhdl_top)
   end
 
+  let(:library_name) do
+    ['work', 'foo_lib'].sample
+  end
+
   def create_bit_fields(&body)
-    configuration = create_configuration(enable_wide_register: true)
+    configuration =
+      create_configuration(enable_wide_register: true, library_name: library_name)
     create_vhdl(configuration, &body).bit_fields
   end
 end
