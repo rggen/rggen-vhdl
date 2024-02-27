@@ -306,8 +306,8 @@ RSpec.describe 'bit_field/type/rohw' do
 
   describe '#generate_code' do
     it 'rggen_bit_fieldをインスタンスするコードを出力する' do
-      expect(bit_fields[0]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[0]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 1,
             INITIAL_VALUE   => slice(x"0", 1, 0),
@@ -336,8 +336,8 @@ RSpec.describe 'bit_field/type/rohw' do
           );
       CODE
 
-      expect(bit_fields[1]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[1]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 1,
             INITIAL_VALUE   => slice(x"0", 1, 0),
@@ -366,8 +366,8 @@ RSpec.describe 'bit_field/type/rohw' do
           );
       CODE
 
-      expect(bit_fields[2]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[2]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 2,
             INITIAL_VALUE   => slice(x"0", 2, 0),
@@ -396,8 +396,8 @@ RSpec.describe 'bit_field/type/rohw' do
           );
       CODE
 
-      expect(bit_fields[3]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[3]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 2,
             INITIAL_VALUE   => slice(x"0", 2, 0),
@@ -426,8 +426,8 @@ RSpec.describe 'bit_field/type/rohw' do
           );
       CODE
 
-      expect(bit_fields[4]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[4]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 4,
             INITIAL_VALUE   => slice(x"0", 4, 0),
@@ -456,8 +456,8 @@ RSpec.describe 'bit_field/type/rohw' do
           );
       CODE
 
-      expect(bit_fields[5]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[5]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 4,
             INITIAL_VALUE   => slice(x"0", 4, 0),
@@ -486,8 +486,8 @@ RSpec.describe 'bit_field/type/rohw' do
           );
       CODE
 
-      expect(bit_fields[10]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[10]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 4,
             INITIAL_VALUE   => slice(x"0", 4, 0),
@@ -516,8 +516,8 @@ RSpec.describe 'bit_field/type/rohw' do
           );
       CODE
 
-      expect(bit_fields[11]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[11]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 4,
             INITIAL_VALUE   => slice(x"0", 4, 0),
@@ -546,8 +546,8 @@ RSpec.describe 'bit_field/type/rohw' do
           );
       CODE
 
-      expect(bit_fields[16]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[16]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 4,
             INITIAL_VALUE   => slice(x"0", 4, 0),
@@ -576,8 +576,8 @@ RSpec.describe 'bit_field/type/rohw' do
           );
       CODE
 
-      expect(bit_fields[17]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[17]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 4,
             INITIAL_VALUE   => slice(x"0", 4, 0),
@@ -606,8 +606,8 @@ RSpec.describe 'bit_field/type/rohw' do
           );
       CODE
 
-      expect(bit_fields[22]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[22]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 4,
             INITIAL_VALUE   => slice(x"0", 4, 0),
@@ -636,8 +636,8 @@ RSpec.describe 'bit_field/type/rohw' do
           );
       CODE
 
-      expect(bit_fields[23]).to generate_code(:bit_field, :top_down, <<~'CODE')
-        u_bit_field: entity work.rggen_bit_field
+      expect(bit_fields[23]).to generate_code(:bit_field, :top_down, <<~"CODE")
+        u_bit_field: entity #{library_name}.rggen_bit_field
           generic map (
             WIDTH           => 4,
             INITIAL_VALUE   => slice(x"0", 4, 0),

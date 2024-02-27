@@ -5,7 +5,7 @@ RSpec.describe 'register/type/indirect' do
   include_context 'vhdl common'
 
   before(:all) do
-    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register])
+    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register, :library_name])
     RgGen.enable(:register_block, :byte_size)
     RgGen.enable(:register_file, [:name, :offset_address, :size])
     RgGen.enable(:register, [:name, :offset_address, :size, :type])
@@ -18,8 +18,16 @@ RSpec.describe 'register/type/indirect' do
     RgGen.enable(:bit_field, :vhdl_top)
   end
 
+  let(:library_name) do
+    ['work', 'foo_lib'].sample
+  end
+
+  let(:configuration) do
+    create_configuration(library_name: library_name)
+  end
+
   let(:registers) do
-    vhdl = create_vhdl do
+    vhdl = create_vhdl(configuration) do
       byte_size 256
 
       register do
@@ -180,15 +188,15 @@ RSpec.describe 'register/type/indirect' do
 
   describe '#generate_code' do
     it 'rggen_indirect_registerをインスタンスするコードを出力する' do
-      expect(registers[4]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[4]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
         indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 1 else '0';
-        u_register: entity work.rggen_indirect_register
+        u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
             WRITABLE              => true,
@@ -221,15 +229,15 @@ RSpec.describe 'register/type/indirect' do
           );
       CODE
 
-      expect(registers[5]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[5]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
         indirect_match(0) <= '1' when unsigned(register_value(9 downto 8)) = i else '0';
-        u_register: entity work.rggen_indirect_register
+        u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
             WRITABLE              => true,
@@ -262,16 +270,16 @@ RSpec.describe 'register/type/indirect' do
           );
       CODE
 
-      expect(registers[6]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[6]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
         indirect_match(0) <= '1' when unsigned(register_value(9 downto 8)) = i else '0';
         indirect_match(1) <= '1' when unsigned(register_value(19 downto 16)) = j else '0';
-        u_register: entity work.rggen_indirect_register
+        u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
             WRITABLE              => true,
@@ -304,17 +312,17 @@ RSpec.describe 'register/type/indirect' do
           );
       CODE
 
-      expect(registers[7]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[7]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
         indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
         indirect_match(1) <= '1' when unsigned(register_value(9 downto 8)) = i else '0';
         indirect_match(2) <= '1' when unsigned(register_value(19 downto 16)) = j else '0';
-        u_register: entity work.rggen_indirect_register
+        u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
             WRITABLE              => true,
@@ -347,15 +355,15 @@ RSpec.describe 'register/type/indirect' do
           );
       CODE
 
-      expect(registers[8]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[8]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
         indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
-        u_register: entity work.rggen_indirect_register
+        u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
             WRITABLE              => false,
@@ -388,15 +396,15 @@ RSpec.describe 'register/type/indirect' do
           );
       CODE
 
-      expect(registers[9]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[9]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
         indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
-        u_register: entity work.rggen_indirect_register
+        u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => false,
             WRITABLE              => true,
@@ -429,16 +437,16 @@ RSpec.describe 'register/type/indirect' do
           );
       CODE
 
-      expect(registers[10]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[10]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
         indirect_match(0) <= '1' when unsigned(register_value(33 downto 32)) = i else '0';
         indirect_match(1) <= '1' when unsigned(register_value(65 downto 64)) = 0 else '0';
-        u_register: entity work.rggen_indirect_register
+        u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
             WRITABLE              => true,
@@ -471,17 +479,17 @@ RSpec.describe 'register/type/indirect' do
           );
       CODE
 
-      expect(registers[11]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[11]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
         indirect_match(0) <= '1' when unsigned(register_value(96 downto 96)) = 0 else '0';
         indirect_match(1) <= '1' when unsigned(register_value(105 downto 104)) = i else '0';
         indirect_match(2) <= '1' when unsigned(register_value(115 downto 112)) = j else '0';
-        u_register: entity work.rggen_indirect_register
+        u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
             WRITABLE              => true,
@@ -514,17 +522,17 @@ RSpec.describe 'register/type/indirect' do
           );
       CODE
 
-      expect(registers[12]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[12]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
         indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
         indirect_match(1) <= '1' when unsigned(register_value(9 downto 8)) = k else '0';
         indirect_match(2) <= '1' when unsigned(register_value(19 downto 16)) = l else '0';
-        u_register: entity work.rggen_indirect_register
+        u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
             WRITABLE              => true,
@@ -557,17 +565,17 @@ RSpec.describe 'register/type/indirect' do
           );
       CODE
 
-      expect(registers[13]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[13]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
         indirect_match(0) <= '1' when unsigned(register_value(96 downto 96)) = 0 else '0';
         indirect_match(1) <= '1' when unsigned(register_value(105 downto 104)) = k else '0';
         indirect_match(2) <= '1' when unsigned(register_value(115 downto 112)) = l else '0';
-        u_register: entity work.rggen_indirect_register
+        u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
             WRITABLE              => true,

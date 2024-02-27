@@ -5,6 +5,10 @@ RgGen.define_list_feature(:bit_field, :type) do
     base_feature do
       private
 
+      def library_name
+        configuration.library_name
+      end
+
       def full_name
         bit_field.full_name('_')
       end

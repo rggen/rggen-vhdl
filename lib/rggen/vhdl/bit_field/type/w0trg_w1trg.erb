@@ -1,4 +1,4 @@
-u_bit_field: entity work.rggen_bit_field_w01trg
+u_bit_field: entity <%= library_name %>.rggen_bit_field_w01trg
   generic map (
     WRITE_ONE_TRIGGER => <%= write_one_trigger? %>,
     WIDTH             => <%= width %>

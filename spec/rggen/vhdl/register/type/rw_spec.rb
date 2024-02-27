@@ -5,7 +5,7 @@ RSpec.describe 'register/type/default' do
   include_context 'vhdl common'
 
   before(:all) do
-    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register])
+    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register, :library_name])
     RgGen.enable(:register_block, :byte_size)
     RgGen.enable(:register_file, [:name, :offset_address, :size])
     RgGen.enable(:register, [:name, :offset_address, :size, :type])
@@ -23,8 +23,16 @@ RSpec.describe 'register/type/default' do
       [:rw, :ro, :wo].sample
     end
 
+    let(:library_name) do
+      ['work', 'foo_lib'].sample
+    end
+
+    let(:configuration) do
+      create_configuration(library_name: library_name)
+    end
+
     let(:registers) do
-      vhdl = create_vhdl do
+      vhdl = create_vhdl(configuration) do
         byte_size 512
 
         register do
@@ -138,14 +146,14 @@ RSpec.describe 'register/type/default' do
     end
 
     it 'rggen_default_registerをインスタンスするコードを出力する' do
-      expect(registers[0]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[0]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,
@@ -176,14 +184,14 @@ RSpec.describe 'register/type/default' do
           );
       CODE
 
-      expect(registers[1]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[1]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,
@@ -214,14 +222,14 @@ RSpec.describe 'register/type/default' do
           );
       CODE
 
-      expect(registers[2]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[2]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,
@@ -252,14 +260,14 @@ RSpec.describe 'register/type/default' do
           );
       CODE
 
-      expect(registers[3]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[3]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,
@@ -290,14 +298,14 @@ RSpec.describe 'register/type/default' do
           );
       CODE
 
-      expect(registers[4]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"ffffffff", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[4]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"ffffffff", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,
@@ -328,14 +336,14 @@ RSpec.describe 'register/type/default' do
           );
       CODE
 
-      expect(registers[5]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"f0f0f0f0", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[5]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"f0f0f0f0", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,
@@ -366,14 +374,14 @@ RSpec.describe 'register/type/default' do
           );
       CODE
 
-      expect(registers[6]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 63 generate
-          g: if (bit_slice(x"0000000100000000", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[6]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 63 generate
+          g: if (bit_slice(x"0000000100000000", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,
@@ -404,14 +412,14 @@ RSpec.describe 'register/type/default' do
           );
       CODE
 
-      expect(registers[7]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 63 generate
-          g: if (bit_slice(x"f0f0f0f0f0f0f0f0", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[7]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 63 generate
+          g: if (bit_slice(x"f0f0f0f0f0f0f0f0", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,
@@ -442,14 +450,14 @@ RSpec.describe 'register/type/default' do
           );
       CODE
 
-      expect(registers[8]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[8]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,
@@ -480,14 +488,14 @@ RSpec.describe 'register/type/default' do
           );
       CODE
 
-      expect(registers[9]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"00000001", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[9]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,
@@ -518,14 +526,14 @@ RSpec.describe 'register/type/default' do
           );
       CODE
 
-      expect(registers[10]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"0000ffff", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[10]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"0000ffff", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,
@@ -556,14 +564,14 @@ RSpec.describe 'register/type/default' do
           );
       CODE
 
-      expect(registers[11]).to generate_code(:register, :top_down, <<~'CODE')
-        \g_tie_off\: for \__i\ in 0 to 31 generate
-          g: if (bit_slice(x"0000ffff", \__i\) = '0') generate
-            bit_field_read_data(\__i\) <= '0';
-            bit_field_value(\__i\) <= '0';
+      expect(registers[11]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"0000ffff", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        u_register: entity work.rggen_default_register
+        u_register: entity #{library_name}.rggen_default_register
           generic map (
             READABLE        => true,
             WRITABLE        => true,

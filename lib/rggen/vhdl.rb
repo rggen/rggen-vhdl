@@ -21,6 +21,7 @@ RgGen.setup_plugin :'rggen-vhdl' do |plugin|
   end
 
   plugin.files [
+    'vhdl/global/library_name',
     'vhdl/register_block/vhdl_top',
     'vhdl/register_block/protocol',
     'vhdl/register_block/protocol/apb',
