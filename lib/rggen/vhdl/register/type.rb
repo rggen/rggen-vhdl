@@ -95,6 +95,14 @@ RgGen.define_list_feature(:register, :type) do
       def bit_field_value
         register.bit_field_value
       end
+
+      def format_offsets(offsets)
+        if integer?(offsets.first)
+          super(offsets)
+        else
+          super([0, *offsets])
+        end
+      end
     end
 
     default_feature do
