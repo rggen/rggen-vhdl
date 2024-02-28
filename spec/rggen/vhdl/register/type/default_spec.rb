@@ -27,7 +27,8 @@ RSpec.describe 'register/type/default' do
     end
 
     let(:registers) do
-      vhdl = create_vhdl(configuration) do
+      vhdl = []
+      vhdl << create_vhdl(configuration) do
         byte_size 512
 
         register do
@@ -125,7 +126,19 @@ RSpec.describe 'register/type/default' do
           end
         end
       end
-      vhdl.registers
+
+      vhdl << create_vhdl(configuration) do
+        byte_size 512
+
+        register do
+          name 'register_0'
+          offset_address 0x00
+          size [4]
+          bit_field { name 'bit_field_0'; bit_assignment lsb: 0; type :rw; initial_value 0 }
+        end
+      end
+
+      vhdl.flat_map(&:registers)
     end
 
     it 'rggen_default_registerをインスタンスするコードを出力する' do
@@ -576,6 +589,44 @@ RSpec.describe 'register/type/default' do
             o_register_status       => register_status(2*(33+2*i+j)+1 downto 2*(33+2*i+j)),
             o_register_read_data    => register_read_data(32*(33+2*i+j)+31 downto 32*(33+2*i+j)),
             o_register_value        => register_value(64*(33+2*i+j)+0+31 downto 64*(33+2*i+j)+0),
+            o_bit_field_valid       => bit_field_valid,
+            o_bit_field_read_mask   => bit_field_read_mask,
+            o_bit_field_write_mask  => bit_field_write_mask,
+            o_bit_field_write_data  => bit_field_write_data,
+            i_bit_field_read_data   => bit_field_read_data,
+            i_bit_field_value       => bit_field_value
+          );
+      CODE
+
+      expect(registers[12]).to generate_code(:register, :top_down, <<~"CODE")
+        \\g_tie_off\\: for \\__i\\ in 0 to 31 generate
+          g: if (bit_slice(x"00000001", \\__i\\) = '0') generate
+            bit_field_read_data(\\__i\\) <= '0';
+            bit_field_value(\\__i\\) <= '0';
+          end generate;
+        end generate;
+        u_register: entity #{library_name}.rggen_default_register
+          generic map (
+            READABLE        => true,
+            WRITABLE        => true,
+            ADDRESS_WIDTH   => 9,
+            OFFSET_ADDRESS  => x"000"+4*i,
+            BUS_WIDTH       => 32,
+            DATA_WIDTH      => 32
+          )
+          port map (
+            i_clk                   => i_clk,
+            i_rst_n                 => i_rst_n,
+            i_register_valid        => register_valid,
+            i_register_access       => register_access,
+            i_register_address      => register_address,
+            i_register_write_data   => register_write_data,
+            i_register_strobe       => register_strobe,
+            o_register_active       => register_active(i),
+            o_register_ready        => register_ready(i),
+            o_register_status       => register_status(2*(i)+1 downto 2*(i)),
+            o_register_read_data    => register_read_data(32*(i)+31 downto 32*(i)),
+            o_register_value        => register_value(32*(i)+0+31 downto 32*(i)+0),
             o_bit_field_valid       => bit_field_valid,
             o_bit_field_read_mask   => bit_field_read_mask,
             o_bit_field_write_mask  => bit_field_write_mask,
