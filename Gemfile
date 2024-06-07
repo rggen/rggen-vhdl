@@ -12,3 +12,7 @@ eval_gemfile(gemfile)
 group :rggen do
   gem_patched 'facets'
 end
+
+for_ci do
+  gem_bundled 'racc'
+end
