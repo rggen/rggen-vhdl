@@ -2,33 +2,33 @@
 
 RgGen.define_list_item_feature(:register, :type, :indirect) do
   vhdl do
+    include RgGen::SystemVerilog::RTL::IndirectIndex
+
     build do
-      signal :indirect_match, { width: match_width }
+      signal :indirect_match, { width: index_match_width }
     end
 
-    main_code :register, from_template: true
+    main_code :register do |code|
+      indirect_index_matches(code)
+      code << process_template
+    end
 
     private
 
-    def match_width
-      register.index_entries.size
+    def array_index_value(value, _width)
+      value
     end
 
-    def index_fields
-      register
-        .collect_index_fields(register_block.bit_fields)
-        .map(&:value)
+    def fixed_index_value(value, _width)
+      value
     end
 
-    def index_values
-      loop_variables = register.local_loop_variables
-      register.index_entries.map do |entry|
-        entry.array_index? && loop_variables.shift || entry.value
-      end
+    def index_match_rhs(index)
+      indirect_match[index]
     end
 
-    def index_fields_and_values
-      index_fields.zip(index_values)
+    def index_match_lhs(field, value)
+      "'1' when unsigned(#{field}) = #{value} else '0'"
     end
   end
 end

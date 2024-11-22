@@ -1,6 +1,3 @@
-<% index_fields_and_values.each_with_index do |(field, value), i| %>
-<%= indirect_match[i] %> <= '1' when unsigned(<%= field %>) = <%= value %> else '0';
-<% end %>
 u_register: entity <%= library_name %>.rggen_indirect_register
   generic map (
     READABLE              => <%= readable? %>,
@@ -9,7 +6,7 @@ u_register: entity <%= library_name %>.rggen_indirect_register
     OFFSET_ADDRESS        => <%= offset_address %>,
     BUS_WIDTH             => <%= bus_width %>,
     DATA_WIDTH            => <%= width %>,
-    INDIRECT_MATCH_WIDTH  => <%= match_width %>
+    INDIRECT_MATCH_WIDTH  => <%= index_match_width %>
   )
   port map (
     i_clk                   => <%= clock %>,
