@@ -5,11 +5,11 @@ RgGen.define_list_item_feature(:bit_field, :type, [:row0trg, :row1trg]) do
     build do
       unless bit_field.reference?
         input :value_in, {
-          name: "i_#{full_name}", width: width, array_size: array_size
+          name: "i_#{full_name}", width:, array_size:
         }
       end
       output :trigger, {
-        name: "o_#{full_name}_trigger", width: width, array_size: array_size
+        name: "o_#{full_name}_trigger", width:, array_size:
       }
     end
 

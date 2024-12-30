@@ -4,11 +4,11 @@ RgGen.define_list_item_feature(:bit_field, :type, [:wo, :wo1, :wotrg]) do
   vhdl do
     build do
       output :value_out, {
-        name: "o_#{full_name}", width: width, array_size: array_size
+        name: "o_#{full_name}", width:, array_size:
       }
       if wotrg?
         output :write_trigger, {
-          name: "o_#{full_name}_write_trigger", width: 1, array_size: array_size
+          name: "o_#{full_name}_write_trigger", width: 1, array_size:
         }
       end
     end

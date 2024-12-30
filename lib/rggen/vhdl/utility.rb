@@ -24,8 +24,8 @@ module RgGen
         expression
       end
 
-      def local_scope(scope_name, attributes = {}, &block)
-        LocalScope.new(attributes.merge(name: scope_name), &block).to_code
+      def local_scope(scope_name, attributes = {}, &)
+        LocalScope.new(attributes.merge(name: scope_name), &).to_code
       end
     end
   end

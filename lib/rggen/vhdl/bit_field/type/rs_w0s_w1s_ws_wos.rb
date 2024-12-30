@@ -4,10 +4,10 @@ RgGen.define_list_item_feature(:bit_field, :type, [:rs, :w0s, :w1s, :ws, :wos]) 
   vhdl do
     build do
       input :clear, {
-        name: "i_#{full_name}_clear", width: width, array_size: array_size
+        name: "i_#{full_name}_clear", width:, array_size:
       }
       output :value_out, {
-        name: "o_#{full_name}", width: width, array_size: array_size
+        name: "o_#{full_name}", width:, array_size:
       }
     end
 

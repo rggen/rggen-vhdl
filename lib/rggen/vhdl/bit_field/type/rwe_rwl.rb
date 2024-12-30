@@ -6,11 +6,11 @@ RgGen.define_list_item_feature(:bit_field, :type, [:rwe, :rwl]) do
       unless bit_field.reference?
         input :control, {
           name: "i_#{full_name}_#{enable_or_lock}",
-          width: 1, array_size: array_size
+          width: 1, array_size:
         }
       end
       output :value_out, {
-        name: "o_#{full_name}", width: width, array_size: array_size
+        name: "o_#{full_name}", width:, array_size:
       }
     end
 

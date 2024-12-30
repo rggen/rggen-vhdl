@@ -4,14 +4,14 @@ RgGen.define_list_item_feature(:bit_field, :type, [:rc, :w0c, :w1c, :wc, :woc]) 
   vhdl do
     build do
       input :set, {
-        name: "i_#{full_name}_set", width: width, array_size: array_size
+        name: "i_#{full_name}_set", width:, array_size:
       }
       output :value_out, {
-        name: "o_#{full_name}", width: width, array_size: array_size
+        name: "o_#{full_name}", width:, array_size:
       }
       if bit_field.reference?
         output :value_unmasked, {
-          name: "o_#{full_name}_unmasked", width: width, array_size: array_size
+          name: "o_#{full_name}_unmasked", width:, array_size:
         }
       end
     end
