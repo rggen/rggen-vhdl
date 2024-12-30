@@ -4,7 +4,7 @@ RgGen.define_list_item_feature(:bit_field, :type, [:w0trg, :w1trg]) do
   vhdl do
     build do
       output :trigger, {
-        name: "o_#{full_name}_trigger", width: width, array_size: array_size
+        name: "o_#{full_name}_trigger", width:, array_size:
       }
     end
 

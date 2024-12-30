@@ -6,7 +6,7 @@ RgGen.define_list_item_feature(
   vhdl do
     build do
       output :value_out, {
-        name: "o_#{full_name}", width: width, array_size: array_size
+        name: "o_#{full_name}", width:, array_size:
       }
     end
 

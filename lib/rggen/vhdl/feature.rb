@@ -7,19 +7,19 @@ module RgGen
 
       private
 
-      def create_signal(_, attributes, &block)
-        DataObject.new(:signal, attributes, &block)
+      def create_signal(_, attributes, &)
+        DataObject.new(:signal, attributes, &)
       end
 
-      def create_port(direction, attributes, &block)
+      def create_port(direction, attributes, &)
         attributes =
           attributes
             .merge(direction: { input: :in, output: :out }[direction])
-        DataObject.new(:port, attributes, &block)
+        DataObject.new(:port, attributes, &)
       end
 
-      def create_generic(_, attributes, &block)
-        DataObject.new(:generic, attributes, &block)
+      def create_generic(_, attributes, &)
+        DataObject.new(:generic, attributes, &)
       end
 
       define_entity :signal, :create_signal, :signal, -> { component }
