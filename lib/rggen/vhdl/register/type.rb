@@ -98,7 +98,7 @@ RgGen.define_list_feature(:register, :type) do
 
       def format_offsets(offsets)
         if integer?(offsets.first)
-          super(offsets)
+          super
         else
           super([0, *offsets])
         end
