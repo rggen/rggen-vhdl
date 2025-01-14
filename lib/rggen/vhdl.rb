@@ -9,6 +9,7 @@ require_relative 'vhdl/utility'
 require_relative 'vhdl/component'
 require_relative 'vhdl/feature'
 require_relative 'vhdl/factories'
+require_relative 'vhdl/register_map/keyword_checker'
 
 RgGen.setup_plugin :'rggen-vhdl' do |plugin|
   plugin.version RgGen::VHDL::VERSION
@@ -53,5 +54,9 @@ RgGen.setup_plugin :'rggen-vhdl' do |plugin|
     'vhdl/bit_field/type/w0trg_w1trg',
     'vhdl/bit_field/type/wo_wo1_wotrg',
     'vhdl/bit_field/type/wrc_wrs'
+  ]
+
+  plugin.files [
+    'vhdl/register_map/name'
   ]
 end
