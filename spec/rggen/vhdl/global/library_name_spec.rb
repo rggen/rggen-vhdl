@@ -15,7 +15,7 @@ RSpec.describe 'global/library_name' do
     end
 
     it '入力されたライブラリ名を返す' do
-      ['work', random_string(/[_a-z][_a-z0-9]*/i)].each do |name|
+      ['work', random_string(/[a-z]\w+/i)].each do |name|
         configuration = create_configuration(library_name: name)
         expect(configuration).to have_property(:library_name, name)
       end
@@ -41,7 +41,7 @@ RSpec.describe 'global/library_name' do
 
     context 'ライブラリ名がwork以外の場合' do
       it '偽を返す' do
-        ['foo', 'wwork', 'workk', '_work', 'work_', 'wo_rk'].each do |name|
+        ['foo', 'wwork', 'workk', 'work_', 'wo_rk'].each do |name|
           configuration = create_configuration(library_name: name)
           expect(configuration).to have_property(:use_default_library?, false)
         end
@@ -53,6 +53,9 @@ RSpec.describe 'global/library_name' do
     context 'ライブラリ名が入力パターンに一致しない場合' do
       it 'ConfigurationErrorを起こす' do
         [
+          '_',
+          random_string(/_\w+/),
+          random_string(/[a-z]/i),
           random_string(/[0-9][a-z_]/i),
           random_string(/[a-z_][[:punct:]&&[^_]][0-9a-z_]/i),
           random_string(/[a-z_]\s+[a-z_]/i)
