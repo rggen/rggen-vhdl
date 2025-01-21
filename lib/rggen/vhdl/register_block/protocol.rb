@@ -30,7 +30,7 @@ RgGen.define_list_feature(:register_block, :protocol) do
       end
 
       def bus_width
-        configuration.bus_width
+        register_block.bus_width
       end
 
       def local_address_width
@@ -47,8 +47,8 @@ RgGen.define_list_feature(:register_block, :protocol) do
     end
 
     factory do
-      def target_feature_key(configuration, _register_block)
-        configuration.protocol
+      def target_feature_key(_configuration, register_block)
+        register_block.protocol
       end
     end
   end

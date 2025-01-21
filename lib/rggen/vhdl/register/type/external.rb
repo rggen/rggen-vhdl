@@ -5,7 +5,7 @@ RgGen.define_list_item_feature(:register, :type, :external) do
     build do
       generic :strobe_width, {
         name: "#{register.name}_STROBE_WIDTH".upcase,
-        type: :positive, default: configuration.bus_width / 8
+        type: :positive, default: register_block.byte_width
       }
       output :external_valid, {
         name: "o_#{register.name}_valid"

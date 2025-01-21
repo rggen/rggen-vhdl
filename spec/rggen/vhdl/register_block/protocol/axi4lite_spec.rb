@@ -5,8 +5,8 @@ RSpec.describe 'register_block/protocol/axi4lite' do
   include_context 'clean-up builder'
 
   before(:all) do
-    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register, :library_name])
-    RgGen.enable(:register_block, [:name, :protocol, :byte_size])
+    RgGen.enable(:global, [:address_width, :enable_wide_register, :library_name])
+    RgGen.enable(:register_block, [:name, :protocol, :byte_size, :bus_width])
     RgGen.enable(:register_block, :protocol, [:axi4lite])
     RgGen.enable(:register, [:name, :offset_address, :size, :type])
     RgGen.enable(:register, :type, [:external])
