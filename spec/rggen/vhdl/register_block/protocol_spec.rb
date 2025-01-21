@@ -12,8 +12,8 @@ RSpec.describe 'register_block/protocol' do
       vhdl {}
     end
 
-    RgGen.enable(:global, [:bus_width, :address_width])
-    RgGen.enable(:register_block, [:protocol, :byte_size])
+    RgGen.enable(:global, [:address_width])
+    RgGen.enable(:register_block, [:protocol, :byte_size, :bus_width])
     RgGen.enable(:register_block, :protocol, :foo)
   end
 

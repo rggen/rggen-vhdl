@@ -89,8 +89,8 @@ RSpec.shared_context 'bit field vhdl common' do
   include_context 'vhdl common'
 
   before(:all) do
-    RgGen.enable(:global, [:bus_width, :address_width, :enable_wide_register, :library_name])
-    RgGen.enable(:register_block, :byte_size)
+    RgGen.enable(:global, [:address_width, :enable_wide_register, :library_name])
+    RgGen.enable(:register_block, [:byte_size, :bus_width])
     RgGen.enable(:register_file, [:name, :size, :offset_address])
     RgGen.enable(:register, [:name, :size, :type, :offset_address])
     RgGen.enable(:bit_field, [:name, :bit_assignment, :initial_value, :reference, :type])
