@@ -51,7 +51,7 @@ RSpec.describe 'global/library_name' do
 
   describe 'エラーチェック' do
     context 'ライブラリ名が入力パターンに一致しない場合' do
-      it 'ConfigurationErrorを起こす' do
+      it 'SourceErrorを起こす' do
         [
           '_',
           random_string(/_\w+/),
@@ -61,7 +61,7 @@ RSpec.describe 'global/library_name' do
           random_string(/[a-z_]\s+[a-z_]/i)
         ].each do |invalid_name|
           expect { create_configuration(library_name: invalid_name) }
-            .to raise_configuration_error("illegal input value for library name: #{invalid_name.inspect}")
+            .to raise_source_error("illegal input value for library name: #{invalid_name.inspect}")
         end
       end
     end

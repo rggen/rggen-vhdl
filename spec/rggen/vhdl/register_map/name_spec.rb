@@ -38,26 +38,26 @@ RSpec.describe 'regiter_map/name' do
   end
 
   context 'レジスタブロック名がVHDLの予約語に一致する場合' do
-    it 'RegiterMapErrorを起こす' do
+    it 'SourceErrorを起こす' do
       vhdl_keywords.each do |keyword|
         expect {
           create_register_map do
             register_block { name keyword }
           end
-        }.to raise_register_map_error "vhdl keyword is not allowed for register block name: #{keyword}"
+        }.to raise_source_error "vhdl keyword is not allowed for register block name: #{keyword}"
 
         kw = random_updown_case(keyword)
         expect {
           create_register_map do
             register_block { name kw }
           end
-        }.to raise_register_map_error "vhdl keyword is not allowed for register block name: #{keyword}"
+        }.to raise_source_error "vhdl keyword is not allowed for register block name: #{keyword}"
       end
     end
   end
 
   context 'レジスタファイル名がVHDLの予約語に一致する場合' do
-    it 'RegiterMapErrorを起こす' do
+    it 'SourceErrorを起こす' do
       vhdl_keywords.each do |keyword|
         expect {
           create_register_map do
@@ -66,7 +66,7 @@ RSpec.describe 'regiter_map/name' do
               register_file { name keyword }
             end
           end
-        }.to raise_register_map_error "vhdl keyword is not allowed for register file name: #{keyword}"
+        }.to raise_source_error "vhdl keyword is not allowed for register file name: #{keyword}"
 
         kw = random_updown_case(keyword)
         expect {
@@ -76,13 +76,13 @@ RSpec.describe 'regiter_map/name' do
               register_file { name kw }
             end
           end
-        }.to raise_register_map_error "vhdl keyword is not allowed for register file name: #{keyword}"
+        }.to raise_source_error "vhdl keyword is not allowed for register file name: #{keyword}"
       end
     end
   end
 
   context 'レジスタ名がVHDLの予約語に一致する場合' do
-    it 'RegiterMapErrorを起こす' do
+    it 'SourceErrorを起こす' do
       vhdl_keywords.each do |keyword|
         expect {
           create_register_map do
@@ -91,7 +91,7 @@ RSpec.describe 'regiter_map/name' do
               register { name keyword }
             end
           end
-        }.to raise_register_map_error "vhdl keyword is not allowed for register name: #{keyword}"
+        }.to raise_source_error "vhdl keyword is not allowed for register name: #{keyword}"
 
         kw = random_updown_case(keyword)
         expect {
@@ -101,13 +101,13 @@ RSpec.describe 'regiter_map/name' do
               register { name kw }
             end
           end
-        }.to raise_register_map_error "vhdl keyword is not allowed for register name: #{keyword}"
+        }.to raise_source_error "vhdl keyword is not allowed for register name: #{keyword}"
       end
     end
   end
 
   context 'ビットフィールド名がVHDLの予約語に一致する場合' do
-    it 'RegiterMapErrorを起こす' do
+    it 'SourceErrorを起こす' do
       vhdl_keywords.each do |keyword|
         expect {
           create_register_map do
@@ -119,7 +119,7 @@ RSpec.describe 'regiter_map/name' do
               end
             end
           end
-        }.to raise_register_map_error "vhdl keyword is not allowed for bit field name: #{keyword}"
+        }.to raise_source_error "vhdl keyword is not allowed for bit field name: #{keyword}"
 
         kw = random_updown_case(keyword)
         expect {
@@ -132,7 +132,7 @@ RSpec.describe 'regiter_map/name' do
               end
             end
           end
-        }.to raise_register_map_error "vhdl keyword is not allowed for bit field name: #{keyword}"
+        }.to raise_source_error "vhdl keyword is not allowed for bit field name: #{keyword}"
       end
     end
   end
