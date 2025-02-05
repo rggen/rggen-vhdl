@@ -27,6 +27,7 @@ RgGen.setup_plugin :'rggen-vhdl' do |plugin|
     'vhdl/register_block/protocol',
     'vhdl/register_block/protocol/apb',
     'vhdl/register_block/protocol/axi4lite',
+    'vhdl/register_block/protocol/avalon',
     'vhdl/register_block/protocol/wishbone',
     'vhdl/register_block/protocol/native',
     'vhdl/register_file/vhdl_top',
