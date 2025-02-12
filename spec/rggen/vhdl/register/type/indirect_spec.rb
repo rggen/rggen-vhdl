@@ -319,9 +319,9 @@ RSpec.describe 'register/type/indirect' do
             bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
-        indirect_match(1) <= '1' when unsigned(register_value(9 downto 8)) = i else '0';
-        indirect_match(2) <= '1' when unsigned(register_value(19 downto 16)) = j else '0';
+        indirect_match(0) <= '1' when unsigned(register_value(9 downto 8)) = i else '0';
+        indirect_match(1) <= '1' when unsigned(register_value(19 downto 16)) = j else '0';
+        indirect_match(2) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
         u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
@@ -486,9 +486,9 @@ RSpec.describe 'register/type/indirect' do
             bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        indirect_match(0) <= '1' when unsigned(register_value(96 downto 96)) = 0 else '0';
-        indirect_match(1) <= '1' when unsigned(register_value(105 downto 104)) = i else '0';
-        indirect_match(2) <= '1' when unsigned(register_value(115 downto 112)) = j else '0';
+        indirect_match(0) <= '1' when unsigned(register_value(105 downto 104)) = i else '0';
+        indirect_match(1) <= '1' when unsigned(register_value(115 downto 112)) = j else '0';
+        indirect_match(2) <= '1' when unsigned(register_value(96 downto 96)) = 0 else '0';
         u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
@@ -529,9 +529,9 @@ RSpec.describe 'register/type/indirect' do
             bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        indirect_match(0) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
-        indirect_match(1) <= '1' when unsigned(register_value(9 downto 8)) = k else '0';
-        indirect_match(2) <= '1' when unsigned(register_value(19 downto 16)) = l else '0';
+        indirect_match(0) <= '1' when unsigned(register_value(9 downto 8)) = k else '0';
+        indirect_match(1) <= '1' when unsigned(register_value(19 downto 16)) = l else '0';
+        indirect_match(2) <= '1' when unsigned(register_value(0 downto 0)) = 0 else '0';
         u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
@@ -572,9 +572,9 @@ RSpec.describe 'register/type/indirect' do
             bit_field_value(\\__i\\) <= '0';
           end generate;
         end generate;
-        indirect_match(0) <= '1' when unsigned(register_value(96 downto 96)) = 0 else '0';
-        indirect_match(1) <= '1' when unsigned(register_value(105 downto 104)) = k else '0';
-        indirect_match(2) <= '1' when unsigned(register_value(115 downto 112)) = l else '0';
+        indirect_match(0) <= '1' when unsigned(register_value(105 downto 104)) = k else '0';
+        indirect_match(1) <= '1' when unsigned(register_value(115 downto 112)) = l else '0';
+        indirect_match(2) <= '1' when unsigned(register_value(96 downto 96)) = 0 else '0';
         u_register: entity #{library_name}.rggen_indirect_register
           generic map (
             READABLE              => true,
