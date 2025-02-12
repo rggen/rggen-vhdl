@@ -21,12 +21,6 @@ RgGen.define_list_item_feature(:register_block, :protocol, :avalon) do
       output :waitrequest, {
         name: 'o_waitrequest'
       }
-      output :readdatavalid, {
-        name: 'o_readdatavalid'
-      }
-      output :writeresponsevalid, {
-        name: 'o_writeresponsevalid'
-      }
       output :response, {
         name: 'o_response', width: 2
       }
