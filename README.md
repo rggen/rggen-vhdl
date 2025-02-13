@@ -1,6 +1,6 @@
 [![Gem Version](https://badge.fury.io/rb/rggen-vhdl.svg)](https://badge.fury.io/rb/rggen-vhdl)
 [![CI](https://github.com/rggen/rggen-vhdl/actions/workflows/ci.yml/badge.svg)](https://github.com/rggen/rggen-vhdl/actions/workflows/ci.yml)
-[![Maintainability](https://api.codeclimate.com/v1/badges/d30b2c06ae3d7c0f254a/maintainability)](https://codeclimate.com/github/rggen/rggen-vhdl/maintainability)
+[![Maintainability](https://qlty.sh/badges/d3e167e0-16f0-4170-ae4a-10ccc3dcdcb5/maintainability.svg)](https://qlty.sh/gh/rggen/projects/rggen-vhdl)
 [![codecov](https://codecov.io/gh/rggen/rggen-vhdl/branch/master/graph/badge.svg?token=cyo9R4xCje)](https://codecov.io/gh/rggen/rggen-vhdl)
 [![Gitter](https://badges.gitter.im/rggen/rggen.svg)](https://gitter.im/rggen/rggen?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
 
