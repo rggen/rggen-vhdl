@@ -26,7 +26,7 @@ RgGen.define_list_feature(:bit_field, :type) do
       end
 
       def initial_value
-        index = bit_field.initial_value_array? && bit_field.local_index || 0
+        index = bit_field.initial_value_array? && bit_field.flat_loop_index || 0
         "slice(#{bit_field.initial_value}, #{width}, #{index})"
       end
 
@@ -70,7 +70,7 @@ RgGen.define_list_feature(:bit_field, :type) do
         bit_field.reference? &&
           bit_field
             .find_reference(register_block.bit_fields)
-            .value(bit_field.local_indices, bit_field.reference_width)
+            .value(bit_field.local_indexes, bit_field.reference_width)
       end
 
       def loop_variables
