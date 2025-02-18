@@ -43,15 +43,17 @@ RgGen.define_simple_feature(:bit_field, :vhdl_top) do
 
     def initial_value_width
       width = bit_field.width
-      repeat_size = bit_field.sequence_size || 1
-      width * repeat_size
+      width * initial_value_repeat_size
     end
 
     def default_initial_value
       width = bit_field.width
-      repeat_size = bit_field.sequence_size || 1
       value = initial_value_rhs_default
-      "repeat(#{value}, #{width}, #{repeat_size})"
+      "repeat(#{value}, #{width}, #{initial_value_repeat_size})"
+    end
+
+    def initial_value_repeat_size
+      array_size&.inject(:*) || 1
     end
 
     def define_accessor_for_initial_value
@@ -70,14 +72,15 @@ RgGen.define_simple_feature(:bit_field, :vhdl_top) do
 
     def array_initial_value_rhs
       value =
-        bit_field.initial_values
+        bit_field
+          .initial_values(flatten: true)
           .map.with_index { |v, i| v << bit_field.width * i }
           .inject(:|)
-      hex(value, bit_field.sequence_size * bit_field.width)
+      hex(value, initial_value_width)
     end
 
     def register_value(offsets, lsb, width)
-      index = register.index(offsets || register.local_indices)
+      index = register.index(offsets || register.local_indexes)
       register_block.register_value[[index], lsb, width]
     end
 

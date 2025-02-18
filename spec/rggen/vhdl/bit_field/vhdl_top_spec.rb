@@ -98,8 +98,8 @@ RSpec.describe 'bit_field/vhdl_top' do
           register do
             name 'register_1'
             size [2]
-            bit_field { name 'bit_field_0'; bit_assignment lsb: 0, width: 8, sequence_size: 1; type :rw; initial_value [0] }
-            bit_field { name 'bit_field_1'; bit_assignment lsb: 16, width: 8, sequence_size: 2; type :rw; initial_value [1, 2] }
+            bit_field { name 'bit_field_0'; bit_assignment lsb: 0, width: 8, sequence_size: 1; type :rw; initial_value [[0], [1]] }
+            bit_field { name 'bit_field_1'; bit_assignment lsb: 16, width: 8, sequence_size: 2; type :rw; initial_value [[1, 2], [3, 4]] }
           end
 
           register_file do
@@ -117,20 +117,26 @@ RSpec.describe 'bit_field/vhdl_top' do
             register do
               name 'register_0'
               size [2]
-              bit_field { name 'bit_field_0'; bit_assignment lsb: 0, width: 8, sequence_size: 1; type :rw; initial_value [0] }
-              bit_field { name 'bit_field_1'; bit_assignment lsb: 16, width: 8, sequence_size: 2; type :rw; initial_value [1, 2] }
+              bit_field {
+                name 'bit_field_0'; bit_assignment lsb: 0, width: 8, sequence_size: 1
+                type :rw; initial_value [[[0], [1]], [[2], [3]]]
+              }
+              bit_field {
+                name 'bit_field_1'; bit_assignment lsb: 16, width: 8, sequence_size: 2
+                type :rw; initial_value [[[1, 2], [3, 4]], [[5, 6], [7, 8]]]
+              }
             end
           end
         end
 
         expect(bit_fields[0].initial_value).to eq 'x"00"'
         expect(bit_fields[1].initial_value).to eq 'x"0201"'
-        expect(bit_fields[2].initial_value).to eq 'x"00"'
-        expect(bit_fields[3].initial_value).to eq 'x"0201"'
+        expect(bit_fields[2].initial_value).to eq 'x"0100"'
+        expect(bit_fields[3].initial_value).to eq 'x"04030201"'
         expect(bit_fields[4].initial_value).to eq 'x"00"'
         expect(bit_fields[5].initial_value).to eq 'x"0201"'
-        expect(bit_fields[6].initial_value).to eq 'x"00"'
-        expect(bit_fields[7].initial_value).to eq 'x"0201"'
+        expect(bit_fields[6].initial_value).to eq 'x"03020100"'
+        expect(bit_fields[7].initial_value).to eq 'x"0807060504030201"'
       end
     end
   end
@@ -195,15 +201,18 @@ RSpec.describe 'bit_field/vhdl_top' do
       )
       expect(bit_fields[3]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_1_BIT_FIELD_0_INITIAL_VALUE', width: 1, default: 'repeat(x"0", 1, 1)'
+        name: 'REGISTER_1_BIT_FIELD_0_INITIAL_VALUE',
+        width: 2, default: 'repeat(x"0", 1, 2)'
       )
       expect(bit_fields[4]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_1_BIT_FIELD_1_INITIAL_VALUE', width: 8, default: 'repeat(x"01", 8, 1)'
+        name: 'REGISTER_1_BIT_FIELD_1_INITIAL_VALUE',
+        width: 16, default: 'repeat(x"01", 8, 2)'
       )
       expect(bit_fields[5]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_1_BIT_FIELD_2_INITIAL_VALUE', width: 16, default: 'repeat(x"02", 8, 2)'
+        name: 'REGISTER_1_BIT_FIELD_2_INITIAL_VALUE',
+        width: 32, default: 'repeat(x"02", 8, 4)'
       )
       expect(bit_fields[6]).to have_generic(
         :register_block, :initial_value,
@@ -219,15 +228,18 @@ RSpec.describe 'bit_field/vhdl_top' do
       )
       expect(bit_fields[9]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_0_INITIAL_VALUE', width: 1, default: 'repeat(x"0", 1, 1)'
+        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_0_INITIAL_VALUE',
+        width: 4, default: 'repeat(x"0", 1, 4)'
       )
       expect(bit_fields[10]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_1_INITIAL_VALUE', width: 8, default: 'repeat(x"01", 8, 1)'
+        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_1_INITIAL_VALUE',
+        width: 32, default: 'repeat(x"01", 8, 4)'
       )
       expect(bit_fields[11]).to have_generic(
         :register_block, :initial_value,
-        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_2_INITIAL_VALUE', width: 16, default: 'repeat(x"02", 8, 2)'
+        name: 'REGISTER_FILE_3_REGISTER_0_BIT_FIELD_2_INITIAL_VALUE',
+        width: 64, default: 'repeat(x"02", 8, 8)'
       )
     end
 
@@ -273,7 +285,10 @@ RSpec.describe 'bit_field/vhdl_top' do
           bit_field { name 'bit_field_1'; bit_assignment lsb: 8, width: 8; type :rw; initial_value 0 }
           bit_field { name 'bit_field_2'; bit_assignment lsb: 16, sequence_size: 2; type :rw; initial_value 0 }
           bit_field { name 'bit_field_3'; bit_assignment lsb: 20, width: 2, sequence_size: 2; type :rw; initial_value default: 0 }
-          bit_field { name 'bit_field_4'; bit_assignment lsb: 24, width: 2, sequence_size: 2, step: 4; type :rw; initial_value [0, 1] }
+          bit_field {
+            name 'bit_field_4'; bit_assignment lsb: 24, width: 2, sequence_size: 2, step: 4
+            type :rw; initial_value [[0, 1], [2, 3], [3, 2], [1, 0]]
+          }
         end
 
         register do
@@ -284,7 +299,10 @@ RSpec.describe 'bit_field/vhdl_top' do
           bit_field { name 'bit_field_1'; bit_assignment lsb: 8, width: 8; type :rw; initial_value 0 }
           bit_field { name 'bit_field_2'; bit_assignment lsb: 16, sequence_size: 2; type :rw; initial_value 0 }
           bit_field { name 'bit_field_3'; bit_assignment lsb: 20, width: 2, sequence_size: 2; type :rw; initial_value default: 0 }
-          bit_field { name 'bit_field_4'; bit_assignment lsb: 24, width: 2, sequence_size: 2, step: 4; type :rw; initial_value [0, 1] }
+          bit_field {
+            name 'bit_field_4'; bit_assignment lsb: 24, width: 2, sequence_size: 2, step: 4
+            type :rw; initial_value [[[0, 1], [2, 3]], [[3, 2], [1, 0]]]
+          }
         end
 
         register do
@@ -586,7 +604,7 @@ RSpec.describe 'bit_field/vhdl_top' do
             u_bit_field: entity work.rggen_bit_field
               generic map (
                 WIDTH           => 2,
-                INITIAL_VALUE   => slice(REGISTER_1_BIT_FIELD_3_INITIAL_VALUE, 2, j),
+                INITIAL_VALUE   => slice(REGISTER_1_BIT_FIELD_3_INITIAL_VALUE, 2, 2*i+j),
                 SW_WRITE_ONCE   => false,
                 TRIGGER         => false
               )
@@ -623,7 +641,7 @@ RSpec.describe 'bit_field/vhdl_top' do
             u_bit_field: entity work.rggen_bit_field
               generic map (
                 WIDTH           => 2,
-                INITIAL_VALUE   => slice(x"4", 2, j),
+                INITIAL_VALUE   => slice(x"1be4", 2, 2*i+j),
                 SW_WRITE_ONCE   => false,
                 TRIGGER         => false
               )
@@ -765,7 +783,7 @@ RSpec.describe 'bit_field/vhdl_top' do
             u_bit_field: entity work.rggen_bit_field
               generic map (
                 WIDTH           => 2,
-                INITIAL_VALUE   => slice(REGISTER_2_BIT_FIELD_3_INITIAL_VALUE, 2, k),
+                INITIAL_VALUE   => slice(REGISTER_2_BIT_FIELD_3_INITIAL_VALUE, 2, 4*i+2*j+k),
                 SW_WRITE_ONCE   => false,
                 TRIGGER         => false
               )
@@ -802,7 +820,7 @@ RSpec.describe 'bit_field/vhdl_top' do
             u_bit_field: entity work.rggen_bit_field
               generic map (
                 WIDTH           => 2,
-                INITIAL_VALUE   => slice(x"4", 2, k),
+                INITIAL_VALUE   => slice(x"1be4", 2, 4*i+2*j+k),
                 SW_WRITE_ONCE   => false,
                 TRIGGER         => false
               )
