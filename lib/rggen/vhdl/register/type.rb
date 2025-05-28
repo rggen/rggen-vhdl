@@ -72,16 +72,16 @@ RgGen.define_list_feature(:register, :type) do
         register_block.register_value[[register.index], 0, width]
       end
 
-      def bit_field_valid
-        register.bit_field_valid
+      def bit_field_read_valid
+        register.bit_field_read_valid
       end
 
-      def bit_field_read_mask
-        register.bit_field_read_mask
+      def bit_field_write_valid
+        register.bit_field_write_valid
       end
 
-      def bit_field_write_mask
-        register.bit_field_write_mask
+      def bit_field_mask
+        register.bit_field_mask
       end
 
       def bit_field_write_data

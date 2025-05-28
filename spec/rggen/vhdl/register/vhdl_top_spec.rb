@@ -24,9 +24,9 @@ RSpec.describe 'register/vhdl_top' do
 
   context 'レジスタがビットフィールドを持つ場合' do
     def check_bit_field_signals(register, width)
-      expect(register).to have_signal(:bit_field_valid)
-      expect(register).to have_signal(:bit_field_read_mask, width: width)
-      expect(register).to have_signal(:bit_field_write_mask, width: width)
+      expect(register).to have_signal(:bit_field_read_valid)
+      expect(register).to have_signal(:bit_field_write_valid)
+      expect(register).to have_signal(:bit_field_mask, width: width)
       expect(register).to have_signal(:bit_field_write_data, width: width)
       expect(register).to have_signal(:bit_field_read_data, width: width)
       expect(register).to have_signal(:bit_field_value, width: width)
@@ -100,9 +100,9 @@ RSpec.describe 'register/vhdl_top' do
         end
       end
 
-      expect(registers[0]).to not_have_signal(:bit_field_valid)
-      expect(registers[0]).to not_have_signal(:bit_field_read_mask, width: 32)
-      expect(registers[0]).to not_have_signal(:bit_field_write_mask, width: 32)
+      expect(registers[0]).to not_have_signal(:bit_field_read_valid)
+      expect(registers[0]).to not_have_signal(:bit_field_write_valid, width: 32)
+      expect(registers[0]).to not_have_signal(:bit_field_mask, width: 32)
       expect(registers[0]).to not_have_signal(:bit_field_write_data, width: 32)
       expect(registers[0]).to not_have_signal(:bit_field_read_data, width: 32)
       expect(registers[0]).to not_have_signal(:bit_field_value, width: 32)
@@ -195,9 +195,9 @@ RSpec.describe 'register/vhdl_top' do
 
       expect(registers[0]).to generate_code(:register_file, :top_down, <<~'CODE')
         g_register_0: block
-          signal bit_field_valid: std_logic;
-          signal bit_field_read_mask: std_logic_vector(31 downto 0);
-          signal bit_field_write_mask: std_logic_vector(31 downto 0);
+          signal bit_field_read_valid: std_logic;
+          signal bit_field_write_valid: std_logic;
+          signal bit_field_mask: std_logic_vector(31 downto 0);
           signal bit_field_write_data: std_logic_vector(31 downto 0);
           signal bit_field_read_data: std_logic_vector(31 downto 0);
           signal bit_field_value: std_logic_vector(31 downto 0);
@@ -230,9 +230,9 @@ RSpec.describe 'register/vhdl_top' do
               o_register_status       => register_status(1 downto 0),
               o_register_read_data    => register_read_data(31 downto 0),
               o_register_value        => register_value(31 downto 0),
-              o_bit_field_valid       => bit_field_valid,
-              o_bit_field_read_mask   => bit_field_read_mask,
-              o_bit_field_write_mask  => bit_field_write_mask,
+              o_bit_field_read_valid  => bit_field_read_valid,
+              o_bit_field_write_valid => bit_field_write_valid,
+              o_bit_field_mask        => bit_field_mask,
               o_bit_field_write_data  => bit_field_write_data,
               i_bit_field_read_data   => bit_field_read_data,
               i_bit_field_value       => bit_field_value
@@ -249,10 +249,10 @@ RSpec.describe 'register/vhdl_top' do
               port map (
                 i_clk             => i_clk,
                 i_rst_n           => i_rst_n,
-                i_sw_valid        => bit_field_valid,
-                i_sw_read_mask    => bit_field_read_mask(1 downto 0),
+                i_sw_read_valid   => bit_field_read_valid,
+                i_sw_write_valid  => bit_field_write_valid,
                 i_sw_write_enable => "1",
-                i_sw_write_mask   => bit_field_write_mask(1 downto 0),
+                i_sw_mask         => bit_field_mask(1 downto 0),
                 i_sw_write_data   => bit_field_write_data(1 downto 0),
                 o_sw_read_data    => bit_field_read_data(1 downto 0),
                 o_sw_value        => bit_field_value(1 downto 0),
@@ -280,10 +280,10 @@ RSpec.describe 'register/vhdl_top' do
               port map (
                 i_clk             => i_clk,
                 i_rst_n           => i_rst_n,
-                i_sw_valid        => bit_field_valid,
-                i_sw_read_mask    => bit_field_read_mask(9 downto 8),
+                i_sw_read_valid   => bit_field_read_valid,
+                i_sw_write_valid  => bit_field_write_valid,
                 i_sw_write_enable => "1",
-                i_sw_write_mask   => bit_field_write_mask(9 downto 8),
+                i_sw_mask         => bit_field_mask(9 downto 8),
                 i_sw_write_data   => bit_field_write_data(9 downto 8),
                 o_sw_read_data    => bit_field_read_data(9 downto 8),
                 o_sw_value        => bit_field_value(9 downto 8),
@@ -342,9 +342,9 @@ RSpec.describe 'register/vhdl_top' do
         g_register_2: block
         begin
           g: for i in 0 to 3 generate
-            signal bit_field_valid: std_logic;
-            signal bit_field_read_mask: std_logic_vector(31 downto 0);
-            signal bit_field_write_mask: std_logic_vector(31 downto 0);
+            signal bit_field_read_valid: std_logic;
+            signal bit_field_write_valid: std_logic;
+            signal bit_field_mask: std_logic_vector(31 downto 0);
             signal bit_field_write_data: std_logic_vector(31 downto 0);
             signal bit_field_read_data: std_logic_vector(31 downto 0);
             signal bit_field_value: std_logic_vector(31 downto 0);
@@ -377,9 +377,9 @@ RSpec.describe 'register/vhdl_top' do
                 o_register_status       => register_status(2*(2+i)+1 downto 2*(2+i)),
                 o_register_read_data    => register_read_data(32*(2+i)+31 downto 32*(2+i)),
                 o_register_value        => register_value(32*(2+i)+0+31 downto 32*(2+i)+0),
-                o_bit_field_valid       => bit_field_valid,
-                o_bit_field_read_mask   => bit_field_read_mask,
-                o_bit_field_write_mask  => bit_field_write_mask,
+                o_bit_field_read_valid  => bit_field_read_valid,
+                o_bit_field_write_valid => bit_field_write_valid,
+                o_bit_field_mask        => bit_field_mask,
                 o_bit_field_write_data  => bit_field_write_data,
                 i_bit_field_read_data   => bit_field_read_data,
                 i_bit_field_value       => bit_field_value
@@ -396,10 +396,10 @@ RSpec.describe 'register/vhdl_top' do
                 port map (
                   i_clk             => i_clk,
                   i_rst_n           => i_rst_n,
-                  i_sw_valid        => bit_field_valid,
-                  i_sw_read_mask    => bit_field_read_mask(1 downto 0),
+                  i_sw_read_valid   => bit_field_read_valid,
+                  i_sw_write_valid  => bit_field_write_valid,
                   i_sw_write_enable => "1",
-                  i_sw_write_mask   => bit_field_write_mask(1 downto 0),
+                  i_sw_mask         => bit_field_mask(1 downto 0),
                   i_sw_write_data   => bit_field_write_data(1 downto 0),
                   o_sw_read_data    => bit_field_read_data(1 downto 0),
                   o_sw_value        => bit_field_value(1 downto 0),
@@ -427,10 +427,10 @@ RSpec.describe 'register/vhdl_top' do
                 port map (
                   i_clk             => i_clk,
                   i_rst_n           => i_rst_n,
-                  i_sw_valid        => bit_field_valid,
-                  i_sw_read_mask    => bit_field_read_mask(9 downto 8),
+                  i_sw_read_valid   => bit_field_read_valid,
+                  i_sw_write_valid  => bit_field_write_valid,
                   i_sw_write_enable => "1",
-                  i_sw_write_mask   => bit_field_write_mask(9 downto 8),
+                  i_sw_mask         => bit_field_mask(9 downto 8),
                   i_sw_write_data   => bit_field_write_data(9 downto 8),
                   o_sw_read_data    => bit_field_read_data(9 downto 8),
                   o_sw_value        => bit_field_value(9 downto 8),
@@ -454,9 +454,9 @@ RSpec.describe 'register/vhdl_top' do
         g_register_3: block
         begin
           g: for i in 0 to 1 generate
-            signal bit_field_valid: std_logic;
-            signal bit_field_read_mask: std_logic_vector(31 downto 0);
-            signal bit_field_write_mask: std_logic_vector(31 downto 0);
+            signal bit_field_read_valid: std_logic;
+            signal bit_field_write_valid: std_logic;
+            signal bit_field_mask: std_logic_vector(31 downto 0);
             signal bit_field_write_data: std_logic_vector(31 downto 0);
             signal bit_field_read_data: std_logic_vector(31 downto 0);
             signal bit_field_value: std_logic_vector(31 downto 0);
@@ -489,9 +489,9 @@ RSpec.describe 'register/vhdl_top' do
                 o_register_status       => register_status(2*(6+i)+1 downto 2*(6+i)),
                 o_register_read_data    => register_read_data(32*(6+i)+31 downto 32*(6+i)),
                 o_register_value        => register_value(32*(6+i)+0+31 downto 32*(6+i)+0),
-                o_bit_field_valid       => bit_field_valid,
-                o_bit_field_read_mask   => bit_field_read_mask,
-                o_bit_field_write_mask  => bit_field_write_mask,
+                o_bit_field_read_valid  => bit_field_read_valid,
+                o_bit_field_write_valid => bit_field_write_valid,
+                o_bit_field_mask        => bit_field_mask,
                 o_bit_field_write_data  => bit_field_write_data,
                 i_bit_field_read_data   => bit_field_read_data,
                 i_bit_field_value       => bit_field_value
@@ -508,10 +508,10 @@ RSpec.describe 'register/vhdl_top' do
                 port map (
                   i_clk             => i_clk,
                   i_rst_n           => i_rst_n,
-                  i_sw_valid        => bit_field_valid,
-                  i_sw_read_mask    => bit_field_read_mask(1 downto 0),
+                  i_sw_read_valid   => bit_field_read_valid,
+                  i_sw_write_valid  => bit_field_write_valid,
                   i_sw_write_enable => "1",
-                  i_sw_write_mask   => bit_field_write_mask(1 downto 0),
+                  i_sw_mask         => bit_field_mask(1 downto 0),
                   i_sw_write_data   => bit_field_write_data(1 downto 0),
                   o_sw_read_data    => bit_field_read_data(1 downto 0),
                   o_sw_value        => bit_field_value(1 downto 0),
@@ -539,10 +539,10 @@ RSpec.describe 'register/vhdl_top' do
                 port map (
                   i_clk             => i_clk,
                   i_rst_n           => i_rst_n,
-                  i_sw_valid        => bit_field_valid,
-                  i_sw_read_mask    => bit_field_read_mask(9 downto 8),
+                  i_sw_read_valid   => bit_field_read_valid,
+                  i_sw_write_valid  => bit_field_write_valid,
                   i_sw_write_enable => "1",
-                  i_sw_write_mask   => bit_field_write_mask(9 downto 8),
+                  i_sw_mask         => bit_field_mask(9 downto 8),
                   i_sw_write_data   => bit_field_write_data(9 downto 8),
                   o_sw_read_data    => bit_field_read_data(9 downto 8),
                   o_sw_value        => bit_field_value(9 downto 8),
@@ -569,9 +569,9 @@ RSpec.describe 'register/vhdl_top' do
           begin
             g: for j in 0 to 1 generate
               signal indirect_match: std_logic_vector(1 downto 0);
-              signal bit_field_valid: std_logic;
-              signal bit_field_read_mask: std_logic_vector(31 downto 0);
-              signal bit_field_write_mask: std_logic_vector(31 downto 0);
+              signal bit_field_read_valid: std_logic;
+              signal bit_field_write_valid: std_logic;
+              signal bit_field_mask: std_logic_vector(31 downto 0);
               signal bit_field_write_data: std_logic_vector(31 downto 0);
               signal bit_field_read_data: std_logic_vector(31 downto 0);
               signal bit_field_value: std_logic_vector(31 downto 0);
@@ -608,9 +608,9 @@ RSpec.describe 'register/vhdl_top' do
                   o_register_read_data    => register_read_data(32*(8+2*i+j)+31 downto 32*(8+2*i+j)),
                   o_register_value        => register_value(32*(8+2*i+j)+0+31 downto 32*(8+2*i+j)+0),
                   i_indirect_match        => indirect_match,
-                  o_bit_field_valid       => bit_field_valid,
-                  o_bit_field_read_mask   => bit_field_read_mask,
-                  o_bit_field_write_mask  => bit_field_write_mask,
+                  o_bit_field_read_valid  => bit_field_read_valid,
+                  o_bit_field_write_valid => bit_field_write_valid,
+                  o_bit_field_mask        => bit_field_mask,
                   o_bit_field_write_data  => bit_field_write_data,
                   i_bit_field_read_data   => bit_field_read_data,
                   i_bit_field_value       => bit_field_value
@@ -627,10 +627,10 @@ RSpec.describe 'register/vhdl_top' do
                   port map (
                     i_clk             => i_clk,
                     i_rst_n           => i_rst_n,
-                    i_sw_valid        => bit_field_valid,
-                    i_sw_read_mask    => bit_field_read_mask(1 downto 0),
+                    i_sw_read_valid   => bit_field_read_valid,
+                    i_sw_write_valid  => bit_field_write_valid,
                     i_sw_write_enable => "1",
-                    i_sw_write_mask   => bit_field_write_mask(1 downto 0),
+                    i_sw_mask         => bit_field_mask(1 downto 0),
                     i_sw_write_data   => bit_field_write_data(1 downto 0),
                     o_sw_read_data    => bit_field_read_data(1 downto 0),
                     o_sw_value        => bit_field_value(1 downto 0),
@@ -658,10 +658,10 @@ RSpec.describe 'register/vhdl_top' do
                   port map (
                     i_clk             => i_clk,
                     i_rst_n           => i_rst_n,
-                    i_sw_valid        => bit_field_valid,
-                    i_sw_read_mask    => bit_field_read_mask(9 downto 8),
+                    i_sw_read_valid   => bit_field_read_valid,
+                    i_sw_write_valid  => bit_field_write_valid,
                     i_sw_write_enable => "1",
-                    i_sw_write_mask   => bit_field_write_mask(9 downto 8),
+                    i_sw_mask         => bit_field_mask(9 downto 8),
                     i_sw_write_data   => bit_field_write_data(9 downto 8),
                     o_sw_read_data    => bit_field_read_data(9 downto 8),
                     o_sw_value        => bit_field_value(9 downto 8),
@@ -684,9 +684,9 @@ RSpec.describe 'register/vhdl_top' do
 
       expect(registers[5]).to generate_code(:register_file, :top_down, <<~'CODE')
         g_register_5: block
-          signal bit_field_valid: std_logic;
-          signal bit_field_read_mask: std_logic_vector(31 downto 0);
-          signal bit_field_write_mask: std_logic_vector(31 downto 0);
+          signal bit_field_read_valid: std_logic;
+          signal bit_field_write_valid: std_logic;
+          signal bit_field_mask: std_logic_vector(31 downto 0);
           signal bit_field_write_data: std_logic_vector(31 downto 0);
           signal bit_field_read_data: std_logic_vector(31 downto 0);
           signal bit_field_value: std_logic_vector(31 downto 0);
@@ -719,9 +719,9 @@ RSpec.describe 'register/vhdl_top' do
               o_register_status       => register_status(25 downto 24),
               o_register_read_data    => register_read_data(415 downto 384),
               o_register_value        => register_value(415 downto 384),
-              o_bit_field_valid       => bit_field_valid,
-              o_bit_field_read_mask   => bit_field_read_mask,
-              o_bit_field_write_mask  => bit_field_write_mask,
+              o_bit_field_read_valid  => bit_field_read_valid,
+              o_bit_field_write_valid => bit_field_write_valid,
+              o_bit_field_mask        => bit_field_mask,
               o_bit_field_write_data  => bit_field_write_data,
               i_bit_field_read_data   => bit_field_read_data,
               i_bit_field_value       => bit_field_value
@@ -738,10 +738,10 @@ RSpec.describe 'register/vhdl_top' do
               port map (
                 i_clk             => i_clk,
                 i_rst_n           => i_rst_n,
-                i_sw_valid        => bit_field_valid,
-                i_sw_read_mask    => bit_field_read_mask(1 downto 0),
+                i_sw_read_valid   => bit_field_read_valid,
+                i_sw_write_valid  => bit_field_write_valid,
                 i_sw_write_enable => "1",
-                i_sw_write_mask   => bit_field_write_mask(1 downto 0),
+                i_sw_mask         => bit_field_mask(1 downto 0),
                 i_sw_write_data   => bit_field_write_data(1 downto 0),
                 o_sw_read_data    => bit_field_read_data(1 downto 0),
                 o_sw_value        => bit_field_value(1 downto 0),
@@ -766,9 +766,9 @@ RSpec.describe 'register/vhdl_top' do
           g: for k in 0 to 1 generate
           begin
             g: for l in 0 to 1 generate
-              signal bit_field_valid: std_logic;
-              signal bit_field_read_mask: std_logic_vector(31 downto 0);
-              signal bit_field_write_mask: std_logic_vector(31 downto 0);
+              signal bit_field_read_valid: std_logic;
+              signal bit_field_write_valid: std_logic;
+              signal bit_field_mask: std_logic_vector(31 downto 0);
               signal bit_field_write_data: std_logic_vector(31 downto 0);
               signal bit_field_read_data: std_logic_vector(31 downto 0);
               signal bit_field_value: std_logic_vector(31 downto 0);
@@ -801,9 +801,9 @@ RSpec.describe 'register/vhdl_top' do
                   o_register_status       => register_status(2*(13+4*(2*i+j)+2*k+l)+1 downto 2*(13+4*(2*i+j)+2*k+l)),
                   o_register_read_data    => register_read_data(32*(13+4*(2*i+j)+2*k+l)+31 downto 32*(13+4*(2*i+j)+2*k+l)),
                   o_register_value        => register_value(32*(13+4*(2*i+j)+2*k+l)+0+31 downto 32*(13+4*(2*i+j)+2*k+l)+0),
-                  o_bit_field_valid       => bit_field_valid,
-                  o_bit_field_read_mask   => bit_field_read_mask,
-                  o_bit_field_write_mask  => bit_field_write_mask,
+                  o_bit_field_read_valid  => bit_field_read_valid,
+                  o_bit_field_write_valid => bit_field_write_valid,
+                  o_bit_field_mask        => bit_field_mask,
                   o_bit_field_write_data  => bit_field_write_data,
                   i_bit_field_read_data   => bit_field_read_data,
                   i_bit_field_value       => bit_field_value
@@ -820,10 +820,10 @@ RSpec.describe 'register/vhdl_top' do
                   port map (
                     i_clk             => i_clk,
                     i_rst_n           => i_rst_n,
-                    i_sw_valid        => bit_field_valid,
-                    i_sw_read_mask    => bit_field_read_mask(1 downto 0),
+                    i_sw_read_valid   => bit_field_read_valid,
+                    i_sw_write_valid  => bit_field_write_valid,
                     i_sw_write_enable => "1",
-                    i_sw_write_mask   => bit_field_write_mask(1 downto 0),
+                    i_sw_mask         => bit_field_mask(1 downto 0),
                     i_sw_write_data   => bit_field_write_data(1 downto 0),
                     o_sw_read_data    => bit_field_read_data(1 downto 0),
                     o_sw_value        => bit_field_value(1 downto 0),
@@ -848,9 +848,9 @@ RSpec.describe 'register/vhdl_top' do
         g_register_0: block
         begin
           g: for j in 0 to 1 generate
-            signal bit_field_valid: std_logic;
-            signal bit_field_read_mask: std_logic_vector(31 downto 0);
-            signal bit_field_write_mask: std_logic_vector(31 downto 0);
+            signal bit_field_read_valid: std_logic;
+            signal bit_field_write_valid: std_logic;
+            signal bit_field_mask: std_logic_vector(31 downto 0);
             signal bit_field_write_data: std_logic_vector(31 downto 0);
             signal bit_field_read_data: std_logic_vector(31 downto 0);
             signal bit_field_value: std_logic_vector(31 downto 0);
@@ -883,9 +883,9 @@ RSpec.describe 'register/vhdl_top' do
                 o_register_status       => register_status(2*(29+2*i+j)+1 downto 2*(29+2*i+j)),
                 o_register_read_data    => register_read_data(32*(29+2*i+j)+31 downto 32*(29+2*i+j)),
                 o_register_value        => register_value(32*(29+2*i+j)+0+31 downto 32*(29+2*i+j)+0),
-                o_bit_field_valid       => bit_field_valid,
-                o_bit_field_read_mask   => bit_field_read_mask,
-                o_bit_field_write_mask  => bit_field_write_mask,
+                o_bit_field_read_valid  => bit_field_read_valid,
+                o_bit_field_write_valid => bit_field_write_valid,
+                o_bit_field_mask        => bit_field_mask,
                 o_bit_field_write_data  => bit_field_write_data,
                 i_bit_field_read_data   => bit_field_read_data,
                 i_bit_field_value       => bit_field_value
@@ -902,10 +902,10 @@ RSpec.describe 'register/vhdl_top' do
                 port map (
                   i_clk             => i_clk,
                   i_rst_n           => i_rst_n,
-                  i_sw_valid        => bit_field_valid,
-                  i_sw_read_mask    => bit_field_read_mask(1 downto 0),
+                  i_sw_read_valid   => bit_field_read_valid,
+                  i_sw_write_valid  => bit_field_write_valid,
                   i_sw_write_enable => "1",
-                  i_sw_write_mask   => bit_field_write_mask(1 downto 0),
+                  i_sw_mask         => bit_field_mask(1 downto 0),
                   i_sw_write_data   => bit_field_write_data(1 downto 0),
                   o_sw_read_data    => bit_field_read_data(1 downto 0),
                   o_sw_value        => bit_field_value(1 downto 0),
