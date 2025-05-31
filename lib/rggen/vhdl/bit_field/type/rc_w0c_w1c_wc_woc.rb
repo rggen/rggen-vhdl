@@ -40,8 +40,8 @@ RgGen.define_list_item_feature(:bit_field, :type, [:rc, :w0c, :w1c, :wc, :woc]) 
       }[bit_field.type]
     end
 
-    def write_enable
-      bit_field.writable? && bin(1, 1) || bin(0, 1)
+    def external_mask
+      bit_field.reference?
     end
 
     def value_out_unmasked

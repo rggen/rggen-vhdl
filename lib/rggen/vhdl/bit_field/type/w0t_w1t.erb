@@ -7,10 +7,10 @@ u_bit_field: entity <%= library_name %>.rggen_bit_field
   port map (
     i_clk             => <%= clock %>,
     i_rst_n           => <%= reset %>,
-    i_sw_valid        => <%= bit_field_valid %>,
-    i_sw_read_mask    => <%= bit_field_read_mask %>,
+    i_sw_read_valid   => <%= bit_field_read_valid %>,
+    i_sw_write_valid  => <%= bit_field_write_valid %>,
     i_sw_write_enable => "1",
-    i_sw_write_mask   => <%= bit_field_write_mask %>,
+    i_sw_mask         => <%= bit_field_mask %>,
     i_sw_write_data   => <%= bit_field_write_data %>,
     o_sw_read_data    => <%= bit_field_read_data %>,
     o_sw_value        => <%= bit_field_value %>,

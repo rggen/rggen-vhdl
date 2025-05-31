@@ -228,15 +228,16 @@ RSpec.describe 'bit_field/type/w0s' do
             INITIAL_VALUE   => slice(x"0", 1, 0),
             SW_READ_ACTION  => RGGEN_READ_DEFAULT,
             SW_WRITE_ACTION => RGGEN_WRITE_0_SET,
+            HW_CLEAR        => true,
             HW_CLEAR_WIDTH  => 1
           )
           port map (
             i_clk             => i_clk,
             i_rst_n           => i_rst_n,
-            i_sw_valid        => bit_field_valid,
-            i_sw_read_mask    => bit_field_read_mask(0 downto 0),
+            i_sw_read_valid   => bit_field_read_valid,
+            i_sw_write_valid  => bit_field_write_valid,
             i_sw_write_enable => "1",
-            i_sw_write_mask   => bit_field_write_mask(0 downto 0),
+            i_sw_mask         => bit_field_mask(0 downto 0),
             i_sw_write_data   => bit_field_write_data(0 downto 0),
             o_sw_read_data    => bit_field_read_data(0 downto 0),
             o_sw_value        => bit_field_value(0 downto 0),
@@ -260,15 +261,16 @@ RSpec.describe 'bit_field/type/w0s' do
             INITIAL_VALUE   => slice(x"abcd", 16, 0),
             SW_READ_ACTION  => RGGEN_READ_DEFAULT,
             SW_WRITE_ACTION => RGGEN_WRITE_0_SET,
+            HW_CLEAR        => true,
             HW_CLEAR_WIDTH  => 16
           )
           port map (
             i_clk             => i_clk,
             i_rst_n           => i_rst_n,
-            i_sw_valid        => bit_field_valid,
-            i_sw_read_mask    => bit_field_read_mask(31 downto 16),
+            i_sw_read_valid   => bit_field_read_valid,
+            i_sw_write_valid  => bit_field_write_valid,
             i_sw_write_enable => "1",
-            i_sw_write_mask   => bit_field_write_mask(31 downto 16),
+            i_sw_mask         => bit_field_mask(31 downto 16),
             i_sw_write_data   => bit_field_write_data(31 downto 16),
             o_sw_read_data    => bit_field_read_data(31 downto 16),
             o_sw_value        => bit_field_value(31 downto 16),
@@ -292,15 +294,16 @@ RSpec.describe 'bit_field/type/w0s' do
             INITIAL_VALUE   => slice(x"0000000000000000", 64, 0),
             SW_READ_ACTION  => RGGEN_READ_DEFAULT,
             SW_WRITE_ACTION => RGGEN_WRITE_0_SET,
+            HW_CLEAR        => true,
             HW_CLEAR_WIDTH  => 64
           )
           port map (
             i_clk             => i_clk,
             i_rst_n           => i_rst_n,
-            i_sw_valid        => bit_field_valid,
-            i_sw_read_mask    => bit_field_read_mask(63 downto 0),
+            i_sw_read_valid   => bit_field_read_valid,
+            i_sw_write_valid  => bit_field_write_valid,
             i_sw_write_enable => "1",
-            i_sw_write_mask   => bit_field_write_mask(63 downto 0),
+            i_sw_mask         => bit_field_mask(63 downto 0),
             i_sw_write_data   => bit_field_write_data(63 downto 0),
             o_sw_read_data    => bit_field_read_data(63 downto 0),
             o_sw_value        => bit_field_value(63 downto 0),
@@ -324,15 +327,16 @@ RSpec.describe 'bit_field/type/w0s' do
             INITIAL_VALUE   => slice(x"0", 4, 0),
             SW_READ_ACTION  => RGGEN_READ_DEFAULT,
             SW_WRITE_ACTION => RGGEN_WRITE_0_SET,
+            HW_CLEAR        => true,
             HW_CLEAR_WIDTH  => 4
           )
           port map (
             i_clk             => i_clk,
             i_rst_n           => i_rst_n,
-            i_sw_valid        => bit_field_valid,
-            i_sw_read_mask    => bit_field_read_mask(0+8*i+3 downto 0+8*i),
+            i_sw_read_valid   => bit_field_read_valid,
+            i_sw_write_valid  => bit_field_write_valid,
             i_sw_write_enable => "1",
-            i_sw_write_mask   => bit_field_write_mask(0+8*i+3 downto 0+8*i),
+            i_sw_mask         => bit_field_mask(0+8*i+3 downto 0+8*i),
             i_sw_write_data   => bit_field_write_data(0+8*i+3 downto 0+8*i),
             o_sw_read_data    => bit_field_read_data(0+8*i+3 downto 0+8*i),
             o_sw_value        => bit_field_value(0+8*i+3 downto 0+8*i),
@@ -356,15 +360,16 @@ RSpec.describe 'bit_field/type/w0s' do
             INITIAL_VALUE   => slice(x"0", 4, 0),
             SW_READ_ACTION  => RGGEN_READ_DEFAULT,
             SW_WRITE_ACTION => RGGEN_WRITE_0_SET,
+            HW_CLEAR        => true,
             HW_CLEAR_WIDTH  => 4
           )
           port map (
             i_clk             => i_clk,
             i_rst_n           => i_rst_n,
-            i_sw_valid        => bit_field_valid,
-            i_sw_read_mask    => bit_field_read_mask(0+8*j+3 downto 0+8*j),
+            i_sw_read_valid   => bit_field_read_valid,
+            i_sw_write_valid  => bit_field_write_valid,
             i_sw_write_enable => "1",
-            i_sw_write_mask   => bit_field_write_mask(0+8*j+3 downto 0+8*j),
+            i_sw_mask         => bit_field_mask(0+8*j+3 downto 0+8*j),
             i_sw_write_data   => bit_field_write_data(0+8*j+3 downto 0+8*j),
             o_sw_read_data    => bit_field_read_data(0+8*j+3 downto 0+8*j),
             o_sw_value        => bit_field_value(0+8*j+3 downto 0+8*j),
@@ -388,15 +393,16 @@ RSpec.describe 'bit_field/type/w0s' do
             INITIAL_VALUE   => slice(x"0", 4, 0),
             SW_READ_ACTION  => RGGEN_READ_DEFAULT,
             SW_WRITE_ACTION => RGGEN_WRITE_0_SET,
+            HW_CLEAR        => true,
             HW_CLEAR_WIDTH  => 4
           )
           port map (
             i_clk             => i_clk,
             i_rst_n           => i_rst_n,
-            i_sw_valid        => bit_field_valid,
-            i_sw_read_mask    => bit_field_read_mask(0+8*k+3 downto 0+8*k),
+            i_sw_read_valid   => bit_field_read_valid,
+            i_sw_write_valid  => bit_field_write_valid,
             i_sw_write_enable => "1",
-            i_sw_write_mask   => bit_field_write_mask(0+8*k+3 downto 0+8*k),
+            i_sw_mask         => bit_field_mask(0+8*k+3 downto 0+8*k),
             i_sw_write_data   => bit_field_write_data(0+8*k+3 downto 0+8*k),
             o_sw_read_data    => bit_field_read_data(0+8*k+3 downto 0+8*k),
             o_sw_value        => bit_field_value(0+8*k+3 downto 0+8*k),
@@ -420,15 +426,16 @@ RSpec.describe 'bit_field/type/w0s' do
             INITIAL_VALUE   => slice(x"0", 4, 0),
             SW_READ_ACTION  => RGGEN_READ_DEFAULT,
             SW_WRITE_ACTION => RGGEN_WRITE_0_SET,
+            HW_CLEAR        => true,
             HW_CLEAR_WIDTH  => 4
           )
           port map (
             i_clk             => i_clk,
             i_rst_n           => i_rst_n,
-            i_sw_valid        => bit_field_valid,
-            i_sw_read_mask    => bit_field_read_mask(0+8*m+3 downto 0+8*m),
+            i_sw_read_valid   => bit_field_read_valid,
+            i_sw_write_valid  => bit_field_write_valid,
             i_sw_write_enable => "1",
-            i_sw_write_mask   => bit_field_write_mask(0+8*m+3 downto 0+8*m),
+            i_sw_mask         => bit_field_mask(0+8*m+3 downto 0+8*m),
             i_sw_write_data   => bit_field_write_data(0+8*m+3 downto 0+8*m),
             o_sw_read_data    => bit_field_read_data(0+8*m+3 downto 0+8*m),
             o_sw_value        => bit_field_value(0+8*m+3 downto 0+8*m),

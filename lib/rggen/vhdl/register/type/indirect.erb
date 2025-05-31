@@ -22,9 +22,9 @@ u_register: entity <%= library_name %>.rggen_indirect_register
     o_register_read_data    => <%= register_read_data %>,
     o_register_value        => <%= register_value %>,
     i_indirect_match        => <%= indirect_match %>,
-    o_bit_field_valid       => <%= bit_field_valid %>,
-    o_bit_field_read_mask   => <%= bit_field_read_mask %>,
-    o_bit_field_write_mask  => <%= bit_field_write_mask %>,
+    o_bit_field_read_valid  => <%= bit_field_read_valid %>,
+    o_bit_field_write_valid => <%= bit_field_write_valid %>,
+    o_bit_field_mask        => <%= bit_field_mask %>,
     o_bit_field_write_data  => <%= bit_field_write_data %>,
     i_bit_field_read_data   => <%= bit_field_read_data %>,
     i_bit_field_value       => <%= bit_field_value %>

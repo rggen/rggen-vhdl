@@ -38,16 +38,16 @@ RgGen.define_list_feature(:bit_field, :type) do
         register_block.reset
       end
 
-      def bit_field_valid
-        register.bit_field_valid
+      def bit_field_read_valid
+        register.bit_field_read_valid
       end
 
-      def bit_field_read_mask
-        register.bit_field_read_mask[lsb, width]
+      def bit_field_write_valid
+        register.bit_field_write_valid
       end
 
-      def bit_field_write_mask
-        register.bit_field_write_mask[lsb, width]
+      def bit_field_mask
+        register.bit_field_mask[lsb, width]
       end
 
       def bit_field_write_data
