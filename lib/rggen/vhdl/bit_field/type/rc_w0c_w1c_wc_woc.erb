@@ -6,7 +6,7 @@ u_bit_field: entity <%= library_name %>.rggen_bit_field
     SW_WRITE_ACTION => <%= write_action %>,
     HW_SET          => true,
     HW_SET_WIDTH    => <%= width %>,
-    EXTERNAL_MASK   => <%= external_mask %>
+    EXTERNAL_MASK   => <%= external_mask? %>
   )
   port map (
     i_clk             => <%= clock %>,

@@ -40,7 +40,7 @@ RgGen.define_list_item_feature(:bit_field, :type, [:rc, :w0c, :w1c, :wc, :woc]) 
       }[bit_field.type]
     end
 
-    def external_mask
+    def external_mask?
       bit_field.reference?
     end
 
