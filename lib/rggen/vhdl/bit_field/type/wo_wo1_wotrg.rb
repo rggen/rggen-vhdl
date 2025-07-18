@@ -21,7 +21,7 @@ RgGen.define_list_item_feature(:bit_field, :type, [:wo, :wo1, :wotrg]) do
       bit_field.type == :wotrg
     end
 
-    def write_once
+    def write_once?
       bit_field.type == :wo1
     end
 
