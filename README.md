@@ -2,7 +2,7 @@
 [![CI](https://github.com/rggen/rggen-vhdl/actions/workflows/ci.yml/badge.svg)](https://github.com/rggen/rggen-vhdl/actions/workflows/ci.yml)
 [![Maintainability](https://qlty.sh/badges/d3e167e0-16f0-4170-ae4a-10ccc3dcdcb5/maintainability.svg)](https://qlty.sh/gh/rggen/projects/rggen-vhdl)
 [![codecov](https://codecov.io/gh/rggen/rggen-vhdl/branch/master/graph/badge.svg?token=cyo9R4xCje)](https://codecov.io/gh/rggen/rggen-vhdl)
-[![Gitter](https://badges.gitter.im/rggen/rggen.svg)](https://gitter.im/rggen/rggen?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Discord](https://img.shields.io/discord/1406572699467124806?style=flat&logo=discord)](https://discord.com/invite/KWya83ZZxr)
 
 # RgGen::VHDL
 
@@ -62,7 +62,7 @@ Feedbacks, bus reports, questions and etc. are welcome! You can post them bu usi
 
 * [GitHub Issue Tracker](https://github.com/rggen/rggen/issues)
 * [GitHub Discussions](https://github.com/rggen/rggen/discussions)
-* [Chat Room](https://gitter.im/rggen/rggen)
+* [Discord](https://discord.com/invite/KWya83ZZxr)
 * [Mailing List](https://groups.google.com/d/forum/rggen)
 * [Mail](mailto:rggen@googlegroups.com)
 
