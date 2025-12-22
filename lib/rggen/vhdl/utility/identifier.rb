@@ -24,13 +24,11 @@ module RgGen
         end
 
         def __array_slice__(lsb, width)
-          msb =
-            if integer?(width)
-              __reduce_array__([lsb, width - 1], :+, 0)
-            else
-              __reduce_array__([lsb, width, -1], :+, 0)
-            end
-          "(#{msb} downto #{lsb})"
+          if integer?(width)
+            "(#{__reduce_array__([lsb, width - 1], :+, 0)} downto #{lsb})"
+          else
+            "(#{__reduce_array__([lsb, width], :+, 0)}-1 downto #{lsb})"
+          end
         end
       end
     end

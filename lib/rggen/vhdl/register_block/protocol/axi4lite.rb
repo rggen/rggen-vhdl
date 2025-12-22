@@ -36,7 +36,7 @@ RgGen.define_list_item_feature(:register_block, :protocol, :axi4lite) do
     private
 
     def id_width_value
-      "clip_id_width(#{id_width})"
+      "clip_width(#{id_width})"
     end
   end
 end

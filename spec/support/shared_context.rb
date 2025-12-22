@@ -32,6 +32,19 @@ RSpec.shared_context 'vhdl common' do
     have_declaration(layer, :generic, generic.declaration).and have_identifier(handler, generic.identifier)
   end
 
+  def not_have_generic(*args, &body)
+    layer, handler, attributes =
+      case args.size
+      when 3 then args[0..2]
+      when 2 then [nil, *args[0..1]]
+      else [nil, args[0], {}]
+      end
+    attributes = { name: handler }.merge(attributes)
+    generic = RgGen::VHDL::Utility::DataObject.new(:generic, **attributes, &body)
+    not_have_declaration(layer, :generic, generic.declaration).and not_have_identifier(handler, generic.identifier)
+  end
+
+
   def have_port(*args, &body)
     layer, handler, attributes =
       case args.size
