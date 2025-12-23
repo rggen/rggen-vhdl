@@ -80,6 +80,12 @@ RSpec.describe RgGen::VHDL::Utility::Identifier do
         expect(identifier[array_index[0], 1, 2]).to match_identifier("#{name}(16*(BAR_SIZE*BAZ_SIZE*0+BAZ_SIZE*1+2)+1+1 downto 16*(BAR_SIZE*BAZ_SIZE*0+BAZ_SIZE*1+2)+1)")
         expect(identifier[array_index[1]]).to match_identifier("#{name}(16*(BAR_SIZE*BAZ_SIZE*i+BAZ_SIZE*j+k)+15 downto 16*(BAR_SIZE*BAZ_SIZE*i+BAZ_SIZE*j+k))")
         expect(identifier[array_index[1], 1, 2]).to match_identifier("#{name}(16*(BAR_SIZE*BAZ_SIZE*i+BAZ_SIZE*j+k)+1+1 downto 16*(BAR_SIZE*BAZ_SIZE*i+BAZ_SIZE*j+k)+1)")
+
+        apply_array_attributes('WIDTH', array_size[1])
+        expect(identifier[array_index[0]]).to match_identifier("#{name}(WIDTH*(BAR_SIZE*BAZ_SIZE*0+BAZ_SIZE*1+2)+WIDTH-1 downto WIDTH*(BAR_SIZE*BAZ_SIZE*0+BAZ_SIZE*1+2))")
+        expect(identifier[array_index[0], 1, 2]).to match_identifier("#{name}(WIDTH*(BAR_SIZE*BAZ_SIZE*0+BAZ_SIZE*1+2)+1+1 downto WIDTH*(BAR_SIZE*BAZ_SIZE*0+BAZ_SIZE*1+2)+1)")
+        expect(identifier[array_index[1]]).to match_identifier("#{name}(WIDTH*(BAR_SIZE*BAZ_SIZE*i+BAZ_SIZE*j+k)+WIDTH-1 downto WIDTH*(BAR_SIZE*BAZ_SIZE*i+BAZ_SIZE*j+k))")
+        expect(identifier[array_index[1], 1, 2]).to match_identifier("#{name}(WIDTH*(BAR_SIZE*BAZ_SIZE*i+BAZ_SIZE*j+k)+1+1 downto WIDTH*(BAR_SIZE*BAZ_SIZE*i+BAZ_SIZE*j+k)+1)")
       end
     end
   end
