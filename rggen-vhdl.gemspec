@@ -12,7 +12,7 @@ Gem::Specification.new do |spec|
   spec.description = 'VHDL writer plugin for RgGen'
   spec.homepage = 'https://github.com/rggen/rggen-vhdl'
   spec.license = 'MIT'
-  spec.required_ruby_version = Gem::Requirement.new('>= 3.1')
+  spec.required_ruby_version = Gem::Requirement.new('>= 3.2')
 
   spec.metadata = {
     'bug_tracker_uri' => 'https://github.com/rggen/rggen/issues',
